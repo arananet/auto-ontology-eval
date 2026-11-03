@@ -1,0 +1,137 @@
+name: anvil-issue
+
+on:
+  issues:
+    types: [opened, labeled]
+  repository_dispatch:
+    types: [anvil-run]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Issue number to run through the ANVIL line"
+        required: true
+        type: string
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  anvil:
+    name: Run the ANVIL line for an issue
+    runs-on: ubuntu-latest
+    # The job starts for manual dispatch, for any opened issue, and when the
+    # anvil label is added. A gate step then checks the issue's live labels:
+    # the labels array in an opened event payload can lag behind labels given
+    # at creation time, so the job asks the API instead of trusting the
+    # payload. Issues without the anvil label end in the gate step, in
+    # seconds: skipped quickly, nothing else runs.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'repository_dispatch' ||
+      github.event.action == 'opened' ||
+      (github.event.action == 'labeled' && github.event.label.name == 'anvil')
+    steps:
+      - name: Gate on the anvil label
+        id: gate
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}" > issue-gate.json
+          LABELS=$(python3 -c "import json; d = json.load(open('issue-gate.json')); print(','.join(l['name'] for l in d.get('labels', [])))")
+          echo "Issue labels: ${LABELS}"
+          case ",${LABELS}," in
+            *,anvil,*) echo "proceed=true" >> "$GITHUB_OUTPUT" ;;
+            *) echo "proceed=false" >> "$GITHUB_OUTPUT"; echo "No anvil label on this issue; skipping the ANVIL line." ;;
+          esac
+
+      - name: Check out this repository
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        uses: actions/checkout@v4
+
+      - name: Check out the ANVIL factory
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: arananet/anvil-factory
+          path: .anvil-factory
+
+      - name: Set up Python
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build the work order from the issue
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number || github.event.client_payload.issue_number }}
+        run: |
+          gh api "repos/${{ github.repository }}/issues/${ISSUE_NUMBER}" > issue.json
+          python3 - <<'PYEOF'
+          import json, os
+          issue = json.load(open("issue.json"))
+          number = os.environ["ISSUE_NUMBER"]
+          body = (issue.get("body") or "").strip()
+          description = (body + "\n\n" if body else "") + f"GitHub issue: {issue['html_url']}"
+          wo = {
+              "id": f"wo-gh-{number}",
+              "kind": "bug",
+              "title": issue["title"],
+              "source": "github-issue",
+              "description": description,
+              "risk_hints": [],
+              "status": "new",
+          }
+          with open("work-order.json", "w") as fh:
+              json.dump(wo, fh, indent=2)
+          print(f"Work order wo-gh-{number}: {issue['title']}")
+          PYEOF
+
+      - name: Run the ANVIL hotfix line
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        run: |
+          PYTHONPATH=.anvil-factory python3 -m anvil.cli run . \
+            --pipeline .anvil-factory/pipelines/hotfix.json \
+            --work-order work-order.json
+
+      - name: Comment the run report on the issue
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number || inputs.issue_number || github.event.client_payload.issue_number }}
+        run: |
+          WO_ID="wo-gh-${ISSUE_NUMBER}"
+          python3 - "$WO_ID" <<'PYEOF'
+          import json, sys
+          wo_id = sys.argv[1]
+          report = json.load(open(f"runs/{wo_id}/report.json"))
+          swimlane = open(f"runs/{wo_id}/swimlane.md").read()
+          lines = [
+              "## ANVIL run report",
+              "",
+              f"Work order: {wo_id}",
+              f"Pipeline: {report['pipeline']}",
+              f"Approver verdict: {report['verdict']}",
+              f"Human review required: {report['human_required']}",
+              "",
+              swimlane,
+              "",
+              "Honest note: this run executed the deterministic spine and prepared a task packet per agent station. No agent runtime executed the packets inside GitHub Actions (no executor is configured for this repository), and no deploy ran: deployment needs execute mode with an approved verdict and a deploy config, and it is off here.",
+              "The full run directory is attached as a workflow artifact.",
+          ]
+          open("comment.md", "w").write("\n".join(lines) + "\n")
+          print(lines[4])
+          PYEOF
+          gh issue comment "${ISSUE_NUMBER}" --body-file comment.md
+
+      - name: Upload the run directory
+        if: (github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch') || steps.gate.outputs.proceed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: anvil-run-${{ github.event.issue.number || inputs.issue_number || github.event.client_payload.issue_number }}
+          path: runs/
+          if-no-files-found: ignore
