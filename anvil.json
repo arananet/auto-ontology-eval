@@ -1,0 +1,5 @@
+{
+  "pipeline": "sdlc-default",
+  "project": "auto-ontology-eval",
+  "blueprint": "python-service"
+}
