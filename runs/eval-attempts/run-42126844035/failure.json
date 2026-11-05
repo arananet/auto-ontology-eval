@@ -1,0 +1,4 @@
+{
+  "step": "s1_smoke",
+  "reason": "StepFailed: docker compose -f /home/runner/work/_temp/auto-ontology/docker-compose.yml exited 1: open /home/runner/work/_temp/auto-ontology/runs/eval/compose.override.yml: no such file or directory\n"
+}

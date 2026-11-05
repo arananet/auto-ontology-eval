@@ -1,0 +1,16 @@
+[
+  {
+    "step": "preflight",
+    "ok": true,
+    "evidence": "preflight.json"
+  },
+  {
+    "step": "s2_fixture",
+    "ok": true,
+    "evidence": "fixture.json"
+  },
+  {
+    "step": "s1_smoke",
+    "ok": false
+  }
+]
