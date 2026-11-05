@@ -37,6 +37,11 @@ name: anvil-execute
 # 5. The line step tees its output to line-output.log, which the commit
 #    back step includes, and the push rebases onto the branch tip first,
 #    as the factory execute workflows do.
+# 6. The job token carries workflows: write. The first fully executed
+#    run (41968098425) built a new workflow file as part of the harness,
+#    and GitHub rejected the evidence push because a GitHub App token
+#    may not create workflow files without that permission; the whole
+#    commit, report included, was lost with the runner.
 on:
   push:
     branches: [anvil/run-auto-ontology-eval]
@@ -45,6 +50,7 @@ on:
 permissions:
   contents: write
   issues: write
+  workflows: write
 
 concurrency:
   group: anvil-execute-${{ github.ref_name }}

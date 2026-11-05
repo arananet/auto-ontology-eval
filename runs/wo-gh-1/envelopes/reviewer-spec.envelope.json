@@ -1,0 +1,30 @@
+{
+  "schema": "anvil/envelope@1",
+  "from_station": "reviewer-spec",
+  "to_station": "reviewer-security",
+  "work_order_id": "wo-gh-1",
+  "artifact_path": "runs/wo-gh-1/reviewer-spec.output.md",
+  "status": "executed",
+  "created_at": "2026-11-05T04:48:41.151134+00:00",
+  "review": {
+    "station": "reviewer-spec",
+    "verdict": "changes_requested",
+    "findings": [
+      "S1 not met: the stack was never started at the pinned commit; no API health check, catalog capture or MCP probe evidence exists from an executed run (builder output: 'none of S1 to S5 has run against the real stack').",
+      "S3 not met: ontology generation never ran. The spec-pinned chat model nvidia/nemotron-3-nano-30b-a3b returned HTTP 410 Gone (end of life 2026-09-01) on the hosted endpoint, so no catalog was exported and no conflict was marked detected/reconciled/ignored with a verbatim quote. The spec forbids switching models, so the spec owner must pin a replacement (e.g. nvidia/nemotron-3.5-lightning-30b-a3b or nvidia/nemotron-nano-3-30b-a3b) before this can proceed.",
+      "S4 not met: neither arm (Auto Ontology chat API vs raw schema) was run, so there is no per-question correctness, delta, provenance record or verbatim wrong SQL. Reference answers and normalization exist in fixture/, which is conforming, but the ablation is unexecuted.",
+      "S5 not met: RESULTS.md is absent from the repo. The spec requires it from an executed run, and a 'run stopped early' stub does not satisfy 'Done means: the run executed end to end in GitHub Actions, RESULTS.md and run artifacts committed'.",
+      "S2 largely conforms: the fixture has 8 tables (4 CSVs per source) with fixed seed files, and conflicts.json, questions.json, GROUND_TRUTH.md and NORMALIZATION.md are present. Source A is a Postgres sales mart and Source B is a DuckDB ops mart. Not verified by me: whether all 12 questions cover each planted conflict, and whether the checklist has at least 4 entries with the true location mapping and SKU identity.",
+      "Secret handling and fail-closed behaviour look consistent with the spec (NVIDIA_API_KEY only from the repository secret, preflight stops early, tests in tests/test_secrets_and_config.py and tests/test_harness_fail_closed.py). They are not proven by an executed run.",
+      "Spec housekeeping: the spec header still says 'Status: draft' although the work order says approved. The spec file has uncommitted modifications and the builder's work is entirely uncommitted. The spec change was not examined here and needs the owner's confirmation.",
+      "Deviations needing owner acceptance, not silent approval: the MCP tools/list probe runs in-process because the pinned server requires an OAuth token for every HTTP request, and the harness writes the ontology-generation setting row itself. Both are recorded as limits but are stretches of 'closest equivalent the pinned version exposes'.",
+      "Missing to proceed: a spec-owner decision on the replacement chat model (and a spec update), then a live GitHub Actions run producing RESULTS.md and artifacts."
+    ]
+  },
+  "configured_model": "claude-sonnet-5-5",
+  "executor": {
+    "kind": "command",
+    "detail": "python3"
+  },
+  "executed_model": "claude-sonnet-5-5"
+}

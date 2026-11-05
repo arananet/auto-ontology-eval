@@ -1,0 +1,28 @@
+{
+  "schema": "anvil/envelope@1",
+  "from_station": "reviewer-tests",
+  "to_station": "reviewer-architecture",
+  "work_order_id": "wo-gh-1",
+  "artifact_path": "runs/wo-gh-1/reviewer-tests.output.md",
+  "status": "executed",
+  "created_at": "2026-11-05T04:50:16.446593+00:00",
+  "review": {
+    "station": "reviewer-tests",
+    "verdict": "changes_requested",
+    "findings": [
+      "Offline tests are real and mapped: 92 tests across test_s1..test_s5, test_secrets_and_config and test_harness_fail_closed, each file tied to a spec scenario. All 92 pass (python -m unittest discover, with duckdb installed). Note pytest is not installed in the runner; unittest discovery works.",
+      "The tests cover contracts only (fixture determinism, scoring, quote checking, fail-closed, secret hygiene, RESULTS.md rendering). None of S1 to S5 has been exercised against the real stack, so the spec's 'done' condition (end-to-end run in GitHub Actions, RESULTS.md and artifacts committed) is not met. No RESULTS.md exists in the repo.",
+      "The builder reports the chat model nvidia/nemotron-3-nano-30b-a3b returns HTTP 410 (end of life 2026-09-01) on the hosted endpoint. The spec forbids switching models, so S3 and both S4 arms are blocked until the spec owner pins a replacement. This is an input gap, not something to guess around.",
+      "The MCP probe departs from the spec's literal wording: the pinned server requires an OAuth token, so tools/list runs in-process plus a recorded unauthenticated HTTP probe. The tests should show that S1 still fails closed if the in-process listing fails. The spec owner should confirm this counts as the 'closest equivalent'.",
+      "S3 reconciliation marks come from fixed regex rules, with quotes verified verbatim against the exported catalog. That satisfies the mechanical check. A false positive was caught against a fabricated catalog, but there is no evidence the rules behave correctly on real Auto Ontology output until a live run happens.",
+      "Spec file still says Status: draft although the work order calls it approved. This is a minor housekeeping item.",
+      "Requested: the spec owner pins a replacement chat model. Then update config.CHAT_MODEL and tests/_support.CHAT_MODEL, run the workflow with the NVIDIA_API_KEY secret, and commit RESULTS.md and the artifacts. Re-review after that."
+    ]
+  },
+  "configured_model": "claude-sonnet-5-5",
+  "executor": {
+    "kind": "command",
+    "detail": "python3"
+  },
+  "executed_model": "claude-sonnet-5-5"
+}
