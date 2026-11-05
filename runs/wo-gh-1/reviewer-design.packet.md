@@ -111,40 +111,36 @@ Example 3: Interface meets design system
 
 ## Diff summary
 
-- .openspec/specs/auto-ontology-enterprise-eval/spec.md: +2, -1
-- line-output.log: +0, -347
-- runs/wo-gh-1/builder.output.md: +21, -31
+- line-output.log: +0, -343
+- runs/wo-gh-1/builder.output.md: +20, -21
 - runs/wo-gh-1/envelopes/builder.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/checks-gate.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/intake.envelope.json: +1, -1
-- runs/wo-gh-1/envelopes/reviewer-architecture.envelope.json: +2, -14
-- runs/wo-gh-1/envelopes/reviewer-security.envelope.json: +2, -13
-- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json: +13, -2
+- runs/wo-gh-1/envelopes/reviewer-architecture.envelope.json: +1, -1
+- runs/wo-gh-1/envelopes/reviewer-security.envelope.json: +13, -2
+- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json: +8, -7
 - runs/wo-gh-1/envelopes/reviewer-tests.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/spec-writer.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/test-writer.envelope.json: +1, -1
-- runs/wo-gh-1/intake.output.md: +7, -1
-- runs/wo-gh-1/reviewer-architecture.output.md: +6, -8
-- runs/wo-gh-1/reviewer-architecture.review.json: +0, -13
-- runs/wo-gh-1/reviewer-security.output.md: +8, -9
-- runs/wo-gh-1/reviewer-security.review.json: +0, -12
-- runs/wo-gh-1/reviewer-spec.output.md: +8, -10
-- runs/wo-gh-1/reviewer-tests.output.md: +7, -7
+- runs/wo-gh-1/intake.output.md: +1, -1
+- runs/wo-gh-1/reviewer-architecture.output.md: +8, -6
+- runs/wo-gh-1/reviewer-security.output.md: +5, -9
+- runs/wo-gh-1/reviewer-spec.output.md: +5, -8
+- runs/wo-gh-1/reviewer-spec.review.json: +8, -7
+- runs/wo-gh-1/reviewer-tests.output.md: +7, -8
 - runs/wo-gh-1/routing.json: +3, -3
-- runs/wo-gh-1/spec-writer.output.md: +9, -9
-- runs/wo-gh-1/test-writer.output.md: +20, -28
-- src/auto_ontology_eval/live.py: +17, -1
-- src/auto_ontology_eval/pipeline.py: +5, -4
-- src/auto_ontology_eval/results.py: +26, -6
-- tests/SCENARIOS.md: +2, -0
-- work_orders/wo-gh-1.json: +2, -2
+- runs/wo-gh-1/spec-writer.output.md: +9, -11
+- runs/wo-gh-1/test-writer.output.md: +11, -21
+- src/auto_ontology_eval/live.py: +10, -2
+- src/auto_ontology_eval/upstream.py: +39, -0
+- tests/SCENARIOS.md: +7, -1
+- work_orders/wo-gh-1.json: +1, -1
 
 ## File access allowlist
 
 This packet may only embed content from:
 - design/DESIGN.md
 - design/tokens.json
-- .openspec/specs/auto-ontology-enterprise-eval/spec.md
 - line-output.log
 - runs/wo-gh-1/builder.output.md
 - runs/wo-gh-1/envelopes/builder.envelope.json
@@ -158,17 +154,15 @@ This packet may only embed content from:
 - runs/wo-gh-1/envelopes/test-writer.envelope.json
 - runs/wo-gh-1/intake.output.md
 - runs/wo-gh-1/reviewer-architecture.output.md
-- runs/wo-gh-1/reviewer-architecture.review.json
 - runs/wo-gh-1/reviewer-security.output.md
-- runs/wo-gh-1/reviewer-security.review.json
 - runs/wo-gh-1/reviewer-spec.output.md
+- runs/wo-gh-1/reviewer-spec.review.json
 - runs/wo-gh-1/reviewer-tests.output.md
 - runs/wo-gh-1/routing.json
 - runs/wo-gh-1/spec-writer.output.md
 - runs/wo-gh-1/test-writer.output.md
 - src/auto_ontology_eval/live.py
-- src/auto_ontology_eval/pipeline.py
-- src/auto_ontology_eval/results.py
+- src/auto_ontology_eval/upstream.py
 - tests/SCENARIOS.md
 - work_orders/wo-gh-1.json
 

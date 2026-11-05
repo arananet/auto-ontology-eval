@@ -1,11 +1,7 @@
-I reviewed the security of the wo-gh-1 change and wrote the verdict, **pass**, to `runs/wo-gh-1/reviewer-security.review.json`. I read the code but did not run the harness or the workflow.
+I wrote the security review to `.anvil-factory/runs/wo-gh-1/reviewer-security.review.json`, the path the validator expected, with verdict `pass`. I reused the review text from an earlier file at the repo-root `runs/wo-gh-1/` and re-checked its main claims against the code. I did not run the pipeline or the tests.
 
-- **Secrets:** `NVIDIA_API_KEY` comes only from the repository secret, and the run stops if it is missing or blank. Command output, HTTP bodies, failure reasons, compose logs and `RESULTS.md` are all redacted before they are written. The environment record uses an allowlist of variables, so the key can't end up there.
-- **Workflow:** it triggers only on `workflow_dispatch` and has `contents: read` permission. It uploads only `runs/eval`, and the upstream `.env` that holds the key sits outside that directory.
-- **Upstream code:** the clone is pinned to the required commit and the run aborts if HEAD differs. The Postgres password and `AUTH_SECRET` are random for each run.
-
-I found three low-severity issues, none of which blocks approval:
-- The `.env` file is written first and set to mode 0600 afterwards, so for a moment it has the default permissions.
-- Redaction only replaces the exact key string, so an encoded copy of the key in a log would not be masked.
-- The upstream compose may publish ports on the runner. The runner is ephemeral and the credentials are random, so this is acceptable. Evidence is uploaded even when the run fails, which is a further reason to check the redaction.
+- **Key handling:** `NVIDIA_API_KEY` reaches the job only through the step-level `env` from the repository secret, and the run fails closed if it is missing. Subprocess and HTTP output goes through `redact` before it is stored. A search of the repo and `runs/` found no `nvapi-` token.
+- **Workflow:** It has `contents: read` permissions and triggers only on `workflow_dispatch`. It uploads only `runs/eval` and publishes nothing.
+- **Upstream `.env`:** It is written with mode `0600` (`live.py:236`) to the checkout in `RUNNER_TEMP`, outside the uploaded evidence directory.
+- **Minor, non-blocking issues:** Actions are pinned to major tags rather than commit SHAs. Redaction matches the exact key string only, so a transformed key would not be caught. Upstream compose publishes Postgres on port 5432, which is acceptable on an ephemeral runner.
 {"model": "claude-sonnet-5-5"}

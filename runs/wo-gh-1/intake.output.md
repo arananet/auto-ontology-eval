@@ -2,7 +2,7 @@
 {
   "intake_outcome": {"outcome": "accepted"},
   "risk": "high",
-  "surfaces": ["security", "deploy", "data", "api", "content"]
+  "surfaces": ["deploy", "data", "api", "security", "content"]
 }
 ```
 {"model": "claude-sonnet-5-5"}

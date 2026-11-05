@@ -1,0 +1,12 @@
+{
+  "station": "reviewer-security",
+  "verdict": "pass",
+  "findings": [
+    "Secret handling OK: NVIDIA_API_KEY is read only from the repository secret via the step-level env in .github/workflows/auto-ontology-eval.yml. It is never echoed or passed as a CLI argument. secrets.require_api_key fails closed when it is absent.",
+    "Redaction OK: live._run and live._http redact the key from all subprocess and HTTP output before it is stored. Compose logs, events and the model responses are redacted too. A scan of the repo and runs/ for nvapi- style tokens found no leaked key.",
+    "The upstream .env holding the key is written to the RUNNER_TEMP checkout with chmod 600. It is outside runs/eval, so the evidence artifact does not include it. Placeholder keys from .env.example are stripped. AUTH_SECRET is generated randomly per run.",
+    "Workflow permissions are least-privilege (contents: read). The trigger is workflow_dispatch only, so fork PRs cannot reach the secret. The upload-artifact step uploads only runs/eval. Nothing is published.",
+    "The upstream clone is pinned to commit cdaf61e1 and verified with rev-parse. The fixture is synthetic with no real data. The MCP probe runs a venv under -I.",
+    "Minor, non-blocking: actions are pinned to major tags (checkout@v4, setup-python@v5, upload-artifact@v4) rather than SHAs. The Postgres password is held in process memory and in the .env, and the Postgres port 5432 is published by upstream compose, so the runner ephemerality is what protects it. Redaction is exact-string only, so a transformed key (for example base64) would not be caught. The risk is low, because the key is not transformed anywhere in the code."
+  ]
+}

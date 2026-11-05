@@ -58,7 +58,7 @@ No real company data is used, and nothing is published from this work order.
 - reviewer-security: executed
 - reviewer-tests: executed
 - reviewer-architecture: executed
-- reviewer-design: failed
+- reviewer-design: executed
 - reviewer-ux: routed_out
 - approver: completed
 - approver: loopback

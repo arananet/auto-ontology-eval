@@ -1,15 +1,15 @@
 # ANVIL execute run diagnostics
 
-- Workflow run: 42089876781 (attempt 1)
+- Workflow run: 42129079706 (attempt 1)
 - Branch: anvil/run-auto-ontology-eval
-- Trigger commit: 455b4dc2148233dab8d203c801d8561cf6b44c89
+- Trigger commit: 2fff739d84ec9b00daa2c81bc4b6aeb6ea2c7bc8
 - Smoke step outcome: success
 - Line step outcome: success
 - python3: Python 3.12.16
 - node: v22.23.4
 - claude: 2.1.318 (Claude Code)
 - codex: codex-cli 0.166.0
-- docker: Docker version 28.0.4, build b8034c0
+- docker: Docker version 29.4.2, build 055a478
 - Report: runs/wo-gh-1/report.json present
 - Verdict: changes_requested
 - Human required: True
@@ -17,21 +17,13 @@
 ## Line output (last 150 lines)
 
 ```
-      "configured_model": "openai/gpt-6.1-sol",
-      "executed_model": null,
-      "executor": {
-        "kind": "command",
-        "detail": "python3"
-      },
-      "measured_tokens": 4046,
-      "budget": 50000,
       "budget_action": "sent"
     },
     {
       "station": "reviewer-ux",
       "status": "routed_out",
       "detail": "Routed out: Routed out: no UI surface",
-      "duration_ms": 0.926,
+      "duration_ms": 0.807,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-ux.packet.md"
@@ -47,7 +39,7 @@
       "station": "approver",
       "status": "completed",
       "detail": "Approver verdict: changes_requested",
-      "duration_ms": 0.048,
+      "duration_ms": 0.034,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/report.json"
@@ -62,9 +54,9 @@
     {
       "station": "approver",
       "status": "loopback",
-      "return_to": "spec-writer",
-      "detail": "Loopback to spec-writer: S1/S3/S4/S5 evidence missing: no executed run exists. There is no committed RESULTS.md at the repo root. The only RESULTS.md is runs/wo-gh-1/evidence/preflight-run/RESULTS.md, which records a failed preflight against the OLD chat pin (HTTP 410). Spec 'Done' requires an end-to-end GitHub Actions run, with RESULTS.md and run artifacts committed. The builder output itself says this has not happened.; Harness code appears to map to the scenarios (src/auto_ontology_eval: smoke, fixture, reconcile, ablation, results, equivalents, secrets; fixture/ has checklist.json, questions.json, GROUND_TRUTH.md, source_a, source_b; .github/workflows/auto-ontology-eval.yml). I could not confirm it works against the live stack. I did not run the tests, because pytest is not installed in this environment. I am relying on the builder's claim of 97 passing tests with 1 skipped.; Spec Amendment 1 (chat model nvidia/nemotron-nano-3-30b-a3b) is applied consistently in config.CHAT_MODEL. The work order text still quotes the old pin; the amendment explicitly governs, so this is acceptable. The spec header still says 'Status: draft' although the work order calls it approved. The spec owner should fix that.; The preflight failed closed as required, with no model substitution and no estimates. That evidence predates Amendment 1, since it names the old pin. I found no evidence that the new pin nvidia/nemotron-nano-3-30b-a3b is served by the hosted endpoint. runs/wo-gh-1/capture_failure.txt only says 'no servable configuration found', and I could not determine what it refers to. Servability of the new pin is unverified.; S5 limits: the two known equivalents (MCP tools listed in process, raw-schema SQL run on a SQLite copy) are recorded in equivalents.json and rendered in the Limits section, as required. Whether the live steps actually write these entries is unverified until a live run happens.; Not a pass: the implementation is spec-conformant as far as static reading goes, but the spec's acceptance evidence (executed S1-S5 results) does not exist. Rerun in GitHub Actions with a servable chat model and the NVIDIA_API_KEY secret, then resubmit.",
-      "reason": "S1/S3/S4/S5 evidence missing: no executed run exists. There is no committed RESULTS.md at the repo root. The only RESULTS.md is runs/wo-gh-1/evidence/preflight-run/RESULTS.md, which records a failed preflight against the OLD chat pin (HTTP 410). Spec 'Done' requires an end-to-end GitHub Actions run, with RESULTS.md and run artifacts committed. The builder output itself says this has not happened.; Harness code appears to map to the scenarios (src/auto_ontology_eval: smoke, fixture, reconcile, ablation, results, equivalents, secrets; fixture/ has checklist.json, questions.json, GROUND_TRUTH.md, source_a, source_b; .github/workflows/auto-ontology-eval.yml). I could not confirm it works against the live stack. I did not run the tests, because pytest is not installed in this environment. I am relying on the builder's claim of 97 passing tests with 1 skipped.; Spec Amendment 1 (chat model nvidia/nemotron-nano-3-30b-a3b) is applied consistently in config.CHAT_MODEL. The work order text still quotes the old pin; the amendment explicitly governs, so this is acceptable. The spec header still says 'Status: draft' although the work order calls it approved. The spec owner should fix that.; The preflight failed closed as required, with no model substitution and no estimates. That evidence predates Amendment 1, since it names the old pin. I found no evidence that the new pin nvidia/nemotron-nano-3-30b-a3b is served by the hosted endpoint. runs/wo-gh-1/capture_failure.txt only says 'no servable configuration found', and I could not determine what it refers to. Servability of the new pin is unverified.; S5 limits: the two known equivalents (MCP tools listed in process, raw-schema SQL run on a SQLite copy) are recorded in equivalents.json and rendered in the Limits section, as required. Whether the live steps actually write these entries is unverified until a live run happens.; Not a pass: the implementation is spec-conformant as far as static reading goes, but the spec's acceptance evidence (executed S1-S5 results) does not exist. Rerun in GitHub Actions with a servable chat model and the NVIDIA_API_KEY secret, then resubmit.",
+      "return_to": "builder",
+      "detail": "Loopback to builder: S4 not satisfied by the committed evidence: in runs/eval/ablation.json all 12 Auto Ontology answers are 'LLM failed to produce a response.' (value null, provenance false). The builder's own report (runs/wo-gh-1/builder.output.md) attributes this to the upstream container calling the end-of-life default model (HTTP 410), so the Auto Ontology arm did not use the pinned chat model. This violates the requirement that both arms use the same chat model id and settings.; S3 not satisfied by the committed evidence: all four planted conflicts in runs/eval/reconciliation.json are marked 'ignored'. The builder says this was probably caused by the same unpinned upstream .env, so the marks may reflect a misconfigured run and not the tool's behaviour. Treating them as a finding about Auto Ontology would exceed what the fixture exercised.; S5 / 'Done means': RESULTS.md must come from the executed run and record the model ids actually used. The committed runs/eval/RESULTS.md and ablation.json list the pinned model for both arms, which they only recorded as configured and the stack did not actually call. The committed RESULTS.md is therefore not trustworthy evidence. RESULTS.md also does not exist at the repo root.; Builder fix is present but unexecuted: src/auto_ontology_eval/live.py now pins REASONING_MODEL, NON_REASONING_MODEL, EMBED_MODEL and RERANK_MODEL in the upstream .env, and upstream.py adds a models check that writes smoke/models.json and stops on a mismatch. The fix looks aligned with the spec's fail-closed rule, but the end-to-end rerun in GitHub Actions with the NVIDIA_API_KEY secret has not happened, and runs/eval/smoke has no models.json. Rerun and commit the new runs/eval and RESULTS.md.; tests/test_run_evidence.py passes on the faulty run because it checks the configured model, not the model actually used. After the rerun it should also assert smoke/models.json matches the pins.; Spec housekeeping: the spec header still reads 'Status: draft' although the work order calls it approved. Amendments 1 and 2 change the chat model pin to nvidia/nemotron-3.5-lightning-30b-a3b, so the work order text, which cites nvidia/nemotron-3-nano-30b-a3b, is superseded. The code (CHAT_MODEL) follows the amendment.; Positive: S1 smoke files (health, catalog, mcp) and the S2 fixture (checklist.json, GROUND_TRUTH.md, questions.json, source_a, source_b) exist. The local test suite reportedly passes (138 passed, 1 skipped). These were not re-run in this review.; Secret handling OK: NVIDIA_API_KEY is read only from the repository secret via the step-level env in .github/workflows/auto-ontology-eval.yml. It is never echoed or passed as a CLI argument. secrets.require_api_key fails closed when it is absent.; Redaction OK: live._run and live._http redact the key from all subprocess and HTTP output before it is stored. Compose logs, events and the model responses are redacted too. A scan of the repo and runs/ for nvapi- style tokens found no leaked key.; The upstream .env holding the key is written to the RUNNER_TEMP checkout with chmod 600. It is outside runs/eval, so the evidence artifact does not include it. Placeholder keys from .env.example are stripped. AUTH_SECRET is generated randomly per run.; Workflow permissions are least-privilege (contents: read). The trigger is workflow_dispatch only, so fork PRs cannot reach the secret. The upload-artifact step uploads only runs/eval. Nothing is published.; The upstream clone is pinned to commit cdaf61e1 and verified with rev-parse. The fixture is synthetic with no real data. The MCP probe runs a venv under -I.; Minor, non-blocking: actions are pinned to major tags (checkout@v4, setup-python@v5, upload-artifact@v4) rather than SHAs. The Postgres password is held in process memory and in the .env, and the Postgres port 5432 is published by upstream compose, so the runner ephemerality is what protects it. Redaction is exact-string only, so a transformed key (for example base64) would not be caught. The risk is low, because the key is not transformed anywhere in the code.; No design system exists for this project. The project must define design/DESIGN.md and design/tokens.json before interface output can be reviewed against design standards.",
+      "reason": "S4 not satisfied by the committed evidence: in runs/eval/ablation.json all 12 Auto Ontology answers are 'LLM failed to produce a response.' (value null, provenance false). The builder's own report (runs/wo-gh-1/builder.output.md) attributes this to the upstream container calling the end-of-life default model (HTTP 410), so the Auto Ontology arm did not use the pinned chat model. This violates the requirement that both arms use the same chat model id and settings.; S3 not satisfied by the committed evidence: all four planted conflicts in runs/eval/reconciliation.json are marked 'ignored'. The builder says this was probably caused by the same unpinned upstream .env, so the marks may reflect a misconfigured run and not the tool's behaviour. Treating them as a finding about Auto Ontology would exceed what the fixture exercised.; S5 / 'Done means': RESULTS.md must come from the executed run and record the model ids actually used. The committed runs/eval/RESULTS.md and ablation.json list the pinned model for both arms, which they only recorded as configured and the stack did not actually call. The committed RESULTS.md is therefore not trustworthy evidence. RESULTS.md also does not exist at the repo root.; Builder fix is present but unexecuted: src/auto_ontology_eval/live.py now pins REASONING_MODEL, NON_REASONING_MODEL, EMBED_MODEL and RERANK_MODEL in the upstream .env, and upstream.py adds a models check that writes smoke/models.json and stops on a mismatch. The fix looks aligned with the spec's fail-closed rule, but the end-to-end rerun in GitHub Actions with the NVIDIA_API_KEY secret has not happened, and runs/eval/smoke has no models.json. Rerun and commit the new runs/eval and RESULTS.md.; tests/test_run_evidence.py passes on the faulty run because it checks the configured model, not the model actually used. After the rerun it should also assert smoke/models.json matches the pins.; Spec housekeeping: the spec header still reads 'Status: draft' although the work order calls it approved. Amendments 1 and 2 change the chat model pin to nvidia/nemotron-3.5-lightning-30b-a3b, so the work order text, which cites nvidia/nemotron-3-nano-30b-a3b, is superseded. The code (CHAT_MODEL) follows the amendment.; Positive: S1 smoke files (health, catalog, mcp) and the S2 fixture (checklist.json, GROUND_TRUTH.md, questions.json, source_a, source_b) exist. The local test suite reportedly passes (138 passed, 1 skipped). These were not re-run in this review.; Secret handling OK: NVIDIA_API_KEY is read only from the repository secret via the step-level env in .github/workflows/auto-ontology-eval.yml. It is never echoed or passed as a CLI argument. secrets.require_api_key fails closed when it is absent.; Redaction OK: live._run and live._http redact the key from all subprocess and HTTP output before it is stored. Compose logs, events and the model responses are redacted too. A scan of the repo and runs/ for nvapi- style tokens found no leaked key.; The upstream .env holding the key is written to the RUNNER_TEMP checkout with chmod 600. It is outside runs/eval, so the evidence artifact does not include it. Placeholder keys from .env.example are stripped. AUTH_SECRET is generated randomly per run.; Workflow permissions are least-privilege (contents: read). The trigger is workflow_dispatch only, so fork PRs cannot reach the secret. The upload-artifact step uploads only runs/eval. Nothing is published.; The upstream clone is pinned to commit cdaf61e1 and verified with rev-parse. The fixture is synthetic with no real data. The MCP probe runs a venv under -I.; Minor, non-blocking: actions are pinned to major tags (checkout@v4, setup-python@v5, upload-artifact@v4) rather than SHAs. The Postgres password is held in process memory and in the .env, and the Postgres port 5432 is published by upstream compose, so the runner ephemerality is what protects it. Redaction is exact-string only, so a transformed key (for example base64) would not be caught. The risk is low, because the key is not transformed anywhere in the code.; No design system exists for this project. The project must define design/DESIGN.md and design/tokens.json before interface output can be reviewed against design standards.",
       "duration_ms": 0.0,
       "cost": null,
       "artifacts": [],
@@ -90,7 +82,7 @@
       "station": "deployer",
       "status": "packet_ready",
       "detail": "Packet written to runs/wo-gh-1/deployer.packet.md",
-      "duration_ms": 0.236,
+      "duration_ms": 0.255,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/deployer.packet.md"
@@ -98,7 +90,7 @@
       "configured_model": "claude-sonnet-5-5",
       "executed_model": null,
       "executor": null,
-      "measured_tokens": 1056,
+      "measured_tokens": 1057,
       "budget": 0,
       "budget_action": "none"
     },
@@ -106,7 +98,7 @@
       "station": "observer",
       "status": "executed",
       "detail": "Executed by command; output written to runs/wo-gh-1/observer.output.md",
-      "duration_ms": 33470.751,
+      "duration_ms": 72395.457,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/observer.output.md"
@@ -117,7 +109,7 @@
         "kind": "command",
         "detail": "python3"
       },
-      "measured_tokens": 1063,
+      "measured_tokens": 1064,
       "budget": 0,
       "budget_action": "none"
     }
@@ -137,6 +129,14 @@
         {
           "station": "reviewer-spec",
           "verdict": "changes_requested"
+        },
+        {
+          "station": "reviewer-security",
+          "verdict": "pass"
+        },
+        {
+          "station": "reviewer-design",
+          "verdict": "changes_requested"
         }
       ],
       "reviews_expected": [
@@ -146,7 +146,7 @@
         "reviewer-architecture",
         "reviewer-design"
       ],
-      "rule": "Reviewer reviewer-spec requested changes. (Counted 1 reviews, expected 5.)"
+      "rule": "Reviewers reviewer-spec, reviewer-design requested changes. (Counted 3 reviews, expected 5.)"
     },
     "human_gate": {
       "required": true,
@@ -157,13 +157,13 @@
   "warnings": [
     "Missing design system: This pipeline includes interface-producing stations, but the project has no design/DESIGN.md. Define the design system to enable design review."
   ],
-  "astra_measured_tokens_total": 6253,
-  "base_ref": "455b4dc2148233dab8d203c801d8561cf6b44c89",
+  "astra_measured_tokens_total": 6163,
+  "base_ref": "2fff739d84ec9b00daa2c81bc4b6aeb6ea2c7bc8",
   "evidence": [],
   "cost": {
     "total": 0,
     "measured_steps": 0,
-    "unmeasured_steps": 9
+    "unmeasured_steps": 10
   }
 }
 Report: runs/wo-gh-1/report.json

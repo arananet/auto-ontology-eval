@@ -145,8 +145,9 @@ def _env_file(repo: Path, key: str) -> str:
     lines = []
     for line in (repo / ".env.example").read_text().splitlines():
         name = line.split("=", 1)[0].strip()
-        # Drop the template's placeholder keys and model pins so the
-        # upstream built-in defaults for an nvapi- key apply.
+        # Drop the template's placeholder keys, endpoints and model lines;
+        # the nvapi- built-in endpoints apply and the model pins are written
+        # explicitly below (the built-in chat default is end of life).
         if name.endswith("_API_KEY") or name.endswith("_MODEL") or name.endswith("_ENDPOINT"):
             continue
         if name in ("POSTGRES_PASSWORD", "AUTH_SECRET", "CONNECTION_STRINGS", "POSTGRES_PORT"):
@@ -161,6 +162,7 @@ def _env_file(repo: Path, key: str) -> str:
         f"postgresql://postgres:{CTX.pg_password}@postgres:5432/{FIXTURE_DB},"
         f"duckdb://{CONTAINER_DATA}/{DUCKDB_NAME}",
     ]
+    lines += [f"{name}={value}" for name, value in upstream.model_env().items()]
     return "\n".join(lines) + "\n"
 
 
@@ -241,6 +243,12 @@ def stage_s1(run_dir: Path, key: str) -> Path:
     _write(run_dir / "compose-up.log", _run(_compose("up", "-d", "--build", run_dir=run_dir), key,
                                             cwd=dest, timeout=3600))
     _wait(lambda: (_http("GET", f"{API}/api/health", key)[0] == 200, "health"), 900, what="API health")
+    # Fail closed before any scenario evidence if the stack would call a
+    # model other than the spec pins (S3 and both S4 arms depend on it).
+    resolved = upstream.verify_resolved_models(_run(
+        _compose("exec", "-T", "auto-ontology", "python", "-c", upstream.RESOLVE_MODELS_SCRIPT,
+                 run_dir=run_dir), key, cwd=dest, timeout=120))
+    _write(run_dir / "smoke" / "models.json", resolved)
 
     def health():
         status, body = _http("GET", f"{API}/api/health", key)

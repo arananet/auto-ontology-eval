@@ -15,10 +15,10 @@
   },
   "risk": "high",
   "surfaces": [
-    "security",
     "deploy",
     "data",
     "api",
+    "security",
     "content"
   ]
 }

@@ -1,14 +1,12 @@
-The spec for this work order already existed and covered all five scenarios, so I made two small edits to it instead of rewriting it. The edits are in the project repo at `.openspec/specs/auto-ontology-enterprise-eval/spec.md` (one level above `.anvil-factory`). I haven't committed them; that's left to the line.
+I made no edits. The spec for this work order already exists at `.openspec/specs/auto-ontology-enterprise-eval/spec.md` (in the project repo, one level above `.anvil-factory`) and already covers everything the work order asks for. Changing it would only add churn.
 
-**What I changed**
-1. **S5 limits section:** RESULTS.md must now name every place where the run used a substitute for the step the spec describes in S1 to S4, and say why. The earlier spec review found two such cases, and the spec now names them:
-   - the S1 MCP probe lists tools in process rather than over the network, because the MCP server at the pinned commit needs an OAuth token;
-   - the raw-schema arm in S4 runs its SQL on a copy of the fixture, not on the live Postgres and DuckDB sources.
-2. **Amendment 1:** added a note that the work order still quotes the old chat model `nvidia/nemotron-3-nano-30b-a3b`. That model was retired on 2026-09-01 and the hosted endpoint returns HTTP 410 for it. The amendment's pin, `nvidia/nemotron-nano-3-30b-a3b`, is the one that applies, and the harness already uses it.
+**Why it needs no changes**
+- **Scenarios:** S1 to S5 match the work order. S1 is the pinned commit with three smoke checks. S2 is the two-source fixture with 8 to 10 tables, fixed seeds, ground truths stored in the fixture, and a checklist of four conflicts. S3 scores each conflict as detected, reconciled or ignored, each backed by a verbatim quote. S4 runs 12 questions through both arms, scores exact answers, records the delta and whether each answer has provenance, and saves the SQL verbatim. S5 builds `RESULTS.md` from the run only and lists every place the run used a substitute step.
+- **Requirements:** the pinned upstream commit, synthetic data only, the key taken only from the `NVIDIA_API_KEY` secret, stopping on any missing evidence, the same model settings in both arms, and nothing published.
+- **Chat model:** the spec owner recorded Amendment 2 on 2026-11-05. It pins `nvidia/nemotron-3.5-lightning-30b-a3b`, the only remaining candidate that answered when both were tried against the hosted endpoint. The two result files it cites exist under `runs/probes/`. Code and tests use the same pin: `src/auto_ontology_eval/config.py:12` and `tests/_support.py:27`.
+- **Work order wording:** the work order still names `nvidia/nemotron-3-nano-30b-a3b`. The hosted endpoint retired that model and now returns HTTP 410 for it. Per the amendments, the spec governs over the work order text.
 
-Nothing else changed: the scenario ids S1 to S5, the upstream commit pin, and the embedding and reranking model pins are as they were.
-
-**Still open**
-- **Approval:** the work order says the spec is approved, but the file still says `Status: draft`. I left it that way because I can't approve my own edits; a separate station has to.
-- **Model pin in the work order:** whoever owns the work order should update its text to the new pin, so the spec and the work order stop disagreeing.
+**Still open (for other stations, not this one)**
+1. **Approval:** the spec header still says `Status: draft`, but the work order calls it approved. I left it alone because I can't approve my own work. The spec owner or the review station should change it.
+2. **Work order text:** the work order's owner should update it to the Amendment 2 model. Amendment 1 says the work order is stale and that "the harness uses the new pin", but Amendment 2 doesn't repeat that. It would be clearer if the spec owner added one line to Amendment 2 saying it also overrides the work order text. I didn't write that line myself, because an amendment is the owner's record.
 {"model": "claude-opus-5-5"}

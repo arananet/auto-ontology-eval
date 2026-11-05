@@ -1,43 +1,44 @@
- .../specs/auto-ontology-enterprise-eval/spec.md    |   3 +-
- line-output.log                                    |  56 +++++----
- run-diagnostics.md                                 |  43 ++++---
- runs/wo-gh-1/builder.output.md                     |  52 ++++-----
+ line-output.log                                    |  66 ++--
+ run-diagnostics.md                                 |  48 +--
+ runs/wo-gh-1/builder.output.md                     |  41 +-
+ runs/wo-gh-1/deployer.packet.md                    |   2 +-
  runs/wo-gh-1/envelopes/approver.envelope.json      |   2 +-
  runs/wo-gh-1/envelopes/builder.envelope.json       |   2 +-
  runs/wo-gh-1/envelopes/checks-gate.envelope.json   |   2 +-
  runs/wo-gh-1/envelopes/deployer.envelope.json      |   2 +-
  runs/wo-gh-1/envelopes/intake.envelope.json        |   2 +-
  runs/wo-gh-1/envelopes/observer.envelope.json      |   2 +-
- .../envelopes/reviewer-architecture.envelope.json  |  16 +--
- .../envelopes/reviewer-design.envelope.json        |   2 +-
- .../envelopes/reviewer-security.envelope.json      |  15 +--
- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json |  15 ++-
+ .../envelopes/reviewer-architecture.envelope.json  |   2 +-
+ .../envelopes/reviewer-design.envelope.json        |  16 +-
+ .../envelopes/reviewer-security.envelope.json      |  15 +-
+ runs/wo-gh-1/envelopes/reviewer-spec.envelope.json |  15 +-
  .../wo-gh-1/envelopes/reviewer-tests.envelope.json |   2 +-
  runs/wo-gh-1/envelopes/reviewer-ux.envelope.json   |   2 +-
  runs/wo-gh-1/envelopes/spec-writer.envelope.json   |   2 +-
  runs/wo-gh-1/envelopes/test-writer.envelope.json   |   2 +-
  runs/wo-gh-1/envelopes/triage-human.envelope.json  |   2 +-
- runs/wo-gh-1/intake.output.md                      |   8 +-
- runs/wo-gh-1/observer.output.md                    |  19 ++-
- runs/wo-gh-1/report.json                           |  56 +++++----
- runs/wo-gh-1/report.md                             |   4 +-
- runs/wo-gh-1/reviewer-architecture.output.md       |  14 +--
- runs/wo-gh-1/reviewer-architecture.review.json     |  13 ---
- runs/wo-gh-1/reviewer-design.packet.md             |  48 ++++----
- runs/wo-gh-1/reviewer-security.output.md           |  17 ++-
- runs/wo-gh-1/reviewer-security.review.json         |  12 --
- runs/wo-gh-1/reviewer-spec.output.md               |  18 ++-
- runs/wo-gh-1/reviewer-spec.review.json             |  12 ++
- runs/wo-gh-1/reviewer-tests.output.md              |  14 +--
+ runs/wo-gh-1/intake.output.md                      |   2 +-
+ runs/wo-gh-1/observer.output.md                    |  18 +-
+ runs/wo-gh-1/observer.packet.md                    |   2 +-
+ runs/wo-gh-1/report.json                           |  66 ++--
+ runs/wo-gh-1/report.md                             |   6 +-
+ runs/wo-gh-1/reviewer-architecture.output.md       |  14 +-
+ runs/wo-gh-1/reviewer-design.output.md             |  16 +
+ runs/wo-gh-1/reviewer-design.packet.md             |  44 +--
+ runs/wo-gh-1/reviewer-security.output.md           |  14 +-
+ runs/wo-gh-1/reviewer-security.review.json         |  12 +
+ runs/wo-gh-1/reviewer-spec.output.md               |  13 +-
+ runs/wo-gh-1/reviewer-spec.review.json             |  15 +-
+ runs/wo-gh-1/reviewer-tests.output.md              |  15 +-
+ runs/wo-gh-1/reviewer-ux.packet.md                 |   2 +-
  runs/wo-gh-1/routing.json                          |   6 +-
- runs/wo-gh-1/spec-writer.output.md                 |  18 +--
- runs/wo-gh-1/swimlane.md                           |  32 +++---
- runs/wo-gh-1/test-writer.output.md                 |  48 ++++----
- src/auto_ontology_eval/equivalents.py              |  46 ++++++++
- src/auto_ontology_eval/live.py                     |  18 ++-
- src/auto_ontology_eval/pipeline.py                 |   9 +-
- src/auto_ontology_eval/results.py                  |  32 +++++-
- tests/SCENARIOS.md                                 |   2 +
- tests/test_s5_limits_equivalents.py                | 127 +++++++++++++++++++++
- work_orders/wo-gh-1.json                           |   4 +-
- 42 files changed, 483 insertions(+), 318 deletions(-)
+ runs/wo-gh-1/spec-writer.output.md                 |  20 +-
+ runs/wo-gh-1/swimlane.md                           |  32 +-
+ runs/wo-gh-1/test-writer.output.md                 |  32 +-
+ src/auto_ontology_eval/live.py                     |  12 +-
+ src/auto_ontology_eval/upstream.py                 |  39 ++
+ tests/SCENARIOS.md                                 |   8 +-
+ tests/test_run_evidence.py                         | 413 +++++++++++++++++++++
+ tests/test_s1_model_pins.py                        |  60 +++
+ work_orders/wo-gh-1.json                           |   2 +-
+ 43 files changed, 828 insertions(+), 262 deletions(-)

@@ -1,12 +1,14 @@
-I wrote the observation report to `runs/wo-gh-1/observer.output.md`, and it says there was no release to observe. I staged the file but didn't commit it.
+The observation report is at `runs/wo-gh-1/observer.output.md` in the project root, not in `.anvil-factory`. The `.anvil-factory/runs/wo-gh-1` folder holds an older, unrelated work order that reuses the id. I did not commit the file.
 
-The report is in the project root, not the `.anvil-factory` directory. That directory holds an older run of an unrelated work order that is also called `wo-gh-1`.
+**The run's S3 and S4 results are not valid evidence about Auto Ontology.** I read the committed artifacts in `runs/eval/` from GitHub Actions run `42127124473` and re-ran nothing.
 
-- **No release record:** The deployer only wrote a packet (`packet_ready`), and `report.json` shows `deployment_status: null`. I didn't infer a release.
-- **Preflight failed:** The run stopped at preflight because the old chat model `nvidia/nemotron-3-nano-30b-a3b` returned HTTP 410. That model reached end of life on 2026-09-01. The embedding and rerank models returned 200.
-- **No evidence for S1, S3 or S4:** S1 smoke, time to first ontology, the reconciliation checklist and the ablation never ran. There is no top-level `RESULTS.md`, only a stub inside the preflight evidence folder. The S2 fixture exists in the repo but was never run against the stack.
-- **Spec amendment not yet exercised:** Spec Amendment 1 replaces the chat pin, but the preflight run used the old one.
-- **Approver verdict:** The approver verdict is `changes_requested`. The reviewer-architecture review requested changes and only 2 of 5 expected reviews were counted. The reviewer-design station failed with empty output. The loopback is about `NVIDIA_API_KEY` being read only from the repository secret.
+- **No release record:** There is only `deployer.packet.md` with status `packet_ready`, and no deployer output. The report covers the evidence the run left behind.
+- **LLM calls failed inside the stack:** The compose logs show the Auto Ontology service calling `nvidia/nemotron-3-nano-30b-a3b`, the end-of-life default. Those calls returned `[410] Gone`, even though the spec pins `nvidia/nemotron-3.5-lightning-30b-a3b`.
+- **Ontology generation (S3):** The "time to first ontology" of 15.42 s is largely the failures returning quickly. 77 of the 88 catalog descriptions are empty. All 4 planted conflicts are marked `ignored`, and each quote is just a table name, so those marks don't show how the tool treats conflicting definitions.
+- **Ablation (S4):** The Auto Ontology arm answered 0 of 12, because every question ended at "LLM failed to produce a response." The raw-schema arm called the pinned model directly and scored 8 of 12. The reported delta of -8 compares a working model with a dead endpoint, so it doesn't measure the semantic layer.
+- **RESULTS.md overstates the run:** It reports the 0/12 and the 4 `ignored` marks without saying the stack's LLM calls failed.
 
-The report recommends fixing the loopback items and re-running with the amended pin. It also says no claim about Auto Ontology should be made from this run.
+I did not confirm why the pin didn't take effect, but there is a likely cause. The committed `upstream.py` has no model pinning. The working tree has uncommitted changes that add `model_env()` and `verify_resolved_models()` and also edit `live.py`. I didn't check which version the run used.
+
+The report recommends committing and reviewing those changes, failing the harness on any `[410]` or mostly empty descriptions, re-running S3 and S4, and treating the current `RESULTS.md` as invalid. Nothing should be published from it.
 {"model": "claude-sonnet-5-5"}
