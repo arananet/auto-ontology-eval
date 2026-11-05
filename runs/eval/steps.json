@@ -1,6 +1,27 @@
 [
   {
     "step": "preflight",
-    "ok": false
+    "ok": true,
+    "evidence": "preflight.json"
+  },
+  {
+    "step": "s2_fixture",
+    "ok": true,
+    "evidence": "fixture.json"
+  },
+  {
+    "step": "s1_smoke",
+    "ok": true,
+    "evidence": "smoke.json"
+  },
+  {
+    "step": "s3_generate",
+    "ok": true,
+    "evidence": "reconciliation.json"
+  },
+  {
+    "step": "s4_ablation",
+    "ok": true,
+    "evidence": "ablation.json"
   }
 ]

@@ -1,0 +1,325 @@
+{
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "What is the company's total net sales after returns?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "expected": 1549.75,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": 1549.75,
+        "sql": "SELECT COALESCE(SUM(a.fact_sales.gross_sales), 0) - COALESCE(SUM(a.sales_returns.return_amount), 0) AS total_net_sales_after_returns FROM a.fact_sales LEFT JOIN a.sales_returns ON a.fact_sales.sale_id = a.sales_returns.sale_id;",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q02",
+      "question": "What is the total gross sales value before any returns?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "expected": 1598.25,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": null,
+        "sql": "SELECT SUM(a.gross_sales) FROM a.fact_sales;",
+        "error": "no such column: a.gross_sales",
+        "correct": false
+      }
+    },
+    {
+      "id": "Q03",
+      "question": "What is the total value of returns?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "expected": 48.5,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": 48.5,
+        "sql": "SELECT SUM(a.sales_returns.return_amount) FROM a.sales_returns;",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q04",
+      "question": "What are net sales after returns for the brand Nordwind?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics",
+        "product_hierarchy"
+      ],
+      "expected": 961.55,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": 961.55,
+        "sql": "SELECT SUM(a.fact_sales.gross_sales) - COALESCE(SUM(a.sales_returns.return_amount), 0) AS net_sales_after_returns FROM a.dim_product JOIN a.fact_sales ON a.dim_product.sku = a.fact_sales.sku LEFT JOIN a.sales_returns ON a.fact_sales.sale_id = a.sales_returns.sale_id WHERE a.dim_product.brand = 'Nordwind';",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q05",
+      "question": "Which categories does the brand Alpine Spring have products in?",
+      "answer_type": "set",
+      "conflict_ids": [
+        "product_hierarchy"
+      ],
+      "expected": [
+        "Soda",
+        "Water"
+      ],
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": [
+          "Water",
+          "Soda"
+        ],
+        "sql": "SELECT DISTINCT category FROM a.dim_product WHERE brand = 'Alpine Spring';",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q06",
+      "question": "What are net sales after returns for the Juice category?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics",
+        "product_hierarchy"
+      ],
+      "expected": 1052.8,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": 1052.8,
+        "sql": "SELECT SUM(fact_sales.gross_sales - COALESCE(ret.total_return, 0)) AS net_sales_after_returns FROM a.fact_sales INNER JOIN a.dim_product ON fact_sales.sku = dim_product.sku LEFT JOIN (SELECT sale_id, SUM(return_amount) AS total_return FROM a.sales_returns GROUP BY sale_id) ret ON fact_sales.sale_id = ret.sale_id WHERE dim_product.category = 'Juice';",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q07",
+      "question": "How many units were shipped from Lyon Works?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "location_identity"
+      ],
+      "expected": 507.0,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": null,
+        "sql": "SELECT SUM(units) FROM b.shipments WHERE plant_code = 'Lyon Works';",
+        "error": null,
+        "correct": false
+      }
+    },
+    {
+      "id": "Q08",
+      "question": "What are net sales after returns for sales through distribution center DC-N1?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "location_identity",
+        "net_sales_semantics"
+      ],
+      "expected": 608.15,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": 608.1500000000001,
+        "sql": "SELECT COALESCE(SUM(b.net_sales) - SUM(COALESCE(r.return_amount, 0)), 0) AS net_sales_after_returns FROM b.shipments b JOIN a.fact_sales f ON b.item_sku = f.sku AND b.ship_date = f.sale_date LEFT JOIN a.sales_returns r ON f.sale_id = r.sale_id WHERE b.dc_code = 'DC-N1';",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q09",
+      "question": "Which plant codes shipped goods to Milan Depot?",
+      "answer_type": "set",
+      "conflict_ids": [
+        "location_identity"
+      ],
+      "expected": [
+        "PL01",
+        "PL02"
+      ],
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": null,
+        "sql": "SELECT DISTINCT b.plant_code FROM b.shipments JOIN b.distribution_centers ON b.shipments.dc_code = b.distribution_centers.dc_code WHERE b.distribution_centers.dc_city = 'Milan';",
+        "error": "no such column: b.plant_code",
+        "correct": false
+      }
+    },
+    {
+      "id": "Q10",
+      "question": "Which SKUs exist in both the sales mart and the ops mart?",
+      "answer_type": "set",
+      "conflict_ids": [
+        "shared_sku_identity"
+      ],
+      "expected": [
+        "SKU-1002",
+        "SKU-1003",
+        "SKU-1004",
+        "SKU-1005",
+        "SKU-1006",
+        "SKU-1007"
+      ],
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": [
+          "SKU-1002",
+          "SKU-1003",
+          "SKU-1004",
+          "SKU-1005",
+          "SKU-1006",
+          "SKU-1007"
+        ],
+        "sql": "SELECT a.dim_product.sku FROM a.dim_product INTERSECT SELECT b.items.item_sku FROM b.items",
+        "error": null,
+        "correct": true
+      }
+    },
+    {
+      "id": "Q11",
+      "question": "How many SKUs exist only in the ops mart?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "shared_sku_identity"
+      ],
+      "expected": 3.0,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "correct": false
+      }
+    },
+    {
+      "id": "Q12",
+      "question": "How many units of the brand Sol Mar were shipped?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "shared_sku_identity",
+        "product_hierarchy"
+      ],
+      "expected": 90.0,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": {
+        "value": 90,
+        "sql": "SELECT SUM(b.shipments.units) FROM b.shipments JOIN a.dim_product ON b.shipments.item_sku = a.dim_product.sku WHERE a.dim_product.brand = 'Sol Mar';",
+        "error": null,
+        "correct": true
+      }
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "ontology_correct": 0,
+    "raw_correct": 8,
+    "delta": -8
+  }
+}

@@ -1,13 +1,13 @@
 {
   "chat": {
-    "model": "nvidia/nemotron-nano-3-30b-a3b",
-    "status": 404,
-    "response": "{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '2b2dcd47-c858-425a-9c04-4cacf2eac993': Not found for account 'Nyo8YJeegLDUWvrHQKwJHRnKZkN5K-7P-1Hhs1RiROs'\"}"
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": 200,
+    "response": "{\"id\":\"chatcmpl-57f20c2b-ef49-47ef-8723-a2041320f3d5\",\"choices\":[{\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"reasoning_content\":\"Here's a thinking process:\\n\\n1.\"},\"finish_reason\":\"length\",\"logprobs\":null}],\"created\":1793920048,\"model\":\"nvidia/nemotron-3.5-lightning-30b-a3b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion\",\"usage\":{\"prompt_tokens\":18,\"completion_tokens\":8,\"total_tokens\":26,\"prompt_tokens_details\":{\"audio_tokens\":null,\"cached_tokens\":0},\"compl"
   },
   "embedding": {
     "model": "nvidia/nemotron-3-embed-1b",
     "status": 200,
-    "response": "{\"object\":\"list\",\"data\":[{\"object\":\"embedding\",\"embedding\":[-0.009366073,-0.049171884,0.014829615,0.0067475447,0.00046342547,0.013826108,-0.038802303,-0.032223754,-0.002062766,-0.015442871,0.037854545,-0.00611861,-0.001135915,0.002961742,-0.019470839,-0.024864694,-0.023470933,0.043541092,0.004014031,0.008913101,0.0290181,0.011819092,0.030523364,0.0031568683,0.027317712,0.000027875218,0.020488285,-0.030690614,-0.0255337,-0.01881577,-0.00091988215,0.02274879,0.0059652966,-0.0038258736,-0.019829733"
+    "response": "{\"object\":\"list\",\"data\":[{\"object\":\"embedding\",\"embedding\":[-0.009366071,-0.049171876,0.014829612,0.0067475433,0.0004634254,0.013826105,-0.038802296,-0.032223746,-0.0020627656,-0.015442868,0.037854537,-0.006118609,-0.0011359148,0.0029617413,-0.019470835,-0.02486469,-0.023470927,0.043541085,0.0040140306,0.0089131,0.029018097,0.01181909,0.030523358,0.0031568678,0.027317706,0.000027875212,0.02048828,-0.030690609,-0.025533695,-0.018815769,-0.000919882,0.022748787,0.0059652957,-0.003825873,-0.0198297"
   },
   "rerank": {
     "model": "nvidia/llama-nemotron-rerank-vl-1b-v2",

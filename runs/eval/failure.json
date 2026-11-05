@@ -1,4 +1,0 @@
-{
-  "step": "preflight",
-  "reason": "StepFailed: hosted model preflight failed: nvidia/nemotron-nano-3-30b-a3b HTTP 404: {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function '2b2dcd47-c858-425a-9c04-4cacf2eac993': Not found for account 'Nyo8YJeegLDUWvrHQKwJHRnKZkN5K-7P-1Hhs1RiROs'\"}"
-}

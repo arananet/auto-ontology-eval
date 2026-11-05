@@ -1,0 +1,709 @@
+auto-ontology-frontend  | ▲ Next.js 16.3.8
+auto-ontology-frontend  | - Local:         http://localhost:3000
+auto-ontology-frontend  | - Network:       http://0.0.0.0:3000
+auto-ontology-frontend  | ✓ Ready in 0ms
+auto-ontology-frontend  | ✓ Running next.config took 1.0ms
+auto-ontology-frontend  | [seed-admin] created bootstrap admin account for admin@nvidia.com
+pgadmin                 | email config is {'CHECK_EMAIL_DELIVERABILITY': False, 'ALLOW_SPECIAL_EMAIL_DOMAINS': [], 'GLOBALLY_DELIVERABLE': True}
+pgadmin                 | /venv/lib/python3.15/site-packages/sshtunnel.py:1044: SyntaxWarning: 'return' in a 'finally' block
+pgadmin                 |   return (ssh_host,
+pgadmin                 | /venv/lib/python3.15/site-packages/alembic/operations/batch.py:298: UserWarning: Unnamed CHECK constraint on reflected table 'sharedserver' is being omitted from the table recreate; pass the constraint explicitly using batch_alter_table.table_args.  Naming CHECK constraints avoids this going forward.
+pgadmin                 |   util.warn(
+pgadmin                 | NOTE: Configuring authentication for SERVER mode.
+pgadmin                 | 
+pgadmin                 | pgAdmin 4 - Application Initialisation
+pgadmin                 | ======================================
+pgadmin                 | 
+pgadmin                 | postfix/postlog: starting the Postfix mail system
+pgadmin                 | [2026-11-05 23:12:18 +0000] [1] [INFO] Starting gunicorn 23.0.0
+pgadmin                 | [2026-11-05 23:12:18 +0000] [1] [INFO] Listening at: http://[::]:80 (1)
+pgadmin                 | [2026-11-05 23:12:18 +0000] [1] [INFO] Using worker: gthread
+pgadmin                 | [2026-11-05 23:12:18 +0000] [125] [INFO] Booting worker with pid: 125
+pgadmin                 | /venv/lib/python3.15/site-packages/sshtunnel.py:1044: SyntaxWarning: 'return' in a 'finally' block
+pgadmin                 |   return (ssh_host,
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade  -> c778a7d94c20, Create the auto_ontology schema
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade c778a7d94c20 -> 47ffb7499dfa, Trigram index on tag.name for global search
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade 47ffb7499dfa -> 6347ede6dac1, add pii processed to catalog columns
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade 6347ede6dac1 -> b3aed65e49b7, add pii processed to attributes
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade b3aed65e49b7 -> e4850fd803d6, add user groups
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade e4850fd803d6 -> f3a91c0e5b27, add owner_id and glossary edit timestamps
+auto-ontology-migrate   | INFO  [alembic.runtime.migration] Running upgrade f3a91c0e5b27 -> 99d4d343dd0b, add semantic fk join path default
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:21:58,469 ERROR auto_ontology.utils.llm_invoke: Reasoning LLM also failed for QuestionExtractionModel: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no long
+auto-ontology           | 2026-11-05 23:21:58,469 WARNING auto_ontology.retrieval.text_to_sql.base.question_extraction: Question extraction returned None, using original question
+auto-ontology           | 2026-11-05 23:21:58,469 INFO auto_ontology.retrieval.text_to_sql.base.question_extraction: Agent completed: question_extraction -> none
+auto-ontology           | 2026-11-05 23:21:58,470 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology           | 2026-11-05 23:21:58,470 INFO auto_ontology.retrieval.text_to_sql.main: Node: question_extraction
+auto-ontology           | 2026-11-05 23:21:58,470 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1} | Total visits this run: 3
+auto-ontology           | 2026-11-05 23:21:58,470 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Executing agent: candidate_retrieval
+auto-ontology           | 2026-11-05 23:21:58,471 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: No CustomAnalysis nodes found for database None — skipping VDB search
+auto-ontology           | 2026-11-05 23:21:58,613 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology           | 2026-11-05 23:21:58,617 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology           | 2026-11-05 23:21:58,619 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology           | 2026-11-05 23:21:58,710 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Selected candidate database 'sales_mart': 1 entities covered, 1 hits, aggregate score 0.7513
+auto-ontology           | 2026-11-05 23:21:58,710 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Dropped 1 semantic hits outside candidate database 'sales_mart'
+auto-ontology           | 2026-11-05 23:21:58,710 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Retrieved 1 ColumnAttributes, 0 CustomAnalysis, 0 SqlAttribute candidates, and subject Term id='37ffaafd-76b2-4b94-a6f0-b4c8c4c2c6c4' score=0.8575679050767993 (1 entities queried, subject='How many units of the brand Sol Mar were shipped?')
+auto-ontology           | 2026-11-05 23:21:58,710 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Agent completed: candidate_retrieval -> none
+auto-ontology           | 2026-11-05 23:21:58,710 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology           | 2026-11-05 23:21:58,710 INFO auto_ontology.retrieval.text_to_sql.main: Node: retrieve_candidates
+auto-ontology           | 2026-11-05 23:21:58,711 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1} | Total visits this run: 4
+auto-ontology           | 2026-11-05 23:21:58,711 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Executing agent: candidate_preparation
+auto-ontology           | 2026-11-05 23:21:58,711 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Retrieved 0 custom analyses
+auto-ontology           | 2026-11-05 23:21:58,711 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Found 0 relevant queries from custom analyses
+auto-ontology           | 2026-11-05 23:21:58,715 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Fetched store context for 1/1 column attributes
+auto-ontology           | 2026-11-05 23:21:58,716 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Fetched synonyms for 0 term(s)
+auto-ontology           | 2026-11-05 23:21:58,716 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Anchor attribute id: e75681e5-fdd6-477f-89ad-bfe6d36c6d6c
+auto-ontology           | 2026-11-05 23:21:58,717 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Tables from candidates: ['dim_product']
+auto-ontology           | 2026-11-05 23:21:58,853 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology           | 2026-11-05 23:21:58,857 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology           | 2026-11-05 23:21:58,869 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Added 1 table(s) from subject Term 'Shipments': ['shipments']
+auto-ontology           | 2026-11-05 23:21:58,871 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Back-filled column metadata for 1/1 table(s)
+auto-ontology           | 2026-11-05 23:21:58,871 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Relevance filter bypassed: 2 candidate table(s) <= bypass max 2
+auto-ontology           | 2026-11-05 23:21:58,874 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Final 2 table(s) reaching SQL generation: ['sales_mart.public.dim_product', 'sales_mart.public.fact_sales']
+auto-ontology           | 2026-11-05 23:21:58,874 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Agent completed: candidate_preparation -> none
+auto-ontology           | 2026-11-05 23:21:58,874 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology           | 2026-11-05 23:21:58,874 INFO auto_ontology.retrieval.text_to_sql.main: Node: prepare_candidates
+auto-ontology           | 2026-11-05 23:21:58,875 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1} | Total visits this run: 5
+auto-ontology           | 2026-11-05 23:21:58,875 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Executing agent: sql_from_semantic
+auto-ontology           | 2026-11-05 23:21:58,875 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Semantic context: anchor=brand, join_paths=0, custom_analyses=0, sql_attributes=0, fallback_tables=2
+auto-ontology           | 2026-11-05 23:21:58,875 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Using 0 similar questions from conversations.
+auto-ontology           | 2026-11-05 23:21:58,875 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Injecting the match_based calculation SQL shape into the SQL prompt.
+auto-ontology           | 2026-11-05 23:21:59,290 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for SQLGenerationModel: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | Traceback (most recent call last):
+auto-ontology           |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology           |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology           |     raise last_exc
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology           |     result = chain.invoke(input, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology           |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology           |     return self.bound.invoke(
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology           |     self.generate_prompt(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology           |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology           |     self._generate_with_cache(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology           |     result = self._generate(
+auto-ontology           |              ^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology           |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology           |     response, session = self._post(
+auto-ontology           |                         ^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology           |     self._try_raise(response)
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:21:59,291 ERROR auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM structured output failed: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | Traceback (most recent call last):
+auto-ontology           |   File "/app/auto_ontology/retrieval/text_to_sql/agents/sql_from_semantic.py", line 360, in run_with_context
+auto-ontology           |     response = safe_invoke_with_structured_output(llm, messages, schema)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology           |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology           |     raise last_exc
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology           |     result = chain.invoke(input, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology           |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology           |     return self.bound.invoke(
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology           |     self.generate_prompt(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology           |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology           |     self._generate_with_cache(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology           |     result = self._generate(
+auto-ontology           |              ^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology           |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology           |     response, session = self._post(
+auto-ontology           |                         ^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology           |     self._try_raise(response)
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:21:59,291 WARNING auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM returned None on attempt 1/3 — retrying.
+auto-ontology           | 2026-11-05 23:21:59,700 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for SQLGenerationModel: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | Traceback (most recent call last):
+auto-ontology           |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology           |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology           |     raise last_exc
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology           |     result = chain.invoke(input, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology           |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology           |     return self.bound.invoke(
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology           |     self.generate_prompt(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology           |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology           |     self._generate_with_cache(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology           |     result = self._generate(
+auto-ontology           |              ^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology           |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology           |     response, session = self._post(
+auto-ontology           |                         ^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology           |     self._try_raise(response)
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:21:59,701 ERROR auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM structured output failed: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | Traceback (most recent call last):
+auto-ontology           |   File "/app/auto_ontology/retrieval/text_to_sql/agents/sql_from_semantic.py", line 360, in run_with_context
+auto-ontology           |     response = safe_invoke_with_structured_output(llm, messages, schema)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology           |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology           |     raise last_exc
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology           |     result = chain.invoke(input, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology           |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology           |     return self.bound.invoke(
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology           |     self.generate_prompt(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology           |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology           |     self._generate_with_cache(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology           |     result = self._generate(
+auto-ontology           |              ^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology           |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology           |     response, session = self._post(
+auto-ontology           |                         ^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology           |     self._try_raise(response)
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+postgres                | The files belonging to this database system will be owned by user "postgres".
+postgres                | This user must also own the server process.
+postgres                | 
+postgres                | The database cluster will be initialized with locale "en_US.utf8".
+postgres                | The default database encoding has accordingly been set to "UTF8".
+postgres                | The default text search configuration will be set to "english".
+postgres                | 
+postgres                | Data page checksums are disabled.
+postgres                | 
+postgres                | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+postgres                | creating subdirectories ... ok
+postgres                | selecting dynamic shared memory implementation ... posix
+postgres                | selecting default "max_connections" ... 100
+postgres                | selecting default "shared_buffers" ... 128MB
+postgres                | selecting default time zone ... Etc/UTC
+postgres                | creating configuration files ... ok
+postgres                | running bootstrap script ... ok
+postgres                | performing post-bootstrap initialization ... ok
+postgres                | initdb: warning: enabling "trust" authentication for local connections
+postgres                | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+postgres                | syncing data to disk ... ok
+postgres                | 
+postgres                | 
+postgres                | Success. You can now start the database server using:
+postgres                | 
+postgres                |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+postgres                | 
+postgres                | waiting for server to start....2026-11-05 23:07:45.155 UTC [52] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+postgres                | 2026-11-05 23:07:45.156 UTC [52] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres                | 2026-11-05 23:07:45.158 UTC [55] LOG:  database system was shut down at 2026-11-05 23:07:44 UTC
+postgres                | 2026-11-05 23:07:45.161 UTC [52] LOG:  database system is ready to accept connections
+postgres                |  done
+postgres                | server started
+postgres                | CREATE DATABASE
+postgres                | 
+postgres                | 
+postgres                | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+postgres                | 
+postgres                | waiting for server to shut down....2026-11-05 23:07:45.355 UTC [52] LOG:  received fast shutdown request
+postgres                | 2026-11-05 23:07:45.356 UTC [52] LOG:  aborting any active transactions
+postgres                | 2026-11-05 23:07:45.359 UTC [52] LOG:  background worker "logical replication launcher" (PID 58) exited with exit code 1
+postgres                | 2026-11-05 23:07:45.359 UTC [53] LOG:  shutting down
+postgres                | 2026-11-05 23:07:45.359 UTC [53] LOG:  checkpoint starting: shutdown immediate
+postgres                | 2026-11-05 23:07:45.469 UTC [53] LOG:  checkpoint complete: wrote 921 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.080 s, sync=0.018 s, total=0.110 s; sync files=301, longest=0.018 s, average=0.001 s; distance=4238 kB, estimate=4238 kB; lsn=0/190A9C8, redo lsn=0/190A9C8
+postgres                | 2026-11-05 23:07:45.475 UTC [52] LOG:  database system is shut down
+postgres                |  done
+postgres                | server stopped
+postgres                | 
+postgres                | PostgreSQL init process complete; ready for start up.
+postgres                | 
+postgres                | 2026-11-05 23:07:45.574 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+postgres                | 2026-11-05 23:07:45.574 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres                | 2026-11-05 23:07:45.574 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres                | 2026-11-05 23:07:45.581 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres                | 2026-11-05 23:07:45.585 UTC [68] LOG:  database system was shut down at 2026-11-05 23:07:45 UTC
+postgres                | 2026-11-05 23:07:45.589 UTC [1] LOG:  database system is ready to accept connections
+postgres                | 2026-11-05 23:12:45.684 UTC [66] LOG:  checkpoint starting: time
+postgres                | 2026-11-05 23:15:34.234 UTC [66] LOG:  checkpoint complete: wrote 1689 buffers (10.3%); 0 WAL file(s) added, 0 removed, 1 recycled; write=168.523 s, sync=0.004 s, total=168.550 s; sync files=791, longest=0.001 s, average=0.001 s; distance=8956 kB, estimate=8956 kB; lsn=0/21E7EE8, redo lsn=0/21C9A38
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:21:59,702 WARNING auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM returned None on attempt 2/3 — retrying.
+auto-ontology           | 2026-11-05 23:22:00,114 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for SQLGenerationModel: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | Traceback (most recent call last):
+auto-ontology           |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology           |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology           |     raise last_exc
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology           |     result = chain.invoke(input, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology           |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology           |     return self.bound.invoke(
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology           |     self.generate_prompt(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology           |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology           |     self._generate_with_cache(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology           |     result = self._generate(
+auto-ontology           |              ^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology           |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology           |     response, session = self._post(
+auto-ontology           |                         ^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology           |     self._try_raise(response)
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:22:00,114 ERROR auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM structured output failed: Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | Traceback (most recent call last):
+auto-ontology           |   File "/app/auto_ontology/retrieval/text_to_sql/agents/sql_from_semantic.py", line 360, in run_with_context
+auto-ontology           |     response = safe_invoke_with_structured_output(llm, messages, schema)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology           |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology           |     raise last_exc
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology           |     result = chain.invoke(input, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology           |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology           |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology           |     return self.bound.invoke(
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology           |     self.generate_prompt(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology           |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology           |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology           |     self._generate_with_cache(
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology           |     result = self._generate(
+auto-ontology           |              ^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology           |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology           |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology           |     response, session = self._post(
+auto-ontology           |                         ^^^^^^^^^^^
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology           |     self._try_raise(response)
+auto-ontology           |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology           |     raise Exception(message) from None
+auto-ontology           | Exception: [410] Gone
+auto-ontology           | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology           | 2026-11-05 23:22:00,115 WARNING auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM returned None on attempt 3/3 — retrying.
+auto-ontology           | 2026-11-05 23:22:00,115 ERROR auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM returned None after 3 attempts.
+auto-ontology           | 2026-11-05 23:22:00,115 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Agent completed: sql_from_semantic -> unconstructable
+auto-ontology           | 2026-11-05 23:22:00,115 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology           | 2026-11-05 23:22:00,115 INFO auto_ontology.retrieval.text_to_sql.main: Node: construct_sql_from_candidates
+auto-ontology           | 2026-11-05 23:22:00,116 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'unconstructable_sql_response': 1} | Total visits this run: 6
+auto-ontology           | 2026-11-05 23:22:00,116 INFO auto_ontology.retrieval.text_to_sql.base.sql_unconstructable: Executing agent: sql_unconstructable
+auto-ontology           | 2026-11-05 23:22:00,116 INFO auto_ontology.retrieval.text_to_sql.base.sql_unconstructable: Generated unconstructable SQL response: LLM failed to produce a response....
+auto-ontology           | 2026-11-05 23:22:00,116 INFO auto_ontology.retrieval.text_to_sql.base.sql_unconstructable: Agent completed: sql_unconstructable -> none
+auto-ontology           | 2026-11-05 23:22:00,116 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology           | 2026-11-05 23:22:00,116 INFO auto_ontology.retrieval.text_to_sql.main: Node: unconstructable_sql_response
+auto-ontology           | 2026-11-05 23:22:07,155 INFO uvicorn.access: 127.0.0.1:53092 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology-frontend-migrate  | migrate: ensuring the frontend schema exists...
+auto-ontology-frontend-migrate  | ◇ injected env (0) from ../.env // tip: ⌘ suppress logs { quiet: true }
+auto-ontology-frontend-migrate  | Loaded Prisma config from prisma.config.ts.
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | Script executed successfully.
+auto-ontology-frontend-migrate  | migrate: checking conversation_analytics for the pre-user_id schema...
+auto-ontology-frontend-migrate  | ◇ injected env (0) from ../.env // tip: ⌁ auth for agents [www.vestauth.com]
+auto-ontology-frontend-migrate  | Loaded Prisma config from prisma.config.ts.
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | Script executed successfully.
+auto-ontology-frontend-migrate  | migrate: running prisma db push...
+auto-ontology-frontend-migrate  | ◇ injected env (0) from ../.env // tip: ⌘ enable debugging { debug: true }
+auto-ontology-frontend-migrate  | Loaded Prisma config from prisma.config.ts.
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | Prisma schema loaded from prisma/schema.prisma.
+auto-ontology-frontend-migrate  | Datasource "db": PostgreSQL database "auto_ontology", schemas "frontend" at "postgres:5432"
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | 🚀  Your database is now in sync with your Prisma schema. Done in 234ms
+auto-ontology-frontend-migrate  | 
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology-ingestion-service  |     self.generate_prompt(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology-ingestion-service  |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology-ingestion-service  |     self._generate_with_cache(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology-ingestion-service  |     result = self._generate(
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology-ingestion-service  |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology-ingestion-service  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology-ingestion-service  |     response, session = self._post(
+auto-ontology-ingestion-service  |                         ^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology-ingestion-service  |     self._try_raise(response)
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology-ingestion-service  |     raise Exception(message) from None
+auto-ontology-ingestion-service  | Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,551 ERROR auto_ontology.utils.llm_invoke: invoke_with_structured_output failed for FkAndPkResult after 3 attempts: Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | Traceback (most recent call last):
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 664, in invoke_with_structured_output
+auto-ontology-ingestion-service  |     return safe_invoke_with_structured_output(llm, messages, schema)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology-ingestion-service  |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology-ingestion-service  |     raise last_exc
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology-ingestion-service  |     result = chain.invoke(input, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology-ingestion-service  |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology-ingestion-service  |     return self.bound.invoke(
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology-ingestion-service  |     self.generate_prompt(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology-ingestion-service  |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology-ingestion-service  |     self._generate_with_cache(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology-ingestion-service  |     result = self._generate(
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology-ingestion-service  |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology-ingestion-service  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology-ingestion-service  |     response, session = self._post(
+auto-ontology-ingestion-service  |                         ^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology-ingestion-service  |     self._try_raise(response)
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology-ingestion-service  |     raise Exception(message) from None
+auto-ontology-ingestion-service  | Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,552 INFO auto_ontology.semantic.visit_enter: [shipments] Detecting foreign keys done in 0.4s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,559 INFO auto_ontology.vdb.postgres: PostgresVDB.write_to_index: inserted 4 rows into semantic_layer (skipped 0)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,559 INFO auto_ontology.semantic.visit_enter: [items] Embedding 1 term(s) done in 0.5s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,560 INFO auto_ontology.semantic.visit_enter: [plants] Writing 1 term(s) to the graph…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,571 INFO auto_ontology.semantic.visit_enter: [plants] Writing 1 term(s) to the graph done in 0.0s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,571 INFO auto_ontology.semantic.visit_enter: [plants] → Terms ['Plants'] (3 attrs, 0 suspected FKs)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,572 INFO auto_ontology.semantic.visit_enter: [plants] Embedding 1 term(s)…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,573 INFO auto_ontology.utils.embedding: Embed: 4 row(s) in 1 chunk(s) of 1024 via https://integrate.api.nvidia.com/v1 (model nvidia/nemotron-3-embed-1b, batch 32, concurrency 32)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,728 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,917 INFO auto_ontology.utils.embedding: Embed chunk 1/1: 4/4 row(s) embedded in 0.3s (4/4 done, 12 rows/s, ~0s left)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,917 INFO auto_ontology.utils.embedding: Embed: 4/4 row(s) embedded in 0.3s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,927 INFO auto_ontology.vdb.postgres: PostgresVDB.write_to_index: inserted 4 rows into semantic_layer (skipped 0)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,928 INFO auto_ontology.semantic.visit_enter: [plants] Embedding 1 term(s) done in 0.4s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,965 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for ColumnDescriptionResult: Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | Traceback (most recent call last):
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology-ingestion-service  |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology-ingestion-service  |     raise last_exc
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology-ingestion-service  |     result = chain.invoke(input, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology-ingestion-service  |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology-ingestion-service  |     return self.bound.invoke(
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology-ingestion-service  |     self.generate_prompt(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology-ingestion-service  |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology-ingestion-service  |     self._generate_with_cache(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology-ingestion-service  |     result = self._generate(
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology-ingestion-service  |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology-ingestion-service  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology-ingestion-service  |     response, session = self._post(
+auto-ontology-ingestion-service  |                         ^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology-ingestion-service  |     self._try_raise(response)
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology-ingestion-service  |     raise Exception(message) from None
+auto-ontology-ingestion-service  | Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,965 ERROR auto_ontology.utils.llm_invoke: invoke_with_structured_output failed for ColumnDescriptionResult after 3 attempts: Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | Traceback (most recent call last):
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 664, in invoke_with_structured_output
+auto-ontology-ingestion-service  |     return safe_invoke_with_structured_output(llm, messages, schema)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology-ingestion-service  |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology-ingestion-service  |     raise last_exc
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology-ingestion-service  |     result = chain.invoke(input, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology-ingestion-service  |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology-ingestion-service  |     return self.bound.invoke(
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology-ingestion-service  |     self.generate_prompt(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology-ingestion-service  |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology-ingestion-service  |     self._generate_with_cache(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology-ingestion-service  |     result = self._generate(
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology-ingestion-service  |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology-ingestion-service  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology-ingestion-service  |     response, session = self._post(
+auto-ontology-ingestion-service  |                         ^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology-ingestion-service  |     self._try_raise(response)
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology-ingestion-service  |     raise Exception(message) from None
+auto-ontology-ingestion-service  | Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,966 WARNING auto_ontology.semantic.deterministic: column description batch failed — proceeding without them
+auto-ontology-ingestion-service  | 2026-11-05 23:12:29,966 INFO auto_ontology.semantic.visit_enter: [shipments] Generating terms and descriptions (7 columns)…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,368 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for RawTableTermsResult: Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | Traceback (most recent call last):
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology-ingestion-service  |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology-ingestion-service  |     raise last_exc
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology-ingestion-service  |     result = chain.invoke(input, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology-ingestion-service  |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology-ingestion-service  |     return self.bound.invoke(
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology-ingestion-service  |     self.generate_prompt(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology-ingestion-service  |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology-ingestion-service  |     self._generate_with_cache(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology-ingestion-service  |     result = self._generate(
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology-ingestion-service  |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology-ingestion-service  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology-ingestion-service  |     response, session = self._post(
+auto-ontology-ingestion-service  |                         ^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology-ingestion-service  |     self._try_raise(response)
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology-ingestion-service  |     raise Exception(message) from None
+auto-ontology-ingestion-service  | Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,369 ERROR auto_ontology.utils.llm_invoke: invoke_with_structured_output failed for RawTableTermsResult after 3 attempts: Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | Traceback (most recent call last):
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 664, in invoke_with_structured_output
+auto-ontology-ingestion-service  |     return safe_invoke_with_structured_output(llm, messages, schema)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology-ingestion-service  |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology-ingestion-service  |     raise last_exc
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology-ingestion-service  |     result = chain.invoke(input, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology-ingestion-service  |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology-ingestion-service  |     return self.bound.invoke(
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology-ingestion-service  |     self.generate_prompt(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology-ingestion-service  |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology-ingestion-service  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology-ingestion-service  |     self._generate_with_cache(
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology-ingestion-service  |     result = self._generate(
+auto-ontology-ingestion-service  |              ^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology-ingestion-service  |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology-ingestion-service  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology-ingestion-service  |     response, session = self._post(
+auto-ontology-ingestion-service  |                         ^^^^^^^^^^^
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology-ingestion-service  |     self._try_raise(response)
+auto-ontology-ingestion-service  |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology-ingestion-service  |     raise Exception(message) from None
+auto-ontology-ingestion-service  | Exception: [410] Gone
+auto-ontology-ingestion-service  | The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,369 INFO auto_ontology.semantic.visit_enter: [shipments] Generating terms and descriptions (7 columns) done in 0.4s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,369 INFO auto_ontology.semantic.visit_enter: [shipments] Writing 1 term(s) to the graph…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,395 INFO auto_ontology.semantic.visit_enter: [shipments] Writing 1 term(s) to the graph done in 0.0s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,395 INFO auto_ontology.semantic.visit_enter: [shipments] → Terms ['Shipments'] (7 attrs, 0 suspected FKs)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,399 INFO auto_ontology.semantic.visit_enter: [shipments] Embedding 1 term(s)…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,400 INFO auto_ontology.utils.embedding: Embed: 8 row(s) in 1 chunk(s) of 1024 via https://integrate.api.nvidia.com/v1 (model nvidia/nemotron-3-embed-1b, batch 32, concurrency 32)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,567 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,769 INFO auto_ontology.utils.embedding: Embed chunk 1/1: 8/8 row(s) embedded in 0.4s (8/8 done, 22 rows/s, ~0s left)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,770 INFO auto_ontology.utils.embedding: Embed: 8/8 row(s) embedded in 0.4s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,790 INFO auto_ontology.vdb.postgres: PostgresVDB.write_to_index: inserted 8 rows into semantic_layer (skipped 0)
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,790 INFO auto_ontology.semantic.visit_enter: [shipments] Embedding 1 term(s) done in 0.4s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.pipeline: Compilation complete — 4 table(s) processed
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.compile: Semantic compilation finished — 4 table visits
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.compile: Resolving semantic FK edges…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,791 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,793 INFO auto_ontology.semantic.semantic_fk: resolve_semantic_fks: no unlinked FK columns found
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,803 INFO auto_ontology.semantic.compile: Semantic FK edges created: 0
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,803 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,803 INFO auto_ontology.semantic.compile: Suggesting SqlAttributes from query history…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,803 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,803 INFO auto_ontology.semantic.sql_attribute_suggester: Collecting SQL expressions per term…
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,806 INFO auto_ontology.semantic.sql_attribute_suggester: No terms with associated SQL queries — skipping SqlAttribute suggestion.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,806 INFO auto_ontology.semantic.compile: New SqlAttribute nodes written: 0
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,806 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,806 INFO auto_ontology.semantic.compile: Building bridge tables sql attributes
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,806 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,810 INFO auto_ontology.semantic.bridge_tables: No eligible bridge tables found for database 'ops_mart'.
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,810 INFO auto_ontology.semantic.compile: Bridge tables built: 0
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,810 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,810 INFO auto_ontology.semantic.compile: Semantic calculation finished successfully (database='ops_mart') — 4 table(s), 0 semantic FK edge(s), 0 SqlAttribute(s), 0 bridge table(s) in 3.9s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,810 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,813 INFO auto_ontology.ingestion_service.semantic_scheduler: Finished semantic compilation successfully for database ops_mart: 4 table(s) compiled in 3.9s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,821 INFO auto_ontology.server.rules.service: No rules to re-apply
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,826 INFO auto_ontology.ingestion_service.semantic_scheduler: semantic: finished successfully — 2 database(s), 8 table(s) compiled in 8.0s
+auto-ontology-ingestion-service  | 2026-11-05 23:12:30,826 INFO auto_ontology.ingestion_service.scheduler: semantic: next run at 2026-11-06T23:12:30.826512+00:00
+auto-ontology-ingestion-service  | 2026-11-05 23:12:33,347 INFO uvicorn.access: 127.0.0.1:50830 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:12:37,895 INFO uvicorn.access: 172.18.0.6:53238 - "GET /semantic/status HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:13:03,500 INFO uvicorn.access: 127.0.0.1:60568 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:13:33,651 INFO uvicorn.access: 127.0.0.1:58296 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:14:03,810 INFO uvicorn.access: 127.0.0.1:38288 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:14:33,967 INFO uvicorn.access: 127.0.0.1:53508 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:15:04,129 INFO uvicorn.access: 127.0.0.1:56972 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:15:34,296 INFO uvicorn.access: 127.0.0.1:34416 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:16:04,458 INFO uvicorn.access: 127.0.0.1:47934 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:16:34,611 INFO uvicorn.access: 127.0.0.1:44940 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:17:04,769 INFO uvicorn.access: 127.0.0.1:45420 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:17:34,941 INFO uvicorn.access: 127.0.0.1:56804 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:18:05,119 INFO uvicorn.access: 127.0.0.1:34110 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:18:35,272 INFO uvicorn.access: 127.0.0.1:60384 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:19:05,425 INFO uvicorn.access: 127.0.0.1:37808 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:19:35,590 INFO uvicorn.access: 127.0.0.1:53082 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:20:05,753 INFO uvicorn.access: 127.0.0.1:42156 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:20:35,918 INFO uvicorn.access: 127.0.0.1:34230 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:21:06,114 INFO uvicorn.access: 127.0.0.1:43580 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:21:36,277 INFO uvicorn.access: 127.0.0.1:39886 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-05 23:22:06,453 INFO uvicorn.access: 127.0.0.1:43534 - "GET /health/live HTTP/1.1" 200
