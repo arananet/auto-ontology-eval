@@ -1,0 +1,42 @@
+name: auto-ontology-eval
+
+# Executed evaluation of NVIDIA Auto Ontology (spec auto-ontology-enterprise-eval).
+# Runs the harness end to end on a Docker-capable GitHub-hosted runner. The
+# hosted NIM key reaches the job only from the repository secret
+# NVIDIA_API_KEY and is never printed. Evidence is uploaded as a workflow
+# artifact; nothing is published.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install harness dependencies
+        run: python -m pip install "duckdb==1.5.5"
+
+      - name: Offline scenario tests
+        run: python -m unittest discover -s tests -t .
+
+      - name: Run the evaluation (fails closed)
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        run: PYTHONPATH=src python -m auto_ontology_eval --run-dir runs/eval --upstream-dir "${RUNNER_TEMP}/auto-ontology"
+
+      - name: Upload run evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-ontology-eval-evidence
+          path: runs/eval
+          if-no-files-found: warn
