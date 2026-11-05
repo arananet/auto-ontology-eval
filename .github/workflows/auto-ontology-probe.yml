@@ -1,0 +1,97 @@
+name: auto-ontology-probe
+
+# PROBE ONLY, not an evaluation run. This workflow exercises the harness's
+# own preflight stage (stage_preflight in src/auto_ontology_eval/live.py)
+# with config.CHAT_MODEL set to one candidate chat model, through the same
+# code path and the same repository secret (NVIDIA_API_KEY) the evaluation
+# itself uses, and uploads the resulting preflight.json as evidence. A probe
+# does NOT change the spec pin and does NOT produce RESULTS.md.
+# Owner decision 2026-11-05: probe both remaining candidates live and pin
+# the one that answers.
+on:
+  workflow_dispatch:
+    inputs:
+      candidate:
+        description: "Candidate chat model id to probe"
+        required: true
+        type: choice
+        options:
+          - nvidia/nemotron-3.5-lightning-30b-a3b
+          - nvidia/nemotron-3-super-120b-a12b
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: anvil/run-auto-ontology-eval
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install harness dependencies
+        run: python -m pip install "duckdb==1.5.5"
+
+      - name: Run the preflight probe for the candidate
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          PROBE_CANDIDATE: ${{ inputs.candidate }}
+        run: |
+          cat > probe_preflight.py <<'PYEOF'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, "src")
+
+          from auto_ontology_eval import config, errors, live, secrets
+
+          candidate = os.environ["PROBE_CANDIDATE"]
+          slug = candidate.replace("/", "-").replace(".", "-")
+          run_dir = Path("runs/probes") / slug
+          run_dir.mkdir(parents=True, exist_ok=True)
+
+          key = secrets.require_api_key(os.environ)
+          pin_at_probe_time = config.CHAT_MODEL
+          config.CHAT_MODEL = candidate
+
+          outcome = "answered"
+          detail = ""
+          try:
+              live.stage_preflight(run_dir, key)
+          except errors.StepFailed as exc:
+              outcome = "failed"
+              detail = str(exc)
+
+          record = {
+              "kind": "probe",
+              "note": ("Probe only, not an evaluation run. stage_preflight "
+                       "from src/auto_ontology_eval/live.py executed with "
+                       "config.CHAT_MODEL set to the candidate; the spec "
+                       "pin was not changed by this probe."),
+              "candidate": candidate,
+              "spec_pin_at_probe_time": pin_at_probe_time,
+              "outcome": outcome,
+              "detail": detail,
+              "github_run_id": os.environ.get("GITHUB_RUN_ID", ""),
+          }
+          (run_dir / "probe.json").write_text(
+              json.dumps(record, indent=2), encoding="utf-8")
+          print(json.dumps(record, indent=2))
+          PYEOF
+          python probe_preflight.py
+
+      - name: Upload probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-ontology-probe-evidence
+          path: runs/probes
+          if-no-files-found: warn
