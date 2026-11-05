@@ -14,6 +14,29 @@ name: anvil-execute
 # for the future. The commit this workflow pushes back uses GITHUB_TOKEN,
 # which does not retrigger workflows, so the run cannot loop on its own
 # push.
+#
+# Operator repair, 2026-11-05: three runs of this workflow produced no
+# evidence and no diagnosable trace. The repairs below stay in the
+# workflow layer:
+# 1. The commit back step no longer requires smoke success. It runs on
+#    every outcome and commits a diagnostics file (step outcomes, tool
+#    versions, the line log tail, the report verdict when one exists)
+#    alongside any run evidence, so a death at any step leaves a record
+#    on the branch itself.
+# 2. NVIDIA_API_KEY is wired into the job environment. The secret existed
+#    on the repository but no step exposed it, so the builder station
+#    could never call the hosted NIM endpoints the work order requires.
+# 3. Codex is installed, mirroring the factory execute workflows: on the
+#    current factory main the design stations dispatch to the Codex
+#    runtime, which fails loudly when the CLI is absent.
+# 4. The smoke test now covers the routes the line actually calls on the
+#    current factory main (claude-sonnet-5-5, claude-opus-5-5 and
+#    gpt-6.1-sol text and vision), adopted from the factory execute
+#    workflow, instead of only claude-sonnet-4-5, which no station on
+#    the current main routes to.
+# 5. The line step tees its output to line-output.log, which the commit
+#    back step includes, and the push rebases onto the branch tip first,
+#    as the factory execute workflows do.
 on:
   push:
     branches: [anvil/run-auto-ontology-eval]
@@ -37,6 +60,7 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.CF_AIG_TOKEN }}
       ANTHROPIC_CUSTOM_HEADERS: "cf-aig-authorization: Bearer ${{ secrets.CF_AIG_TOKEN }}"
       CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: "1"
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
     steps:
       - name: Check out this repository
         uses: actions/checkout@v4
@@ -62,39 +86,99 @@ jobs:
           npm install -g @anthropic-ai/claude-code
           claude --version
 
-      - name: Gateway smoke test
-        id: smoke
+      - name: Install Codex (for the OpenAI runtime stations)
         run: |
-          REPLY=$(claude -p "Reply with exactly: GATEWAY_OK" --model claude-sonnet-4-5 --output-format text)
-          echo "Gateway reply: ${REPLY}"
-          CLEAN=$(printf '%s' "${REPLY}" | tr -d '[:space:]')
-          if [ "${CLEAN}" != "GATEWAY_OK" ]; then
-            echo "Gateway smoke failed: expected GATEWAY_OK and got the reply above. Stopping before the line runs."
-            exit 1
-          fi
-          echo "Gateway smoke passed: the gateway answered through the Anthropic endpoint."
+          npm install -g @openai/codex
+          codex --version
+
+      - name: Gateway smoke test (all routes the line calls)
+        id: smoke
+        env:
+          CF_AIG_TOKEN: ${{ secrets.CF_AIG_TOKEN }}
+        run: |
+          for MODEL in claude-sonnet-5-5 claude-opus-5-5; do
+            REPLY=$(claude -p "Reply with exactly: GATEWAY_OK" --model "${MODEL}" --output-format text)
+            CLEAN=$(printf '%s' "${REPLY}" | tr -d '[:space:]')
+            if [ "${CLEAN}" != "GATEWAY_OK" ]; then
+              echo "Smoke failed for ${MODEL}: expected GATEWAY_OK, got: ${REPLY}"
+              exit 1
+            fi
+            echo "Smoke passed: Anthropic route, ${MODEL}"
+          done
+          GW="https://gateway.ai.cloudflare.com/v1/693ae9c587f1f2c34328bb47447366b0/arananet-ai-gateway/openai/chat/completions"
+          TEXT_BODY='{"model":"gpt-6.1-sol","messages":[{"role":"user","content":"Reply with exactly: GATEWAY_OK"}]}'
+          TEXT_RESP=$(curl -s -X POST "${GW}" -H "Authorization: Bearer ${CF_AIG_TOKEN}" -H "Content-Type: application/json" -d "${TEXT_BODY}")
+          echo "${TEXT_RESP}" | grep -q "GATEWAY_OK" || { echo "Smoke failed for gpt-6.1-sol text route: ${TEXT_RESP}"; exit 1; }
+          echo "Smoke passed: OpenAI route, gpt-6.1-sol, text"
+          PNG_B64=$(python3 -c "
+          import zlib, struct, base64
+          def chunk(t, d):
+              c = t + d
+              return struct.pack('>I', len(d)) + c + struct.pack('>I', zlib.crc32(c) & 0xffffffff)
+          raw = b'\x00\xff\x00\x00\x00\xff\x00\x00'
+          png = b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', 2, 1, 8, 2, 0, 0, 0)) + chunk(b'IDAT', zlib.compress(raw)) + chunk(b'IEND', b'')
+          print(base64.b64encode(png).decode())
+          ")
+          VISION_BODY="{\"model\":\"gpt-6.1-sol\",\"messages\":[{\"role\":\"user\",\"content\":[{\"type\":\"text\",\"text\":\"You were given an image. Reply with exactly: IMAGE_OK\"},{\"type\":\"image_url\",\"image_url\":{\"url\":\"data:image/png;base64,${PNG_B64}\"}}]}]}"
+          VISION_RESP=$(curl -s -X POST "${GW}" -H "Authorization: Bearer ${CF_AIG_TOKEN}" -H "Content-Type: application/json" -d "${VISION_BODY}")
+          echo "${VISION_RESP}" | grep -q "IMAGE_OK" || { echo "Smoke failed for gpt-6.1-sol vision route: ${VISION_RESP}"; exit 1; }
+          echo "Smoke passed: OpenAI route, gpt-6.1-sol, vision"
 
       - name: Run the ANVIL line in execute mode
         id: line
         run: |
+          set -o pipefail
           PYTHONPATH=.anvil-factory python3 -m anvil.cli run . \
             --pipeline .anvil-factory/pipelines/sdlc-default.json \
             --work-order work-orders/issue-1.json \
-            --execute
+            --execute 2>&1 | tee line-output.log
 
-      - name: Commit the run evidence and the station change back to the branch
-        if: always() && steps.smoke.outcome == 'success'
+      - name: Commit the run evidence and diagnostics back to the branch
+        if: always()
+        env:
+          SMOKE_OUTCOME: ${{ steps.smoke.outcome }}
+          LINE_OUTCOME: ${{ steps.line.outcome }}
         run: |
+          {
+            echo "# ANVIL execute run diagnostics"
+            echo ""
+            echo "- Workflow run: ${GITHUB_RUN_ID} (attempt ${GITHUB_RUN_ATTEMPT})"
+            echo "- Branch: ${GITHUB_REF_NAME}"
+            echo "- Trigger commit: ${GITHUB_SHA}"
+            echo "- Smoke step outcome: ${SMOKE_OUTCOME}"
+            echo "- Line step outcome: ${LINE_OUTCOME}"
+            echo "- python3: $(python3 --version 2>&1)"
+            echo "- node: $(node --version 2>&1)"
+            echo "- claude: $(claude --version 2>&1)"
+            echo "- codex: $(codex --version 2>&1)"
+            echo "- docker: $(docker --version 2>&1)"
+            if [ -f runs/wo-gh-1/report.json ]; then
+              echo "- Report: runs/wo-gh-1/report.json present"
+              python3 -c "import json; r = json.load(open('runs/wo-gh-1/report.json')); print('- Verdict:', r.get('verdict')); print('- Human required:', r.get('human_required'))" || true
+            else
+              echo "- Report: runs/wo-gh-1/report.json ABSENT"
+            fi
+            echo ""
+            echo "## Line output (last 150 lines)"
+            echo ""
+            echo '```'
+            tail -n 150 line-output.log 2>/dev/null || echo "line-output.log absent: the line step never ran or died before producing output."
+            echo '```'
+          } > run-diagnostics.md
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
+          git add -f runs/ 2>/dev/null || true
           git diff --cached --stat > run-diff.txt || true
+          git add run-diff.txt run-diagnostics.md
           if git diff --cached --quiet; then
             echo "The run produced no file changes to commit."
             exit 0
           fi
           VERDICT=$(python3 -c "import json; print(json.load(open('runs/wo-gh-1/report.json'))['verdict'])" 2>/dev/null || echo "no-report")
-          git commit -m "ANVIL execute run wo-gh-1 (issue 1): verdict ${VERDICT}" -m "Stations executed by Claude Code (claude-sonnet-4-5) through the Cloudflare AI Gateway. Builder change and run evidence included; see runs/wo-gh-1/."
+          git commit -m "ANVIL execute run wo-gh-1 (issue 1): verdict ${VERDICT}" -m "Run evidence and diagnostics included; see runs/wo-gh-1/ and run-diagnostics.md. Smoke outcome and line outcome are recorded in the diagnostics file."
+          git fetch origin "${GITHUB_REF_NAME}"
+          git rebase "origin/${GITHUB_REF_NAME}" || { git rebase --abort; echo "Rebase onto the branch tip failed; not pushing."; exit 1; }
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Comment the run report on issue 1
@@ -148,13 +232,11 @@ jobs:
                         f"`{branch}`):", "", "```", diff_path.read_text().strip(), "```"]
           lines += [
               "",
-              "Honest note: this run EXECUTED its agent stations. Claude Code "
-              "(claude-sonnet-4-5), routed through the Cloudflare AI Gateway, "
-              "received each station packet via tools/claude_station.py: the "
-              "builder edited the working tree, the reviewers answered with "
-              "review JSON that the approver aggregated for this run only, and "
-              "the deploy step ran only if the verdict approved it with no "
-              "human gate in the way.",
+              "Honest note: this run EXECUTED its agent stations through the "
+              "Cloudflare AI Gateway: the builder edited the working tree, "
+              "the reviewers answered with review JSON that the approver "
+              "aggregated for this run only, and the deploy step ran only "
+              "if the verdict approved it with no human gate in the way.",
               f"Workflow run: {run_url}",
           ]
           Path("comment.md").write_text("\n".join(lines) + "\n")
@@ -163,7 +245,7 @@ jobs:
           gh issue comment 1 --body-file comment.md
 
       - name: Upload the run directory
-        if: always() && steps.smoke.outcome == 'success'
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: anvil-execute-run-wo-gh-1
