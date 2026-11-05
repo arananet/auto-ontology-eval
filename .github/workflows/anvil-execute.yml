@@ -37,11 +37,16 @@ name: anvil-execute
 # 5. The line step tees its output to line-output.log, which the commit
 #    back step includes, and the push rebases onto the branch tip first,
 #    as the factory execute workflows do.
-# 6. The job token carries workflows: write. The first fully executed
-#    run (41968098425) built a new workflow file as part of the harness,
-#    and GitHub rejected the evidence push because a GitHub App token
-#    may not create workflow files without that permission; the whole
-#    commit, report included, was lost with the runner.
+# 6. Workflow files the line builds are withheld from the commit back
+#    and flagged in the diagnostics for operator recovery. Two walls,
+#    both proven on 2026-11-05: the push of run 41968098425 was rejected
+#    because a GitHub App token may not create workflow files without
+#    the workflows permission, and a workflows key in this permissions
+#    block is invalid for the job token, so the run that carried it
+#    (41970629902) failed at startup with zero jobs. The withheld files
+#    ride in the run artifact; the operator pushes them with a vault
+#    credential and a skip ci marker so the recovery cannot retrigger
+#    the line.
 on:
   push:
     branches: [anvil/run-auto-ontology-eval]
@@ -50,7 +55,6 @@ on:
 permissions:
   contents: write
   issues: write
-  workflows: write
 
 concurrency:
   group: anvil-execute-${{ github.ref_name }}
@@ -175,6 +179,15 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git add -f runs/ 2>/dev/null || true
+          WITHHELD=$(git diff --cached --name-only -- .github/workflows || true)
+          if [ -n "$WITHHELD" ]; then
+            {
+              echo "- OPERATOR ACTION REQUIRED: the job token cannot push workflow files; withheld from this commit:"
+              echo "$WITHHELD" | sed 's/^/  - /'
+              echo "  Recover them from this run's artifact and push with an operator credential (skip ci)."
+            } >> run-diagnostics.md
+            git reset -q -- .github/workflows || true
+          fi
           git diff --cached --stat > run-diff.txt || true
           git add run-diff.txt run-diagnostics.md
           if git diff --cached --quiet; then
@@ -255,5 +268,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: anvil-execute-run-wo-gh-1
-          path: runs/
+          path: |
+            runs/
+            .github/workflows/
           if-no-files-found: ignore
