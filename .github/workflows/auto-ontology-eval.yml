@@ -31,7 +31,13 @@ jobs:
       - name: Run the evaluation (fails closed)
         env:
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
-        run: PYTHONPATH=src python -m auto_ontology_eval --run-dir runs/eval --upstream-dir "${RUNNER_TEMP}/auto-ontology"
+        # The run dir is absolute on purpose: the harness passes its
+        # compose override to docker compose as a path derived from the
+        # run dir, while compose executes from the upstream checkout
+        # directory. A relative run dir made compose resolve the
+        # override against the upstream directory and fail at S1
+        # (attempt run 42126844035, evidence in runs/eval-attempts/).
+        run: PYTHONPATH=src python -m auto_ontology_eval --run-dir "${GITHUB_WORKSPACE}/runs/eval" --upstream-dir "${RUNNER_TEMP}/auto-ontology"
 
       - name: Upload run evidence
         if: always()
