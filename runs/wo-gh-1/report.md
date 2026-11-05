@@ -11,7 +11,7 @@ Outcome: accepted
 
 Risk: high
 
-Surfaces: deploy, data, api, content, security
+Surfaces: security, deploy, data, api, content
 
 ## Routing
 
@@ -31,7 +31,7 @@ Surfaces: deploy, data, api, content, security
 
 Verdict: changes_requested
 
-Reviewer reviewer-architecture requested changes. (Counted 2 reviews, expected 5.)
+Reviewer reviewer-spec requested changes. (Counted 1 reviews, expected 5.)
 
 ## Steps
 

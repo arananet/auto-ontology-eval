@@ -1,12 +1,11 @@
-I've written the security review to `.anvil-factory/runs/wo-gh-1/reviewer-security.review.json`, which is the path the validator wanted. The verdict is **pass**. I haven't re-run the JSON through the factory's own validator.
+I reviewed the security of the wo-gh-1 change and wrote the verdict, **pass**, to `runs/wo-gh-1/reviewer-security.review.json`. I read the code but did not run the harness or the workflow.
 
-I re-read the workflow, `live.py` and `secrets.py` before writing it. The same review already existed at `runs/wo-gh-1/reviewer-security.review.json` in the repo root, and my reading matched it, so I copied it to the expected path.
+- **Secrets:** `NVIDIA_API_KEY` comes only from the repository secret, and the run stops if it is missing or blank. Command output, HTTP bodies, failure reasons, compose logs and `RESULTS.md` are all redacted before they are written. The environment record uses an allowlist of variables, so the key can't end up there.
+- **Workflow:** it triggers only on `workflow_dispatch` and has `contents: read` permission. It uploads only `runs/eval`, and the upstream `.env` that holds the key sits outside that directory.
+- **Upstream code:** the clone is pinned to the required commit and the run aborts if HEAD differs. The Postgres password and `AUTH_SECRET` are random for each run.
 
-- **Secret handling:** `NVIDIA_API_KEY` is only passed as step env from the repository secret, and the run fails closed if it is missing. Everything written to disk goes through `redact`, including subprocess output, HTTP responses and compose logs.
-- **Workflow:** it runs on `workflow_dispatch` only, with `contents: read` permissions. It has no `pull_request_target` and no untrusted input in shell commands. It publishes nothing.
-- **Upstream pin and credentials:** the checkout is pinned to `cdaf61e` and verified. The Postgres password and `AUTH_SECRET` are generated per run. The upstream `.env` holds the key, is written with mode 0600, and sits outside the uploaded artifact path.
-- **Low-risk notes, no change required:**
-  - Redaction only catches exact matches of the key.
-  - The upstream MCP package runs in a venv that inherits the environment, including the key. It is the pinned code under evaluation.
-  - The GitHub Actions are pinned to major tags (v4, v5) rather than commit SHAs.
+I found three low-severity issues, none of which blocks approval:
+- The `.env` file is written first and set to mode 0600 afterwards, so for a moment it has the default permissions.
+- Redaction only replaces the exact key string, so an encoded copy of the key in a log would not be masked.
+- The upstream compose may publish ports on the runner. The runner is ephemeral and the credentials are random, so this is acceptable. Evidence is uploaded even when the run fails, which is a further reason to check the redaction.
 {"model": "claude-sonnet-5-5"}

@@ -34,7 +34,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from . import ablation, config, errors, fixture, reconcile, smoke, timing, upstream
+from . import ablation, config, equivalents, errors, fixture, reconcile, smoke, timing, upstream
 from .secrets import redact
 
 API = "http://localhost:3001"
@@ -251,6 +251,13 @@ def stage_s1(run_dir: Path, key: str) -> Path:
         return status == 200, f"GET /api/datasources/dbs -> HTTP {status}\n{body}"
 
     def mcp():
+        equivalents.record(
+            run_dir, "S1",
+            literal="MCP tools/list request sent over the network to the running MCP server",
+            equivalent="MCP tools listed in process against the pinned MCP server module (fastmcp in-memory client)",
+            reason="the pinned MCP server is not part of the upstream compose stack and its HTTP endpoint "
+                   "requires a frontend OAuth token, which the harness has no way to obtain without the "
+                   "interactive web login")
         ok, listing = _mcp_tools_in_process(key)
         return ok, ("Pinned MCP server requires a frontend OAuth token on HTTP; listing tools in process "
                     "(closest equivalent of tools/list):\n" + listing)
@@ -421,6 +428,15 @@ class RawSchemaArm:
 
 
 def stage_s4(run_dir: Path, key: str) -> Path:
+    equivalents.record(
+        run_dir, "S4",
+        literal="raw-schema arm SQL executed on the live Postgres (Source A) and DuckDB (Source B) sources",
+        equivalent="raw-schema arm SQL executed on an in-memory SQLite copy of the fixture, loaded from the "
+                   "same seed files, with Source A as schema a and Source B as schema b",
+        reason="the two live sources are separate engines, so one model-written query cannot join across "
+               "them; a single SQLite copy holding both sources lets the raw-schema arm answer every "
+               "question, including cross-source ones, with one query, and is the same engine the reference "
+               "SQL ground truths were computed on")
     ablation.run(fixture.load_questions(), OntologyArm(key, run_dir), RawSchemaArm(key, run_dir), run_dir)
     return run_dir / "ablation.json"
 

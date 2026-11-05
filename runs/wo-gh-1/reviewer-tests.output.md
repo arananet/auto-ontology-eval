@@ -1,10 +1,10 @@
-I've written the review to `runs/wo-gh-1/reviewer-tests.review.json` with verdict `changes_requested`. The offline tests are real and pass, but the live evaluation has not run.
+I wrote the review to `runs/wo-gh-1/reviewer-tests.review.json` with the verdict `changes_requested`.
 
-- **Offline tests:** All 89 tests passed with `python -m unittest discover -s tests -t .`. They map to the spec scenarios in `tests/SCENARIOS.md`.
-- **Live run:** The only executed run, GitHub run 41971180197, stopped at the preflight step. The spec's chat model `nvidia/nemotron-3-nano-30b-a3b` returned HTTP 410. NVIDIA retired it on 2026-09-01. The smoke check, reconciliation scoring, ablation and time to first ontology therefore have no evidence. The only RESULTS.md says "No run evidence" for each of those sections.
-- **Fail-closed behaviour:** The harness recorded the failure and did not estimate any numbers.
-- **Needed next:** Someone has to pick a chat model that is still served. Then the workflow can be rerun and the real RESULTS.md committed. I also suggested adding an offline test that treats a preflight 410 or 404 as its own failure type.
-- **No checks gate:** The checks gate is `not_configured`, so nothing automated runs these tests.
+- **Offline tests:** They are real and mapped to the spec in `tests/SCENARIOS.md`. `python -m unittest discover -s tests -t .` ran 97 tests: all pass, 1 skipped.
+- **Missing live evidence:** There is no `RESULTS.md` at the repo root and no `runs/eval` directory. The only `RESULTS.md` is the failed preflight (HTTP 410), so S1, S3 and S4 have no executed evidence.
+- **Unverified equivalents:** `tests/SCENARIOS.md` says the live steps that write `equivalents.json` are untested. The two equivalents named in the limits section are therefore unconfirmed.
+- **Skipped test:** I did not look at which test is skipped or why. I asked for its reason to be documented or the test enabled.
+- **Stale work-order model id:** The work order still quotes the old chat model id. The spec's Amendment 1 and the tests use `nvidia/nemotron-nano-3-30b-a3b`, so I flagged the work order for reconciling.
 
-I did not change any files other than the review file.
+The next step is to run the `auto-ontology-eval` workflow in GitHub Actions with the `NVIDIA_API_KEY` secret and commit the real `RESULTS.md` and artifacts. Then the tests can be re-reviewed against that evidence.
 {"model": "claude-sonnet-5-5"}

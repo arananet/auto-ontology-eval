@@ -5,7 +5,7 @@
   "work_order_id": "wo-gh-1",
   "artifact_path": "runs/wo-gh-1/checks-gate.pre-review.output.md",
   "status": "not_configured",
-  "created_at": "2026-11-05T05:14:02.976487+00:00",
+  "created_at": "2026-11-05T19:05:56.518186+00:00",
   "phase": "pre-review",
   "commands": [],
   "exit_codes": [],

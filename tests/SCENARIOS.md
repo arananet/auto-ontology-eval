@@ -14,6 +14,7 @@ Run from the project root with the standard library only:
 | S3 reconciliation | `test_s3_reconciliation.py` | exactly one mark per conflict, only verbatim quotes count, deterministic classifier, time to first ontology, fail closed on missing events |
 | S4 ablation | `test_s4_ablation.py` | 2-decimal and order-free scoring, per-arm correctness and delta, verbatim SQL, provenance flag, ground truth written before any model call, same model and settings enforced and recorded |
 | S5 RESULTS.md, plus the fail-closed requirement | `test_s5_results_and_fail_closed.py` | sections in order, every value comes from an artifact, failure gallery has the wrong SQL verbatim, limits section, "No run evidence" for missing sections, failed step recorded, no key, pipeline stops at the first failed step |
+| S5 amended: the limits section names every equivalent the run used, and why (MCP tools listed in process, raw-schema arm SQL run on a copy of the fixture) | `test_s5_limits_equivalents.py` | steps record each equivalent in `equivalents.json` (`scenario`, `literal`, `equivalent`, `reason`); every recorded entry appears in `## Limits` with its reason; entries the run did not record are never named; a missing reason is flagged; a missing artifact says "No run evidence"; an empty list says no equivalents; the key is redacted |
 | Requirements: Actions runner, nothing published | `test_workflow.py` | `.github/workflows/auto-ontology-eval.yml` runs on ubuntu, takes the key from the secret only, never echoes it, has no publish steps |
 
 ## Not testable offline
@@ -25,3 +26,4 @@ These need the executed GitHub Actions run, so they are evidence for the reviewe
 - Postgres registration of Source A.
 - The real catalog export.
 - RESULTS.md and the run artifacts being committed by the line.
+- The live S1 and S4 steps actually writing their entries to `equivalents.json`. The offline tests only cover how RESULTS.md renders entries once they are recorded.

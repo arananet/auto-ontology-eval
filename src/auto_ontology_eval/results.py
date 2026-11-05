@@ -1,8 +1,8 @@
 """S5: write RESULTS.md from run artifacts only.
 
 Reads environment.json, smoke/smoke.json, timing.json, reconciliation.json,
-generation_settings.json, ablation.json and failure.json from the run
-directory. A section whose artifact is absent says "No run evidence"; it
+generation_settings.json, ablation.json, equivalents.json and failure.json
+from the run directory. A section whose artifact is absent says "No run evidence"; it
 never estimates.
 """
 from __future__ import annotations
@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from . import equivalents
 from .secrets import redact
 
 NO_EVIDENCE = "No run evidence: the run did not produce `{}`."
@@ -173,9 +174,28 @@ def _gallery(run_dir: Path) -> list[str]:
     return out
 
 
-def _limits() -> list[str]:
-    return ["## Limits", "",
-            "This is what the fixture did not exercise. No claim here goes beyond it.", ""] + LIMITS + [""]
+def _equivalents(run_dir: Path) -> list[str]:
+    out = ["### Equivalents used instead of the literal spec step", ""]
+    entries = equivalents.load(run_dir)
+    if entries is None:
+        return out + [NO_EVIDENCE.format(equivalents.FILENAME)
+                      + " Whether the run used equivalents is not known.", ""]
+    if not entries:
+        return out + ["The run recorded no equivalents: every step it reached ran as the spec states.", ""]
+    out += ["Each entry is a place where the run did something other than the literal step in S1 to S4.", ""]
+    for e in entries:
+        e = e if isinstance(e, dict) else {}
+        reason = str(e.get("reason") or "").strip() or "reason not recorded"
+        out.append(f"- {e.get('scenario') or 'scenario not recorded'}: "
+                   f"{e.get('equivalent') or 'equivalent not recorded'}, "
+                   f"instead of {e.get('literal') or 'literal step not recorded'}. Why: {reason}.")
+    return out + [""]
+
+
+def _limits(run_dir: Path) -> list[str]:
+    return (["## Limits", "",
+             "This is what the fixture did not exercise. No claim here goes beyond it.", ""] + LIMITS + [""]
+            + _equivalents(run_dir))
 
 
 def write_results(run_dir, out_path, secret: str | None = None) -> str:
@@ -187,7 +207,7 @@ def write_results(run_dir, out_path, secret: str | None = None) -> str:
         lines += [f"**Run stopped** at step `{failure.get('step')}`: {failure.get('reason')}", "",
                   "Sections after the failed step have no run evidence; nothing below is estimated.", ""]
     for part in (_environment(run_dir), _timing(run_dir), _reconciliation(run_dir),
-                 _questions(run_dir), _gallery(run_dir), _limits()):
+                 _questions(run_dir), _gallery(run_dir), _limits(run_dir)):
         lines += part
     text = redact("\n".join(lines).rstrip() + "\n", secret)
     Path(out_path).write_text(text, encoding="utf-8")

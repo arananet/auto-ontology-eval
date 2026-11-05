@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
-from . import environment, errors, results, secrets
+from . import environment, equivalents, errors, results, secrets
 
 Step = "tuple[str, Callable[[Path, str], Path]]"
 
@@ -20,9 +20,9 @@ def _fail(run_dir: Path, step: str, reason: str, key: str | None) -> None:
 def run_all(env: Mapping[str, str], steps: Sequence, run_dir) -> int:
     run_dir = Path(run_dir)
     run_dir.mkdir(parents=True, exist_ok=True)
-    stale = run_dir / "failure.json"
-    if stale.exists():
-        stale.unlink()
+    for stale in (run_dir / "failure.json", run_dir / equivalents.FILENAME):
+        if stale.exists():
+            stale.unlink()
     (run_dir / "environment.json").write_text(json.dumps(environment.collect(env), indent=2))
     key = None
     code = 0
@@ -33,6 +33,7 @@ def run_all(env: Mapping[str, str], steps: Sequence, run_dir) -> int:
         _fail(run_dir, "secrets", str(exc), None)
         code = 1
     if code == 0:
+        equivalents.start(run_dir)
         for name, fn in steps:
             try:
                 evidence = fn(run_dir, key)

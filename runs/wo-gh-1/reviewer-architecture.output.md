@@ -1,10 +1,8 @@
-I wrote the review to `runs/wo-gh-1/reviewer-architecture.review.json`, with the verdict `changes_requested`. I also copied it into `.anvil-factory/runs/wo-gh-1/`, because the working directory was `.anvil-factory` and the project root is its parent. The JSON parses cleanly.
+I wrote the review to `runs/wo-gh-1/reviewer-architecture.review.json` with a verdict of **pass**. The file parses as valid JSON.
 
-- **Structure fits.** The package has one module per spec scenario, and there is a fixture directory, a test-to-scenario map and a single `workflow_dispatch` workflow. This matches decision 0001 (composable stations).
-- **Decision 0003 is not met.** The only executed evidence is the preflight run, which stopped when the chat model `nvidia/nemotron-3-nano-30b-a3b` returned HTTP 410. S1 smoke, S3 reconciliation, S4 ablation and time-to-first-ontology have no run evidence, so the Done criterion is unmet.
-- **Two deviations weaken the comparison.** The raw-schema arm runs its SQL on a SQLite copy instead of the live Postgres and DuckDB sources. The MCP probe lists tools in process instead of through the running server. Both must go in the limits section of `RESULTS.md`, or the harness should be changed to use the real engines and endpoint.
-- **The model-id question is open.** The spec owner needs to either amend the spec to a model that is still served or confirm the id. I asked for the choice to be recorded as a numbered decision in `brain/decisions`. I also asked for an offline test that a preflight 410 or 404 is reported as its own failure type.
-- **Housekeeping.** `.anvil-factory/runs/wo-gh-1` holds a stale `builder.output.md` that describes an unrelated design-system feature, and it should be removed or regenerated.
-
-I checked structure and the existing review files only, and I did not run the test suite or the workflow.
+- **Fit with the structure:** The change matches the blueprint: stdlib-first, one module per responsibility, with tests mirroring the package. The new `equivalents.py` is small and has one job. `pipeline.py`, `live.py` and `results.py` change only slightly to use it.
+- **Data flow:** `RESULTS.md` is still built only from run artifacts, and the limits section now comes from recorded equivalents instead of fixed text. A missing artifact renders as "No run evidence" instead of an estimate. `pipeline.py` clears the record at the start of each run, so stale evidence can't carry over.
+- **Decisions:** The project has no `brain/decisions` directory. `brain/project.md` only states the idea. The code follows spec Amendment 1, which sets the chat model pin, and I found nothing it contradicts.
+- **Non-blocking notes:** The S1 MCP stage and the S4 stage record their equivalent before the substituted step runs, so an entry exists even if that step then fails. `live.py` is about 460 lines and could be split by stage if it grows.
+- **Not approved here:** There is still no executed end-to-end run: no root `RESULTS.md` and no `runs/eval`. `reviewer-spec` and `reviewer-tests` both flagged this as blocking acceptance. It isn't an architecture defect, so it doesn't change my verdict, but it still needs resolving.
 {"model": "claude-sonnet-5-5"}

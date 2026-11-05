@@ -1,13 +1,11 @@
-I wrote the review to `runs/wo-gh-1/reviewer-spec.review.json` with verdict `changes_requested`. I inspected the code and ran the offline tests, which pass (89 tests). I did not run the live stack.
+I wrote the review to `runs/wo-gh-1/reviewer-spec.review.json` with verdict `changes_requested`. The path is relative to `.anvil-factory`, and the file parses as valid JSON.
 
-- **Matches the spec:** the fixture (S2) has 8 tables across Source A (Postgres) and Source B (DuckDB), with fixed seed files, ground truths and a four-conflict checklist. The pinned commit and the three model ids match the spec exactly. The workflow takes `NVIDIA_API_KEY` only from the repository secret.
-- **Not met:**
-  - The builder says the S1, S3 and S4 code has never run against a real stack, and there is no `RESULTS.md`. The spec's "Done" criterion needs an end-to-end Actions run with `RESULTS.md` and artifacts committed, so that is outstanding.
-  - The workflow only uploads evidence as an artifact and does not commit it.
-- **Deviations to record as limits in `RESULTS.md`:**
-  - The MCP probe lists tools in process, because the pinned MCP server needs an OAuth token.
-  - The raw-schema arm's SQL runs on a SQLite copy, not on live Postgres and DuckDB.
-- **Housekeeping:** the spec header still says `Status: draft`.
+- **No live run exists.** There is no root `RESULTS.md` and no `runs/eval` directory. The only run evidence is a failed preflight, which hit HTTP 410 on the old chat model, so S1, S3, S4 and S5 have no live evidence. The spec's Done condition isn't met.
+- **Offline, the harness matches the spec.** The upstream commit, the embedding and rerank models, and the chat model per Amendment 1 all match. The fixture has 8 tables, a 4-conflict checklist and 12 questions. The unit suite passes: 97 tests, 1 skipped.
+- **Two items need confirming in the real run.** The S5 limits section lists both required equivalents, but only offline tests cover that. The workflow takes the key only from secrets, but I couldn't check the logs.
+- **The work order is stale.** It still quotes the old chat pin. Amendment 1 governs.
 
-I asked for the workflow to be executed, `RESULTS.md` and the artifacts committed, and the two limits written down. I also asked for a re-review against the executed evidence.
+To clear this, run the `auto-ontology-eval` workflow in GitHub Actions with `NVIDIA_API_KEY` set, commit the resulting `RESULTS.md` and artifacts, and re-review against them.
+
+That notification is just my earlier background `find` command finishing. It doesn't change anything. The review file is already written at `runs/wo-gh-1/reviewer-spec.review.json` with verdict `changes_requested`, and nothing more is needed from this step.
 {"model": "claude-sonnet-5-5"}
