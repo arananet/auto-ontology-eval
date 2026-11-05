@@ -1,0 +1,9 @@
+{
+  "kind": "probe",
+  "note": "Probe only, not an evaluation run. stage_preflight from src/auto_ontology_eval/live.py executed with config.CHAT_MODEL set to the candidate; the spec pin was not changed by this probe.",
+  "candidate": "nvidia/nemotron-3-super-120b-a12b",
+  "spec_pin_at_probe_time": "nvidia/nemotron-nano-3-30b-a3b",
+  "outcome": "failed",
+  "detail": "hosted model preflight failed: nvidia/nemotron-3-super-120b-a12b HTTP 404: {\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function 'ac74040f-9fc9-4c5e-ac74-279ba5161d69': Not found for account 'Nyo8YJeegLDUWvrHQKwJHRnKZkN5K-7P-1Hhs1RiROs'\"}",
+  "github_run_id": "42126620573"
+}
