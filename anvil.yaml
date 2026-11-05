@@ -1,5 +1,10 @@
 {
   "version": 1,
+  "runtime": {
+    "command": "python3 .anvil-factory/tools/dispatch_station.py {packet} {output}",
+    "kind": "command",
+    "timeout_seconds": 1800
+  },
   "stations": {
     "intake": {
       "context": [
