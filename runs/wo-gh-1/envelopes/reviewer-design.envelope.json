@@ -5,7 +5,7 @@
   "work_order_id": "wo-gh-1",
   "artifact_path": "runs/wo-gh-1/reviewer-design.packet.md",
   "status": "failed",
-  "created_at": "2026-11-05T04:50:47.892945+00:00",
+  "created_at": "2026-11-05T05:16:05.687642+00:00",
   "error": "command executor exited 3: codex_station: codex produced empty output for station reviewer-design",
   "configured_model": "openai/gpt-6.1-sol",
   "executor": {

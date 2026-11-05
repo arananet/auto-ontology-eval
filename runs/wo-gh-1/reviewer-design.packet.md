@@ -111,8 +111,29 @@ Example 3: Interface meets design system
 
 ## Diff summary
 
-- .openspec/specs/auto-ontology-enterprise-eval/spec.md: +5, -4
+- .openspec/specs/auto-ontology-enterprise-eval/spec.md: +5, -3
 - line-output.log: +0, -1
+- runs/wo-gh-1/builder.output.md: +28, -17
+- runs/wo-gh-1/envelopes/builder.envelope.json: +1, -1
+- runs/wo-gh-1/envelopes/checks-gate.envelope.json: +1, -1
+- runs/wo-gh-1/envelopes/intake.envelope.json: +1, -1
+- runs/wo-gh-1/envelopes/reviewer-architecture.envelope.json: +14, -2
+- runs/wo-gh-1/envelopes/reviewer-security.envelope.json: +7, -8
+- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json: +2, -16
+- runs/wo-gh-1/envelopes/reviewer-tests.envelope.json: +2, -14
+- runs/wo-gh-1/envelopes/spec-writer.envelope.json: +1, -1
+- runs/wo-gh-1/envelopes/test-writer.envelope.json: +1, -1
+- runs/wo-gh-1/intake.output.md: +1, -7
+- runs/wo-gh-1/reviewer-architecture.output.md: +7, -6
+- runs/wo-gh-1/reviewer-security.output.md: +10, -8
+- runs/wo-gh-1/reviewer-security.review.json: +6, -7
+- runs/wo-gh-1/reviewer-spec.output.md: +11, -6
+- runs/wo-gh-1/reviewer-spec.review.json: +0, -15
+- runs/wo-gh-1/reviewer-tests.output.md: +8, -6
+- runs/wo-gh-1/reviewer-tests.review.json: +0, -13
+- runs/wo-gh-1/routing.json: +2, -2
+- runs/wo-gh-1/spec-writer.output.md: +11, -10
+- runs/wo-gh-1/test-writer.output.md: +30, -17
 
 ## File access allowlist
 
@@ -121,6 +142,27 @@ This packet may only embed content from:
 - design/tokens.json
 - .openspec/specs/auto-ontology-enterprise-eval/spec.md
 - line-output.log
+- runs/wo-gh-1/builder.output.md
+- runs/wo-gh-1/envelopes/builder.envelope.json
+- runs/wo-gh-1/envelopes/checks-gate.envelope.json
+- runs/wo-gh-1/envelopes/intake.envelope.json
+- runs/wo-gh-1/envelopes/reviewer-architecture.envelope.json
+- runs/wo-gh-1/envelopes/reviewer-security.envelope.json
+- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json
+- runs/wo-gh-1/envelopes/reviewer-tests.envelope.json
+- runs/wo-gh-1/envelopes/spec-writer.envelope.json
+- runs/wo-gh-1/envelopes/test-writer.envelope.json
+- runs/wo-gh-1/intake.output.md
+- runs/wo-gh-1/reviewer-architecture.output.md
+- runs/wo-gh-1/reviewer-security.output.md
+- runs/wo-gh-1/reviewer-security.review.json
+- runs/wo-gh-1/reviewer-spec.output.md
+- runs/wo-gh-1/reviewer-spec.review.json
+- runs/wo-gh-1/reviewer-tests.output.md
+- runs/wo-gh-1/reviewer-tests.review.json
+- runs/wo-gh-1/routing.json
+- runs/wo-gh-1/spec-writer.output.md
+- runs/wo-gh-1/test-writer.output.md
 
 ## Work order
 

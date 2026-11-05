@@ -1,0 +1,153 @@
+{
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "What is the company's total net sales after returns?",
+      "answer_type": "number",
+      "expected": 1549.75,
+      "reference_sql": "SELECT ROUND(SUM(net_sales), 2) FROM a.fact_sales",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "derivation": "Sum of fact_sales.net_sales (Source A, already net of returns)."
+    },
+    {
+      "id": "Q02",
+      "question": "What is the total gross sales value before any returns?",
+      "answer_type": "number",
+      "expected": 1598.25,
+      "reference_sql": "SELECT ROUND(SUM(net_sales), 2) FROM b.shipments",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "derivation": "Sum of shipments.net_sales (Source B, gross, returns included); equals SUM(fact_sales.gross_sales)."
+    },
+    {
+      "id": "Q03",
+      "question": "What is the total value of returns?",
+      "answer_type": "number",
+      "expected": 48.5,
+      "reference_sql": "SELECT ROUND((SELECT SUM(net_sales) FROM b.shipments) - (SELECT SUM(net_sales) FROM a.fact_sales), 2)",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "derivation": "Source B net_sales total minus Source A net_sales total; equals SUM(sales_returns.return_amount)."
+    },
+    {
+      "id": "Q04",
+      "question": "What are net sales after returns for the brand Nordwind?",
+      "answer_type": "number",
+      "expected": 961.55,
+      "reference_sql": "SELECT ROUND(SUM(f.net_sales), 2) FROM a.fact_sales f JOIN a.dim_product p ON p.sku = f.sku WHERE p.brand = 'Nordwind'",
+      "conflict_ids": [
+        "net_sales_semantics",
+        "product_hierarchy"
+      ],
+      "derivation": "fact_sales joined to dim_product, brand = Nordwind."
+    },
+    {
+      "id": "Q05",
+      "question": "Which categories does the brand Alpine Spring have products in?",
+      "answer_type": "set",
+      "expected": [
+        "Soda",
+        "Water"
+      ],
+      "reference_sql": "SELECT DISTINCT category FROM a.dim_product WHERE brand = 'Alpine Spring'",
+      "conflict_ids": [
+        "product_hierarchy"
+      ],
+      "derivation": "dim_product rows with brand = Alpine Spring."
+    },
+    {
+      "id": "Q06",
+      "question": "What are net sales after returns for the Juice category?",
+      "answer_type": "number",
+      "expected": 1052.8,
+      "reference_sql": "SELECT ROUND(SUM(f.net_sales), 2) FROM a.fact_sales f JOIN a.dim_product p ON p.sku = f.sku WHERE p.category = 'Juice'",
+      "conflict_ids": [
+        "net_sales_semantics",
+        "product_hierarchy"
+      ],
+      "derivation": "fact_sales joined to dim_product, category = Juice."
+    },
+    {
+      "id": "Q07",
+      "question": "How many units were shipped from Lyon Works?",
+      "answer_type": "number",
+      "expected": 507.0,
+      "reference_sql": "SELECT SUM(s.units) FROM b.shipments s JOIN b.plants pl ON pl.plant_code = s.plant_code JOIN a.dim_location l ON l.city = pl.plant_city WHERE l.location_name = 'Lyon Works'",
+      "conflict_ids": [
+        "location_identity"
+      ],
+      "derivation": "Lyon Works is plant code PL01 in Source B; sum of shipments.units where plant_code = PL01."
+    },
+    {
+      "id": "Q08",
+      "question": "What are net sales after returns for sales through distribution center DC-N1?",
+      "answer_type": "number",
+      "expected": 608.15,
+      "reference_sql": "SELECT ROUND(SUM(f.net_sales), 2) FROM a.fact_sales f JOIN a.dim_location l ON l.location_id = f.location_id JOIN b.distribution_centers d ON d.dc_city = l.city WHERE d.dc_code = 'DC-N1'",
+      "conflict_ids": [
+        "location_identity",
+        "net_sales_semantics"
+      ],
+      "derivation": "DC-N1 is Rotterdam Hub in Source A; sum of fact_sales.net_sales at Rotterdam Hub."
+    },
+    {
+      "id": "Q09",
+      "question": "Which plant codes shipped goods to Milan Depot?",
+      "answer_type": "set",
+      "expected": [
+        "PL01",
+        "PL02"
+      ],
+      "reference_sql": "SELECT DISTINCT s.plant_code FROM b.shipments s JOIN b.distribution_centers d ON d.dc_code = s.dc_code JOIN a.dim_location l ON l.city = d.dc_city WHERE l.location_name = 'Milan Depot'",
+      "conflict_ids": [
+        "location_identity"
+      ],
+      "derivation": "Milan Depot is DC-S1 in Source B; distinct shipments.plant_code where dc_code = DC-S1."
+    },
+    {
+      "id": "Q10",
+      "question": "Which SKUs exist in both the sales mart and the ops mart?",
+      "answer_type": "set",
+      "expected": [
+        "SKU-1002",
+        "SKU-1003",
+        "SKU-1004",
+        "SKU-1005",
+        "SKU-1006",
+        "SKU-1007"
+      ],
+      "reference_sql": "SELECT sku FROM a.dim_product INTERSECT SELECT item_sku FROM b.items",
+      "conflict_ids": [
+        "shared_sku_identity"
+      ],
+      "derivation": "dim_product.sku intersected with items.item_sku."
+    },
+    {
+      "id": "Q11",
+      "question": "How many SKUs exist only in the ops mart?",
+      "answer_type": "number",
+      "expected": 3.0,
+      "reference_sql": "SELECT COUNT(*) FROM (SELECT item_sku FROM b.items EXCEPT SELECT sku FROM a.dim_product)",
+      "conflict_ids": [
+        "shared_sku_identity"
+      ],
+      "derivation": "items.item_sku not present in dim_product.sku."
+    },
+    {
+      "id": "Q12",
+      "question": "How many units of the brand Sol Mar were shipped?",
+      "answer_type": "number",
+      "expected": 90.0,
+      "reference_sql": "SELECT SUM(s.units) FROM b.shipments s JOIN a.dim_product p ON p.sku = s.item_sku WHERE p.brand = 'Sol Mar'",
+      "conflict_ids": [
+        "shared_sku_identity",
+        "product_hierarchy"
+      ],
+      "derivation": "shipments joined to dim_product on SKU (item_sku = sku), brand = Sol Mar."
+    }
+  ]
+}

@@ -8,7 +8,7 @@
       "station": "intake",
       "status": "executed",
       "detail": "Executed by command; outcome: accepted",
-      "duration_ms": 3847.675,
+      "duration_ms": 3370.393,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/intake.output.md"
@@ -27,7 +27,7 @@
       "station": "spec-writer",
       "status": "executed",
       "detail": "Executed by command; output written to runs/wo-gh-1/spec-writer.output.md",
-      "duration_ms": 47506.369,
+      "duration_ms": 38848.96,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/spec-writer.output.md"
@@ -46,7 +46,7 @@
       "station": "test-writer",
       "status": "executed",
       "detail": "Executed by command; output written to runs/wo-gh-1/test-writer.output.md",
-      "duration_ms": 279350.06,
+      "duration_ms": 331818.281,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/test-writer.output.md"
@@ -65,7 +65,7 @@
       "station": "builder",
       "status": "executed",
       "detail": "Executed by command; output written to runs/wo-gh-1/builder.output.md",
-      "duration_ms": 684161.328,
+      "duration_ms": 449494.87,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/builder.output.md"
@@ -84,7 +84,7 @@
       "station": "checks-gate",
       "status": "not_configured",
       "detail": "No checks configured",
-      "duration_ms": 0.07,
+      "duration_ms": 0.079,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/checks-gate.pre-review.output.md"
@@ -109,8 +109,8 @@
     {
       "station": "reviewer-spec",
       "status": "executed",
-      "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-spec.output.md",
-      "duration_ms": 119395.931,
+      "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-spec.output.md; review file was not written by the station",
+      "duration_ms": 21275.635,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-spec.output.md"
@@ -129,7 +129,7 @@
       "station": "reviewer-security",
       "status": "executed",
       "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-security.output.md",
-      "duration_ms": 49176.545,
+      "duration_ms": 44719.308,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-security.output.md"
@@ -147,8 +147,8 @@
     {
       "station": "reviewer-tests",
       "status": "executed",
-      "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-tests.output.md",
-      "duration_ms": 46118.571,
+      "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-tests.output.md; review file was not written by the station",
+      "duration_ms": 20648.392,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-tests.output.md"
@@ -166,8 +166,8 @@
     {
       "station": "reviewer-architecture",
       "status": "executed",
-      "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-architecture.output.md; review file was not written by the station",
-      "duration_ms": 18508.666,
+      "detail": "Executed by command; output written to runs/wo-gh-1/reviewer-architecture.output.md",
+      "duration_ms": 22083.339,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-architecture.output.md"
@@ -186,7 +186,7 @@
       "station": "reviewer-design",
       "status": "failed",
       "detail": "Executor failed: command executor exited 3: codex_station: codex produced empty output for station reviewer-design",
-      "duration_ms": 12937.374,
+      "duration_ms": 13983.216,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-design.packet.md"
@@ -197,7 +197,7 @@
         "kind": "command",
         "detail": "python3"
       },
-      "measured_tokens": 3382,
+      "measured_tokens": 3968,
       "budget": 50000,
       "budget_action": "sent"
     },
@@ -205,7 +205,7 @@
       "station": "reviewer-ux",
       "status": "routed_out",
       "detail": "Routed out: Routed out: no UI surface",
-      "duration_ms": 0.755,
+      "duration_ms": 0.906,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/reviewer-ux.packet.md"
@@ -221,7 +221,7 @@
       "station": "approver",
       "status": "completed",
       "detail": "Approver verdict: changes_requested",
-      "duration_ms": 0.039,
+      "duration_ms": 0.04,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/report.json"
@@ -236,9 +236,9 @@
     {
       "station": "approver",
       "status": "loopback",
-      "return_to": "spec-writer",
-      "detail": "Loopback to spec-writer: S1 not met: the stack was never started at the pinned commit; no API health check, catalog capture or MCP probe evidence exists from an executed run (builder output: 'none of S1 to S5 has run against the real stack').; S3 not met: ontology generation never ran. The spec-pinned chat model nvidia/nemotron-3-nano-30b-a3b returned HTTP 410 Gone (end of life 2026-09-01) on the hosted endpoint, so no catalog was exported and no conflict was marked detected/reconciled/ignored with a verbatim quote. The spec forbids switching models, so the spec owner must pin a replacement (e.g. nvidia/nemotron-3.5-lightning-30b-a3b or nvidia/nemotron-nano-3-30b-a3b) before this can proceed.; S4 not met: neither arm (Auto Ontology chat API vs raw schema) was run, so there is no per-question correctness, delta, provenance record or verbatim wrong SQL. Reference answers and normalization exist in fixture/, which is conforming, but the ablation is unexecuted.; S5 not met: RESULTS.md is absent from the repo. The spec requires it from an executed run, and a 'run stopped early' stub does not satisfy 'Done means: the run executed end to end in GitHub Actions, RESULTS.md and run artifacts committed'.; S2 largely conforms: the fixture has 8 tables (4 CSVs per source) with fixed seed files, and conflicts.json, questions.json, GROUND_TRUTH.md and NORMALIZATION.md are present. Source A is a Postgres sales mart and Source B is a DuckDB ops mart. Not verified by me: whether all 12 questions cover each planted conflict, and whether the checklist has at least 4 entries with the true location mapping and SKU identity.; Secret handling and fail-closed behaviour look consistent with the spec (NVIDIA_API_KEY only from the repository secret, preflight stops early, tests in tests/test_secrets_and_config.py and tests/test_harness_fail_closed.py). They are not proven by an executed run.; Spec housekeeping: the spec header still says 'Status: draft' although the work order says approved. The spec file has uncommitted modifications and the builder's work is entirely uncommitted. The spec change was not examined here and needs the owner's confirmation.; Deviations needing owner acceptance, not silent approval: the MCP tools/list probe runs in-process because the pinned server requires an OAuth token for every HTTP request, and the harness writes the ontology-generation setting row itself. Both are recorded as limits but are stretches of 'closest equivalent the pinned version exposes'.; Missing to proceed: a spec-owner decision on the replacement chat model (and a spec update), then a live GitHub Actions run producing RESULTS.md and artifacts.; Secret handling OK: NVIDIA_API_KEY comes only from secrets.NVIDIA_API_KEY in .github/workflows/auto-ontology-eval.yml. config.require_api_key fails closed on missing or blank values with no fallback. No key literal is committed.; Redaction OK: live.py writes artifacts (JSON, text, container logs) through scrub(), which redacts the known key and any nvapi- shaped string. The upstream .env is created with mode 0600, is gitignored, and is removed in teardown. Compose is run with 'down -v'.; Workflow OK: workflow_dispatch only (no pull_request_target), permissions limited to contents: read, and nothing is published. Results go to a workflow artifact only. The artifact paths are RESULTS.md and runs/wo-gh-1/eval/, which are scrubbed, and the .env file is not included.; Subprocess use is safe: commands are argument lists with no shell=True. The upstream commit is pinned and its HEAD is verified. The Postgres password and AUTH_SECRET are generated randomly per run with the secrets module.; Minor, non-blocking: the job-level env exposes the key to the unit-test step, which does not need it. Scope it to the run step. A log or upload step failing before scrub could still be defence-in-depth checked with a final grep of the artifact dir for nvapi-.; Minor, non-blocking: the upstream stack publishes service ports on the runner. This is acceptable on an ephemeral runner, but would be unsafe if the harness were run on a shared host. The frontend.configurations row is written directly to Postgres, and the harness documents this in the smoke notes.; Limitation of this review: I read the code and workflow only. No executed run exists, and the NVIDIA_API_KEY secret is not yet set on the repo, so redaction in real artifacts is not proven.; Offline tests are real and mapped: 92 tests across test_s1..test_s5, test_secrets_and_config and test_harness_fail_closed, each file tied to a spec scenario. All 92 pass (python -m unittest discover, with duckdb installed). Note pytest is not installed in the runner; unittest discovery works.; The tests cover contracts only (fixture determinism, scoring, quote checking, fail-closed, secret hygiene, RESULTS.md rendering). None of S1 to S5 has been exercised against the real stack, so the spec's 'done' condition (end-to-end run in GitHub Actions, RESULTS.md and artifacts committed) is not met. No RESULTS.md exists in the repo.; The builder reports the chat model nvidia/nemotron-3-nano-30b-a3b returns HTTP 410 (end of life 2026-09-01) on the hosted endpoint. The spec forbids switching models, so S3 and both S4 arms are blocked until the spec owner pins a replacement. This is an input gap, not something to guess around.; The MCP probe departs from the spec's literal wording: the pinned server requires an OAuth token, so tools/list runs in-process plus a recorded unauthenticated HTTP probe. The tests should show that S1 still fails closed if the in-process listing fails. The spec owner should confirm this counts as the 'closest equivalent'.; S3 reconciliation marks come from fixed regex rules, with quotes verified verbatim against the exported catalog. That satisfies the mechanical check. A false positive was caught against a fabricated catalog, but there is no evidence the rules behave correctly on real Auto Ontology output until a live run happens.; Spec file still says Status: draft although the work order calls it approved. This is a minor housekeeping item.; Requested: the spec owner pins a replacement chat model. Then update config.CHAT_MODEL and tests/_support.CHAT_MODEL, run the workflow with the NVIDIA_API_KEY secret, and commit RESULTS.md and the artifacts. Re-review after that.",
-      "reason": "S1 not met: the stack was never started at the pinned commit; no API health check, catalog capture or MCP probe evidence exists from an executed run (builder output: 'none of S1 to S5 has run against the real stack').; S3 not met: ontology generation never ran. The spec-pinned chat model nvidia/nemotron-3-nano-30b-a3b returned HTTP 410 Gone (end of life 2026-09-01) on the hosted endpoint, so no catalog was exported and no conflict was marked detected/reconciled/ignored with a verbatim quote. The spec forbids switching models, so the spec owner must pin a replacement (e.g. nvidia/nemotron-3.5-lightning-30b-a3b or nvidia/nemotron-nano-3-30b-a3b) before this can proceed.; S4 not met: neither arm (Auto Ontology chat API vs raw schema) was run, so there is no per-question correctness, delta, provenance record or verbatim wrong SQL. Reference answers and normalization exist in fixture/, which is conforming, but the ablation is unexecuted.; S5 not met: RESULTS.md is absent from the repo. The spec requires it from an executed run, and a 'run stopped early' stub does not satisfy 'Done means: the run executed end to end in GitHub Actions, RESULTS.md and run artifacts committed'.; S2 largely conforms: the fixture has 8 tables (4 CSVs per source) with fixed seed files, and conflicts.json, questions.json, GROUND_TRUTH.md and NORMALIZATION.md are present. Source A is a Postgres sales mart and Source B is a DuckDB ops mart. Not verified by me: whether all 12 questions cover each planted conflict, and whether the checklist has at least 4 entries with the true location mapping and SKU identity.; Secret handling and fail-closed behaviour look consistent with the spec (NVIDIA_API_KEY only from the repository secret, preflight stops early, tests in tests/test_secrets_and_config.py and tests/test_harness_fail_closed.py). They are not proven by an executed run.; Spec housekeeping: the spec header still says 'Status: draft' although the work order says approved. The spec file has uncommitted modifications and the builder's work is entirely uncommitted. The spec change was not examined here and needs the owner's confirmation.; Deviations needing owner acceptance, not silent approval: the MCP tools/list probe runs in-process because the pinned server requires an OAuth token for every HTTP request, and the harness writes the ontology-generation setting row itself. Both are recorded as limits but are stretches of 'closest equivalent the pinned version exposes'.; Missing to proceed: a spec-owner decision on the replacement chat model (and a spec update), then a live GitHub Actions run producing RESULTS.md and artifacts.; Secret handling OK: NVIDIA_API_KEY comes only from secrets.NVIDIA_API_KEY in .github/workflows/auto-ontology-eval.yml. config.require_api_key fails closed on missing or blank values with no fallback. No key literal is committed.; Redaction OK: live.py writes artifacts (JSON, text, container logs) through scrub(), which redacts the known key and any nvapi- shaped string. The upstream .env is created with mode 0600, is gitignored, and is removed in teardown. Compose is run with 'down -v'.; Workflow OK: workflow_dispatch only (no pull_request_target), permissions limited to contents: read, and nothing is published. Results go to a workflow artifact only. The artifact paths are RESULTS.md and runs/wo-gh-1/eval/, which are scrubbed, and the .env file is not included.; Subprocess use is safe: commands are argument lists with no shell=True. The upstream commit is pinned and its HEAD is verified. The Postgres password and AUTH_SECRET are generated randomly per run with the secrets module.; Minor, non-blocking: the job-level env exposes the key to the unit-test step, which does not need it. Scope it to the run step. A log or upload step failing before scrub could still be defence-in-depth checked with a final grep of the artifact dir for nvapi-.; Minor, non-blocking: the upstream stack publishes service ports on the runner. This is acceptable on an ephemeral runner, but would be unsafe if the harness were run on a shared host. The frontend.configurations row is written directly to Postgres, and the harness documents this in the smoke notes.; Limitation of this review: I read the code and workflow only. No executed run exists, and the NVIDIA_API_KEY secret is not yet set on the repo, so redaction in real artifacts is not proven.; Offline tests are real and mapped: 92 tests across test_s1..test_s5, test_secrets_and_config and test_harness_fail_closed, each file tied to a spec scenario. All 92 pass (python -m unittest discover, with duckdb installed). Note pytest is not installed in the runner; unittest discovery works.; The tests cover contracts only (fixture determinism, scoring, quote checking, fail-closed, secret hygiene, RESULTS.md rendering). None of S1 to S5 has been exercised against the real stack, so the spec's 'done' condition (end-to-end run in GitHub Actions, RESULTS.md and artifacts committed) is not met. No RESULTS.md exists in the repo.; The builder reports the chat model nvidia/nemotron-3-nano-30b-a3b returns HTTP 410 (end of life 2026-09-01) on the hosted endpoint. The spec forbids switching models, so S3 and both S4 arms are blocked until the spec owner pins a replacement. This is an input gap, not something to guess around.; The MCP probe departs from the spec's literal wording: the pinned server requires an OAuth token, so tools/list runs in-process plus a recorded unauthenticated HTTP probe. The tests should show that S1 still fails closed if the in-process listing fails. The spec owner should confirm this counts as the 'closest equivalent'.; S3 reconciliation marks come from fixed regex rules, with quotes verified verbatim against the exported catalog. That satisfies the mechanical check. A false positive was caught against a fabricated catalog, but there is no evidence the rules behave correctly on real Auto Ontology output until a live run happens.; Spec file still says Status: draft although the work order calls it approved. This is a minor housekeeping item.; Requested: the spec owner pins a replacement chat model. Then update config.CHAT_MODEL and tests/_support.CHAT_MODEL, run the workflow with the NVIDIA_API_KEY secret, and commit RESULTS.md and the artifacts. Re-review after that.",
+      "return_to": "builder",
+      "detail": "Loopback to builder: NVIDIA_API_KEY is read only from the repository secret via the step env of the 'Run the evaluation' step (.github/workflows/auto-ontology-eval.yml). It is not hardcoded, and it is not echoed in the workflow. src/auto_ontology_eval/secrets.py fails closed when the key is absent or empty.; Output that is written to disk passes through secrets.redact. This covers subprocess output (_run), HTTP responses (_http), and the compose logs and raw model responses that go into the uploaded runs/eval artifact. The compose override file holds only a read-only fixture volume mount and no credentials. The upstream .env, which holds the key, is written under RUNNER_TEMP and outside the uploaded path.; The workflow is workflow_dispatch only, with permissions limited to contents: read. There is no pull_request_target and no untrusted-input interpolation into shell commands. Nothing is published, and the evidence artifact is a plain workflow artifact.; The upstream checkout is pinned to commit cdaf61e and verified by upstream.verify_checkout. Postgres password and AUTH_SECRET are generated per run with the secrets module, not defaulted. The fixture is synthetic, so no real company data is involved.; Low risk, no change required: redaction is exact-match only. A transformed or truncated key in upstream logs would not be caught. The runner also masks repository secrets in job logs and the artifact is run-scoped, so this is acceptable.; Low risk, no change required: the upstream MCP package is pip-installed and run in a venv with the inherited environment, which includes NVIDIA_API_KEY. The code is the pinned commit under evaluation, so the exposure is accepted. Third-party actions are pinned to major tags (v4/v5) rather than SHAs, which is a hardening opportunity.; Structure fits the project: a stdlib-only package under src/auto_ontology_eval with one module per spec scenario (smoke, reconcile, ablation, results, timing), a fixture/ directory with generator, ground truth, checklist and questions, tests/ with a SCENARIOS.md map, and a single workflow_dispatch workflow. This matches the composable, small-change shape of brain/decisions/0001.; Decision 0003 (evidence must exercise the production shape) is not met. The only executed evidence is the preflight run (GitHub run 41971180197), which stopped on HTTP 410 for the spec-mandated chat model nvidia/nemotron-3-nano-30b-a3b. S1 smoke, S3 reconciliation, S4 ablation and time-to-first-ontology have no run evidence, and the RESULTS.md says 'No run evidence'. The work order's Done criterion is therefore unmet.; Architectural risk: the S4 raw-schema arm executes SQL on a SQLite copy instead of the live Postgres and DuckDB sources, and the S1 MCP probe lists tools in process instead of through the running MCP server. Both deviations weaken the production-shape comparison. They must be recorded in the RESULTS.md limits section, or the harness should be changed to run on the real engines and the real MCP endpoint.; Fail-closed design is sound: preflight failure is recorded and no numbers are estimated. Add an offline test that a preflight 410 or 404 is reported as a distinct failure class, as reviewer-tests also requested.; The spec header still reads 'Status: draft' although the work order calls it approved, and the model-id decision (EOL chat model) is unresolved. Resolve this with the spec owner by amending the spec to a served model id or confirming the id, then record the choice as a numbered decision in brain/decisions rather than silently changing config.py.; Housekeeping: the factory-side runs/wo-gh-1 directory in .anvil-factory carries stale artifacts from an unrelated work order (a builder.output.md describing a design-system feature). Remove or regenerate them so that run provenance is not misleading.; Requested: resolve the model-id decision, execute the workflow end to end, commit RESULTS.md and the run artifacts, document the in-process MCP probe and the SQLite execution as limits, and then re-review.",
+      "reason": "NVIDIA_API_KEY is read only from the repository secret via the step env of the 'Run the evaluation' step (.github/workflows/auto-ontology-eval.yml). It is not hardcoded, and it is not echoed in the workflow. src/auto_ontology_eval/secrets.py fails closed when the key is absent or empty.; Output that is written to disk passes through secrets.redact. This covers subprocess output (_run), HTTP responses (_http), and the compose logs and raw model responses that go into the uploaded runs/eval artifact. The compose override file holds only a read-only fixture volume mount and no credentials. The upstream .env, which holds the key, is written under RUNNER_TEMP and outside the uploaded path.; The workflow is workflow_dispatch only, with permissions limited to contents: read. There is no pull_request_target and no untrusted-input interpolation into shell commands. Nothing is published, and the evidence artifact is a plain workflow artifact.; The upstream checkout is pinned to commit cdaf61e and verified by upstream.verify_checkout. Postgres password and AUTH_SECRET are generated per run with the secrets module, not defaulted. The fixture is synthetic, so no real company data is involved.; Low risk, no change required: redaction is exact-match only. A transformed or truncated key in upstream logs would not be caught. The runner also masks repository secrets in job logs and the artifact is run-scoped, so this is acceptable.; Low risk, no change required: the upstream MCP package is pip-installed and run in a venv with the inherited environment, which includes NVIDIA_API_KEY. The code is the pinned commit under evaluation, so the exposure is accepted. Third-party actions are pinned to major tags (v4/v5) rather than SHAs, which is a hardening opportunity.; Structure fits the project: a stdlib-only package under src/auto_ontology_eval with one module per spec scenario (smoke, reconcile, ablation, results, timing), a fixture/ directory with generator, ground truth, checklist and questions, tests/ with a SCENARIOS.md map, and a single workflow_dispatch workflow. This matches the composable, small-change shape of brain/decisions/0001.; Decision 0003 (evidence must exercise the production shape) is not met. The only executed evidence is the preflight run (GitHub run 41971180197), which stopped on HTTP 410 for the spec-mandated chat model nvidia/nemotron-3-nano-30b-a3b. S1 smoke, S3 reconciliation, S4 ablation and time-to-first-ontology have no run evidence, and the RESULTS.md says 'No run evidence'. The work order's Done criterion is therefore unmet.; Architectural risk: the S4 raw-schema arm executes SQL on a SQLite copy instead of the live Postgres and DuckDB sources, and the S1 MCP probe lists tools in process instead of through the running MCP server. Both deviations weaken the production-shape comparison. They must be recorded in the RESULTS.md limits section, or the harness should be changed to run on the real engines and the real MCP endpoint.; Fail-closed design is sound: preflight failure is recorded and no numbers are estimated. Add an offline test that a preflight 410 or 404 is reported as a distinct failure class, as reviewer-tests also requested.; The spec header still reads 'Status: draft' although the work order calls it approved, and the model-id decision (EOL chat model) is unresolved. Resolve this with the spec owner by amending the spec to a served model id or confirming the id, then record the choice as a numbered decision in brain/decisions rather than silently changing config.py.; Housekeeping: the factory-side runs/wo-gh-1 directory in .anvil-factory carries stale artifacts from an unrelated work order (a builder.output.md describing a design-system feature). Remove or regenerate them so that run provenance is not misleading.; Requested: resolve the model-id decision, execute the workflow end to end, commit RESULTS.md and the run artifacts, document the in-process MCP probe and the SQLite execution as limits, and then re-review.",
       "duration_ms": 0.0,
       "cost": null,
       "artifacts": [],
@@ -264,7 +264,7 @@
       "station": "deployer",
       "status": "packet_ready",
       "detail": "Packet written to runs/wo-gh-1/deployer.packet.md",
-      "duration_ms": 0.096,
+      "duration_ms": 0.226,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/deployer.packet.md"
@@ -280,7 +280,7 @@
       "station": "observer",
       "status": "executed",
       "detail": "Executed by command; output written to runs/wo-gh-1/observer.output.md",
-      "duration_ms": 34364.821,
+      "duration_ms": 44696.548,
       "cost": null,
       "artifacts": [
         "runs/wo-gh-1/observer.output.md"
@@ -309,15 +309,11 @@
     "approver": {
       "reviews_counted": [
         {
-          "station": "reviewer-spec",
-          "verdict": "changes_requested"
-        },
-        {
           "station": "reviewer-security",
           "verdict": "pass"
         },
         {
-          "station": "reviewer-tests",
+          "station": "reviewer-architecture",
           "verdict": "changes_requested"
         }
       ],
@@ -328,7 +324,7 @@
         "reviewer-architecture",
         "reviewer-design"
       ],
-      "rule": "Reviewers reviewer-spec, reviewer-tests requested changes. (Counted 3 reviews, expected 5.)"
+      "rule": "Reviewer reviewer-architecture requested changes. (Counted 2 reviews, expected 5.)"
     },
     "human_gate": {
       "required": true,
@@ -339,8 +335,8 @@
   "warnings": [
     "Missing design system: This pipeline includes interface-producing stations, but the project has no design/DESIGN.md. Define the design system to enable design review."
   ],
-  "astra_measured_tokens_total": 5589,
-  "base_ref": "1422ead776f8bdd94c541d704f02f2f02e65ba71",
+  "astra_measured_tokens_total": 6175,
+  "base_ref": "9bd56892252ef7980d2451c68581b4a8db2b9c6a",
   "evidence": [],
   "cost": {
     "total": 0,

@@ -1,21 +1,34 @@
-I've written the tests for wo-gh-1: 92 tests in seven files under `tests/` in the project repo, plus `tests/README.md` mapping each file to its spec scenario. They all fail right now, because neither `src/auto_ontology_eval/` nor `fixture/` exists yet. Every file compiles. Nothing is committed.
+The new tests are uncommitted in the project repo (`/home/runner/work/auto-ontology-eval/auto-ontology-eval/tests/`). All of them currently fail, as they should before the builder runs: there is no `auto_ontology_eval` package, fixture or eval workflow yet. Every file compiles. Run them from the project root with `python -m unittest discover -s tests -t .`; they need only the standard library. They are offline and use fakes, so no NVIDIA calls and no Docker.
 
-Since there was no code to test against, the tests also define what the builder has to create: module names, function signatures and the fixture file layout. Each test file's docstring spells this out.
+**What I wrote** (the full scenario-to-test map is in `tests/SCENARIOS.md`):
+- **`_support.py`:** the values the spec pins (upstream commit, the three model ids) and a fake key short enough that the real-key scan can never flag it.
+- **`test_requirements_config_secrets.py`:** the pin, the model ids, and secret handling. A missing or blank `NVIDIA_API_KEY` must stop the run, the key is masked in output, and the environment record never contains it. A scan also checks for real key strings in `src/`, `fixture/`, `tests/` and `.github/`.
+- **`test_s1_upstream_smoke.py`:** clone and checkout of the exact commit, and the upstream project's own compose file comes first. The health, catalog and MCP checks each save an evidence file, and the step fails if any check fails, is missing or crashes.
+- **`test_s2_fixture.py`:** 8–10 tables, each with a seed CSV and a `CREATE TABLE`. The four planted conflicts are recomputed straight from the CSVs, independently of the harness:
+  - the two `net_sales` totals differ by exactly the returns total
+  - plant and DC codes map to Source A names but never equal them
+  - Source A's hierarchy is brand then category
+  - the shared SKUs are exactly the overlap between the sources
 
-| Spec item | File | What it checks |
-|---|---|---|
-| Secret, pin and model requirements | `test_secrets_and_config.py` | The exact pinned commit and the three model ids. A missing, empty or whitespace `NVIDIA_API_KEY` stops the run, with no fallback to other variables. The key is redacted and never appears in committed files. An eval workflow on ubuntu reads `secrets.NVIDIA_API_KEY` and never echoes it. |
-| Stop before S1 | `test_harness_fail_closed.py` | No stage runs without the key, and the run stops at the first stage that fails. |
-| S1 | `test_s1_smoke.py` | The clone checks out the exact commit, and a short or different SHA is rejected. The MCP `tools/list` request and response are checked. Each of the three smoke checks fails closed. |
-| S2 | `test_s2_fixture.py` | Two sources with 8 to 10 tables in total. The four required conflicts are checked against the CSV data: location names appear only in Source A, plant/DC codes only in Source B, and shared SKUs in both. 12 questions together cover every conflict. The ground-truth and normalization docs exist. The reference SQL reproduces the recorded answers. The Postgres load SQL and the DuckDB build are deterministic. |
-| S3 | `test_s3_reconciliation.py` | Each conflict gets exactly one mark. Quotes must match the catalog exactly, including case and whitespace. A missing or non-matching quote turns the mark into `ignored`, with the failed check recorded. |
-| S4 | `test_s4_ablation.py` | Rounding to two decimals; rows compared in any order unless the question asks for one. Both arms use the same model, endpoint and temperature. The raw-schema prompt contains no ontology or ground-truth text. Each question is asked once, with no retry. Errors and answers without SQL score as wrong. Provenance and the delta are recorded. |
-| S5 | `test_s5_results.py` | RESULTS.md has all six sections, built only from run artifacts. Wrong SQL appears exactly as generated in the failure gallery. A missing artifact gives "No run evidence" and no made-up number. The key is redacted. |
+  It also checks there are 12 questions, each conflict is covered, each recorded answer matches its reference SQL, and `GROUND_TRUTH.md` lists them. Two more checks: the data loads the same way every time, and the raw schema has no comments and leaks no answers.
+- **`test_s3_reconciliation.py`:** each conflict gets exactly one mark. A mark counts only if its quote appears word for word in the catalog. The classifier gives the same result every time, and time to first ontology runs from the second source registering to the first complete export.
+- **`test_s4_ablation.py`:**
+  - numbers are compared after rounding to 2 decimals, and sets ignore order
+  - correctness is scored per arm, with the delta
+  - each arm's SQL is saved word for word, and every ontology answer gets a provenance flag
+  - ground truth is written before any model call
+  - both arms must use the same model and settings (including temperature and max tokens); the run is refused otherwise, and the settings are recorded
+- **`test_s5_results_and_fail_closed.py`:** RESULTS.md has the sections in order and takes every value from a run file. Wrong SQL appears word for word in the failure gallery, and there is a limits section. Sections without evidence say "No run evidence", a stopped run names the failed step, and the key never appears. The pipeline stops at the first failed step or missing evidence file, including a missing key.
+- **`test_workflow.py`:** `.github/workflows/auto-ontology-eval.yml` runs on ubuntu, gets the key only from the secret, never echoes it, and has no publish steps.
 
-Things the builder and reviewers should know:
-- **Standard library only:** pytest and duckdb aren't installed here, so the tests use `unittest` and run with `python -m unittest discover -s tests -t .`.
-- **Two checks can skip:** the DuckDB build and the reference-answer check skip when duckdb is missing. The eval workflow must install duckdb, or those checks silently skip in CI.
-- **Choices I made that the spec doesn't:** the fixture file names (`fixture/source_a|source_b/*.csv`, `conflicts.json`, `questions.json`, `GROUND_TRUTH.md`, `NORMALIZATION.md`), the run artifact names, the reference SQL naming tables as `source_a.<table>` / `source_b.<table>`, and per-arm totals shown as `1/2`. The builder can propose changes to any of these.
-- **Not unit-testable:** bringing up the real Docker stack, the hosted NIM calls and the measured time to first ontology only happen in GitHub Actions. Reviewers have to check those against the run artifacts.
-- **Spec still says draft:** its header reads `Status: draft` even though the work order calls it approved. Approving it belongs to another station, not this one.
+**Choices that limit how the builder can implement it:**
+- **Interfaces:** I picked the module, function and file names the builder must use, such as `fixture/source_{a,b}/seeds/<table>.csv`, the `checklist.json` and `questions.json` formats, and `ablation.run(questions, ontology_arm, raw_arm, out_dir)`. The spec doesn't name any of these, so a reviewer should confirm they're acceptable.
+- **Reference database:** `fixture.reference_connection()` can use any database engine. DuckDB isn't installed on this runner, so the one DuckDB-only test skips without it.
+
+**Gaps:**
+- **Not testable offline:** the live stack, real NIM calls, registering Source A in Postgres, and the real catalog export can only be shown by the executed Actions run.
+- **"No claim beyond the fixture":** this is tested only weakly. The limits section must mention "synthetic" and say what was not exercised. A reviewer has to judge this one.
+- **Retired chat model:** the earlier builder preflight (`runs/wo-gh-1/builder-preflight.md`) found that the spec's chat model `nvidia/nemotron-3-nano-30b-a3b` returns HTTP 410 (end of life). The tests keep the spec's model id. If the spec owner pins a replacement, change only `tests/_support.py`.
+
+Approval belongs to a different station.
 {"model": "claude-opus-5-5"}

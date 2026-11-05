@@ -1,19 +1,173 @@
 # ANVIL execute run diagnostics
 
-- Workflow run: 41967404547 (attempt 1)
+- Workflow run: 41971180197 (attempt 1)
 - Branch: anvil/run-auto-ontology-eval
-- Trigger commit: 7569ac201651bfecb077946bae3f4f8dae904a11
+- Trigger commit: 9bd56892252ef7980d2451c68581b4a8db2b9c6a
 - Smoke step outcome: success
-- Line step outcome: failure
-- python3: Python 3.12.16
+- Line step outcome: success
+- python3: Python 3.12.15
 - node: v22.23.4
 - claude: 2.1.318 (Claude Code)
 - codex: codex-cli 0.166.0
 - docker: Docker version 28.0.4, build b8034c0
-- Report: runs/wo-gh-1/report.json ABSENT
+- Report: runs/wo-gh-1/report.json present
+- Verdict: changes_requested
+- Human required: True
 
 ## Line output (last 150 lines)
 
 ```
---execute needs a runtime object in the project anvil.yaml
+        "detail": "python3"
+      },
+      "measured_tokens": 3968,
+      "budget": 50000,
+      "budget_action": "sent"
+    },
+    {
+      "station": "reviewer-ux",
+      "status": "routed_out",
+      "detail": "Routed out: Routed out: no UI surface",
+      "duration_ms": 0.906,
+      "cost": null,
+      "artifacts": [
+        "runs/wo-gh-1/reviewer-ux.packet.md"
+      ],
+      "configured_model": "openai/gpt-6.1-sol",
+      "executed_model": null,
+      "executor": null,
+      "measured_tokens": 0,
+      "budget": 0,
+      "budget_action": "none"
+    },
+    {
+      "station": "approver",
+      "status": "completed",
+      "detail": "Approver verdict: changes_requested",
+      "duration_ms": 0.04,
+      "cost": null,
+      "artifacts": [
+        "runs/wo-gh-1/report.json"
+      ],
+      "configured_model": "claude-sonnet-5-5",
+      "executed_model": null,
+      "executor": null,
+      "measured_tokens": 0,
+      "budget": 0,
+      "budget_action": "none"
+    },
+    {
+      "station": "approver",
+      "status": "loopback",
+      "return_to": "builder",
+      "detail": "Loopback to builder: NVIDIA_API_KEY is read only from the repository secret via the step env of the 'Run the evaluation' step (.github/workflows/auto-ontology-eval.yml). It is not hardcoded, and it is not echoed in the workflow. src/auto_ontology_eval/secrets.py fails closed when the key is absent or empty.; Output that is written to disk passes through secrets.redact. This covers subprocess output (_run), HTTP responses (_http), and the compose logs and raw model responses that go into the uploaded runs/eval artifact. The compose override file holds only a read-only fixture volume mount and no credentials. The upstream .env, which holds the key, is written under RUNNER_TEMP and outside the uploaded path.; The workflow is workflow_dispatch only, with permissions limited to contents: read. There is no pull_request_target and no untrusted-input interpolation into shell commands. Nothing is published, and the evidence artifact is a plain workflow artifact.; The upstream checkout is pinned to commit cdaf61e and verified by upstream.verify_checkout. Postgres password and AUTH_SECRET are generated per run with the secrets module, not defaulted. The fixture is synthetic, so no real company data is involved.; Low risk, no change required: redaction is exact-match only. A transformed or truncated key in upstream logs would not be caught. The runner also masks repository secrets in job logs and the artifact is run-scoped, so this is acceptable.; Low risk, no change required: the upstream MCP package is pip-installed and run in a venv with the inherited environment, which includes NVIDIA_API_KEY. The code is the pinned commit under evaluation, so the exposure is accepted. Third-party actions are pinned to major tags (v4/v5) rather than SHAs, which is a hardening opportunity.; Structure fits the project: a stdlib-only package under src/auto_ontology_eval with one module per spec scenario (smoke, reconcile, ablation, results, timing), a fixture/ directory with generator, ground truth, checklist and questions, tests/ with a SCENARIOS.md map, and a single workflow_dispatch workflow. This matches the composable, small-change shape of brain/decisions/0001.; Decision 0003 (evidence must exercise the production shape) is not met. The only executed evidence is the preflight run (GitHub run 41971180197), which stopped on HTTP 410 for the spec-mandated chat model nvidia/nemotron-3-nano-30b-a3b. S1 smoke, S3 reconciliation, S4 ablation and time-to-first-ontology have no run evidence, and the RESULTS.md says 'No run evidence'. The work order's Done criterion is therefore unmet.; Architectural risk: the S4 raw-schema arm executes SQL on a SQLite copy instead of the live Postgres and DuckDB sources, and the S1 MCP probe lists tools in process instead of through the running MCP server. Both deviations weaken the production-shape comparison. They must be recorded in the RESULTS.md limits section, or the harness should be changed to run on the real engines and the real MCP endpoint.; Fail-closed design is sound: preflight failure is recorded and no numbers are estimated. Add an offline test that a preflight 410 or 404 is reported as a distinct failure class, as reviewer-tests also requested.; The spec header still reads 'Status: draft' although the work order calls it approved, and the model-id decision (EOL chat model) is unresolved. Resolve this with the spec owner by amending the spec to a served model id or confirming the id, then record the choice as a numbered decision in brain/decisions rather than silently changing config.py.; Housekeeping: the factory-side runs/wo-gh-1 directory in .anvil-factory carries stale artifacts from an unrelated work order (a builder.output.md describing a design-system feature). Remove or regenerate them so that run provenance is not misleading.; Requested: resolve the model-id decision, execute the workflow end to end, commit RESULTS.md and the run artifacts, document the in-process MCP probe and the SQLite execution as limits, and then re-review.",
+      "reason": "NVIDIA_API_KEY is read only from the repository secret via the step env of the 'Run the evaluation' step (.github/workflows/auto-ontology-eval.yml). It is not hardcoded, and it is not echoed in the workflow. src/auto_ontology_eval/secrets.py fails closed when the key is absent or empty.; Output that is written to disk passes through secrets.redact. This covers subprocess output (_run), HTTP responses (_http), and the compose logs and raw model responses that go into the uploaded runs/eval artifact. The compose override file holds only a read-only fixture volume mount and no credentials. The upstream .env, which holds the key, is written under RUNNER_TEMP and outside the uploaded path.; The workflow is workflow_dispatch only, with permissions limited to contents: read. There is no pull_request_target and no untrusted-input interpolation into shell commands. Nothing is published, and the evidence artifact is a plain workflow artifact.; The upstream checkout is pinned to commit cdaf61e and verified by upstream.verify_checkout. Postgres password and AUTH_SECRET are generated per run with the secrets module, not defaulted. The fixture is synthetic, so no real company data is involved.; Low risk, no change required: redaction is exact-match only. A transformed or truncated key in upstream logs would not be caught. The runner also masks repository secrets in job logs and the artifact is run-scoped, so this is acceptable.; Low risk, no change required: the upstream MCP package is pip-installed and run in a venv with the inherited environment, which includes NVIDIA_API_KEY. The code is the pinned commit under evaluation, so the exposure is accepted. Third-party actions are pinned to major tags (v4/v5) rather than SHAs, which is a hardening opportunity.; Structure fits the project: a stdlib-only package under src/auto_ontology_eval with one module per spec scenario (smoke, reconcile, ablation, results, timing), a fixture/ directory with generator, ground truth, checklist and questions, tests/ with a SCENARIOS.md map, and a single workflow_dispatch workflow. This matches the composable, small-change shape of brain/decisions/0001.; Decision 0003 (evidence must exercise the production shape) is not met. The only executed evidence is the preflight run (GitHub run 41971180197), which stopped on HTTP 410 for the spec-mandated chat model nvidia/nemotron-3-nano-30b-a3b. S1 smoke, S3 reconciliation, S4 ablation and time-to-first-ontology have no run evidence, and the RESULTS.md says 'No run evidence'. The work order's Done criterion is therefore unmet.; Architectural risk: the S4 raw-schema arm executes SQL on a SQLite copy instead of the live Postgres and DuckDB sources, and the S1 MCP probe lists tools in process instead of through the running MCP server. Both deviations weaken the production-shape comparison. They must be recorded in the RESULTS.md limits section, or the harness should be changed to run on the real engines and the real MCP endpoint.; Fail-closed design is sound: preflight failure is recorded and no numbers are estimated. Add an offline test that a preflight 410 or 404 is reported as a distinct failure class, as reviewer-tests also requested.; The spec header still reads 'Status: draft' although the work order calls it approved, and the model-id decision (EOL chat model) is unresolved. Resolve this with the spec owner by amending the spec to a served model id or confirming the id, then record the choice as a numbered decision in brain/decisions rather than silently changing config.py.; Housekeeping: the factory-side runs/wo-gh-1 directory in .anvil-factory carries stale artifacts from an unrelated work order (a builder.output.md describing a design-system feature). Remove or regenerate them so that run provenance is not misleading.; Requested: resolve the model-id decision, execute the workflow end to end, commit RESULTS.md and the run artifacts, document the in-process MCP probe and the SQLite execution as limits, and then re-review.",
+      "duration_ms": 0.0,
+      "cost": null,
+      "artifacts": [],
+      "configured_model": null,
+      "executed_model": null,
+      "executor": null
+    },
+    {
+      "station": "triage-human",
+      "status": "completed",
+      "detail": "Human review: required",
+      "duration_ms": 0.008,
+      "cost": null,
+      "artifacts": [],
+      "configured_model": "claude-sonnet-5-5",
+      "executed_model": null,
+      "executor": null,
+      "measured_tokens": 0,
+      "budget": 0,
+      "budget_action": "none"
+    },
+    {
+      "station": "deployer",
+      "status": "packet_ready",
+      "detail": "Packet written to runs/wo-gh-1/deployer.packet.md",
+      "duration_ms": 0.226,
+      "cost": null,
+      "artifacts": [
+        "runs/wo-gh-1/deployer.packet.md"
+      ],
+      "configured_model": "claude-sonnet-5-5",
+      "executed_model": null,
+      "executor": null,
+      "measured_tokens": 1056,
+      "budget": 0,
+      "budget_action": "none"
+    },
+    {
+      "station": "observer",
+      "status": "executed",
+      "detail": "Executed by command; output written to runs/wo-gh-1/observer.output.md",
+      "duration_ms": 44696.548,
+      "cost": null,
+      "artifacts": [
+        "runs/wo-gh-1/observer.output.md"
+      ],
+      "configured_model": "claude-sonnet-5-5",
+      "executed_model": "claude-sonnet-5-5",
+      "executor": {
+        "kind": "command",
+        "detail": "python3"
+      },
+      "measured_tokens": 1063,
+      "budget": 0,
+      "budget_action": "none"
+    }
+  ],
+  "verdict": "changes_requested",
+  "human_required": true,
+  "max_loopbacks": 2,
+  "loopbacks": 1,
+  "deployment_status": null,
+  "verify_results": [],
+  "risk_hints": [
+    "secrets"
+  ],
+  "decision": {
+    "approver": {
+      "reviews_counted": [
+        {
+          "station": "reviewer-security",
+          "verdict": "pass"
+        },
+        {
+          "station": "reviewer-architecture",
+          "verdict": "changes_requested"
+        }
+      ],
+      "reviews_expected": [
+        "reviewer-spec",
+        "reviewer-security",
+        "reviewer-tests",
+        "reviewer-architecture",
+        "reviewer-design"
+      ],
+      "rule": "Reviewer reviewer-architecture requested changes. (Counted 2 reviews, expected 5.)"
+    },
+    "human_gate": {
+      "required": true,
+      "rule": "Verdict is changes_requested, not approved, so a human is required.",
+      "hints_matched": []
+    }
+  },
+  "warnings": [
+    "Missing design system: This pipeline includes interface-producing stations, but the project has no design/DESIGN.md. Define the design system to enable design review."
+  ],
+  "astra_measured_tokens_total": 6175,
+  "base_ref": "9bd56892252ef7980d2451c68581b4a8db2b9c6a",
+  "evidence": [],
+  "cost": {
+    "total": 0,
+    "measured_steps": 0,
+    "unmeasured_steps": 9
+  }
+}
+Report: runs/wo-gh-1/report.json
 ```
+- OPERATOR ACTION REQUIRED: the job token cannot push workflow files; withheld from this commit:
+  - .github/workflows/auto-ontology-eval.yml
+  Recover them from this run's artifact and push with an operator credential (skip ci).

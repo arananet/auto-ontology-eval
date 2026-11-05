@@ -1,0 +1,13 @@
+{
+  "station": "reviewer-architecture",
+  "verdict": "changes_requested",
+  "findings": [
+    "Structure fits the project: a stdlib-only package under src/auto_ontology_eval with one module per spec scenario (smoke, reconcile, ablation, results, timing), a fixture/ directory with generator, ground truth, checklist and questions, tests/ with a SCENARIOS.md map, and a single workflow_dispatch workflow. This matches the composable, small-change shape of brain/decisions/0001.",
+    "Decision 0003 (evidence must exercise the production shape) is not met. The only executed evidence is the preflight run (GitHub run 41971180197), which stopped on HTTP 410 for the spec-mandated chat model nvidia/nemotron-3-nano-30b-a3b. S1 smoke, S3 reconciliation, S4 ablation and time-to-first-ontology have no run evidence, and the RESULTS.md says 'No run evidence'. The work order's Done criterion is therefore unmet.",
+    "Architectural risk: the S4 raw-schema arm executes SQL on a SQLite copy instead of the live Postgres and DuckDB sources, and the S1 MCP probe lists tools in process instead of through the running MCP server. Both deviations weaken the production-shape comparison. They must be recorded in the RESULTS.md limits section, or the harness should be changed to run on the real engines and the real MCP endpoint.",
+    "Fail-closed design is sound: preflight failure is recorded and no numbers are estimated. Add an offline test that a preflight 410 or 404 is reported as a distinct failure class, as reviewer-tests also requested.",
+    "The spec header still reads 'Status: draft' although the work order calls it approved, and the model-id decision (EOL chat model) is unresolved. Resolve this with the spec owner by amending the spec to a served model id or confirming the id, then record the choice as a numbered decision in brain/decisions rather than silently changing config.py.",
+    "Housekeeping: the factory-side runs/wo-gh-1 directory in .anvil-factory carries stale artifacts from an unrelated work order (a builder.output.md describing a design-system feature). Remove or regenerate them so that run provenance is not misleading.",
+    "Requested: resolve the model-id decision, execute the workflow end to end, commit RESULTS.md and the run artifacts, document the in-process MCP probe and the SQLite execution as limits, and then re-review."
+  ]
+}

@@ -1,8 +1,10 @@
-I wrote the review to `runs/wo-gh-1/reviewer-tests.review.json` with verdict `changes_requested`.
+I've written the review to `runs/wo-gh-1/reviewer-tests.review.json` with verdict `changes_requested`. The offline tests are real and pass, but the live evaluation has not run.
 
-- **Tests:** All 92 tests pass. I ran them with `PYTHONPATH=src python -m unittest discover -s tests -t .`, because pytest isn't installed on the runner. The test files map to S1–S5 plus the secrets and fail-closed requirements.
-- **Evidence gap:** The tests are offline and use stubs. No `RESULTS.md` or run artifact exists, so S1 and S3–S5 have no executed evidence. The live workflow has to run first.
-- **Provenance:** The builder and test-writer outputs in `runs/wo-gh-1` describe an unrelated design-system feature. The real tests are uncommitted in the parent checkout, so the test-writer step can't be traced to them.
-- **Spec drift:** The spec changed after approval, so the tests may map to scenarios the builder edited. A different station has to re-approve it.
-- **Not confirmed:** I didn't check that a test runs the reference SQL for the 12 questions against the seeded data. I also didn't check that a test blocks `RESULTS.md` claims that exceed what the fixture exercised.
+- **Offline tests:** All 89 tests passed with `python -m unittest discover -s tests -t .`. They map to the spec scenarios in `tests/SCENARIOS.md`.
+- **Live run:** The only executed run, GitHub run 41971180197, stopped at the preflight step. The spec's chat model `nvidia/nemotron-3-nano-30b-a3b` returned HTTP 410. NVIDIA retired it on 2026-09-01. The smoke check, reconciliation scoring, ablation and time to first ontology therefore have no evidence. The only RESULTS.md says "No run evidence" for each of those sections.
+- **Fail-closed behaviour:** The harness recorded the failure and did not estimate any numbers.
+- **Needed next:** Someone has to pick a chat model that is still served. Then the workflow can be rerun and the real RESULTS.md committed. I also suggested adding an offline test that treats a preflight 410 or 404 as its own failure type.
+- **No checks gate:** The checks gate is `not_configured`, so nothing automated runs these tests.
+
+I did not change any files other than the review file.
 {"model": "claude-sonnet-5-5"}

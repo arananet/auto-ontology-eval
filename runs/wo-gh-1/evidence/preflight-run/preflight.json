@@ -1,0 +1,17 @@
+{
+  "chat": {
+    "model": "nvidia/nemotron-3-nano-30b-a3b",
+    "status": 410,
+    "response": "{\"type\":\"about:blank\",\"title\":\"Gone\",\"status\":410,\"detail\":\"The model 'nvidia/nemotron-3-nano-30b-a3b' has reached its end of life on 2026-09-01T09:00:00Z and is no longer available.\"}\n"
+  },
+  "embedding": {
+    "model": "nvidia/nemotron-3-embed-1b",
+    "status": 200,
+    "response": "{\"object\":\"list\",\"data\":[{\"object\":\"embedding\",\"embedding\":[-0.009366071,-0.049171876,0.014829612,0.0067475433,0.0004634254,0.013826105,-0.038802296,-0.032223746,-0.0020627656,-0.015442868,0.037854537,-0.006118609,-0.0011359148,0.0029617413,-0.019470835,-0.02486469,-0.023470927,0.043541085,0.0040140306,0.0089131,0.029018097,0.01181909,0.030523358,0.0031568678,0.027317706,0.000027875212,0.02048828,-0.030690609,-0.025533695,-0.018815769,-0.000919882,0.022748787,0.0059652957,-0.003825873,-0.0198297"
+  },
+  "rerank": {
+    "model": "nvidia/llama-nemotron-rerank-vl-1b-v2",
+    "status": 200,
+    "response": "{\"rankings\":[{\"index\":0,\"logit\":-2.798828125}],\"usage\":{\"prompt_tokens\":8,\"total_tokens\":8}}"
+  }
+}

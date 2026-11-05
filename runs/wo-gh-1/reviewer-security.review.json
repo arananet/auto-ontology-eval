@@ -2,12 +2,11 @@
   "station": "reviewer-security",
   "verdict": "pass",
   "findings": [
-    "Secret handling OK: NVIDIA_API_KEY comes only from secrets.NVIDIA_API_KEY in .github/workflows/auto-ontology-eval.yml. config.require_api_key fails closed on missing or blank values with no fallback. No key literal is committed.",
-    "Redaction OK: live.py writes artifacts (JSON, text, container logs) through scrub(), which redacts the known key and any nvapi- shaped string. The upstream .env is created with mode 0600, is gitignored, and is removed in teardown. Compose is run with 'down -v'.",
-    "Workflow OK: workflow_dispatch only (no pull_request_target), permissions limited to contents: read, and nothing is published. Results go to a workflow artifact only. The artifact paths are RESULTS.md and runs/wo-gh-1/eval/, which are scrubbed, and the .env file is not included.",
-    "Subprocess use is safe: commands are argument lists with no shell=True. The upstream commit is pinned and its HEAD is verified. The Postgres password and AUTH_SECRET are generated randomly per run with the secrets module.",
-    "Minor, non-blocking: the job-level env exposes the key to the unit-test step, which does not need it. Scope it to the run step. A log or upload step failing before scrub could still be defence-in-depth checked with a final grep of the artifact dir for nvapi-.",
-    "Minor, non-blocking: the upstream stack publishes service ports on the runner. This is acceptable on an ephemeral runner, but would be unsafe if the harness were run on a shared host. The frontend.configurations row is written directly to Postgres, and the harness documents this in the smoke notes.",
-    "Limitation of this review: I read the code and workflow only. No executed run exists, and the NVIDIA_API_KEY secret is not yet set on the repo, so redaction in real artifacts is not proven."
+    "NVIDIA_API_KEY is read only from the repository secret via the step env of the 'Run the evaluation' step (.github/workflows/auto-ontology-eval.yml). It is not hardcoded, and it is not echoed in the workflow. src/auto_ontology_eval/secrets.py fails closed when the key is absent or empty.",
+    "Output that is written to disk passes through secrets.redact. This covers subprocess output (_run), HTTP responses (_http), and the compose logs and raw model responses that go into the uploaded runs/eval artifact. The compose override file holds only a read-only fixture volume mount and no credentials. The upstream .env, which holds the key, is written under RUNNER_TEMP and outside the uploaded path.",
+    "The workflow is workflow_dispatch only, with permissions limited to contents: read. There is no pull_request_target and no untrusted-input interpolation into shell commands. Nothing is published, and the evidence artifact is a plain workflow artifact.",
+    "The upstream checkout is pinned to commit cdaf61e and verified by upstream.verify_checkout. Postgres password and AUTH_SECRET are generated per run with the secrets module, not defaulted. The fixture is synthetic, so no real company data is involved.",
+    "Low risk, no change required: redaction is exact-match only. A transformed or truncated key in upstream logs would not be caught. The runner also masks repository secrets in job logs and the artifact is run-scoped, so this is acceptable.",
+    "Low risk, no change required: the upstream MCP package is pip-installed and run in a venv with the inherited environment, which includes NVIDIA_API_KEY. The code is the pinned commit under evaluation, so the exposure is accepted. Third-party actions are pinned to major tags (v4/v5) rather than SHAs, which is a hardening opportunity."
   ]
 }
