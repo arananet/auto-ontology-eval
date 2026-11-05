@@ -24,7 +24,7 @@ WORKFLOW = ROOT / ".github" / "workflows" / "auto-ontology-eval.yml"
 # Values pinned by the spec. If the spec is amended, change them here and
 # nowhere else in the tests.
 UPSTREAM_COMMIT = "cdaf61e1bd0cf3820d11d72b43bb460816aebbd3"
-CHAT_MODEL = "nvidia/nemotron-nano-3-30b-a3b"  # spec Amendment 1, 2026-11-05
+CHAT_MODEL = "nvidia/nemotron-3.5-lightning-30b-a3b"  # spec Amendment 2, 2026-11-05
 EMBEDDING_MODEL = "nvidia/nemotron-3-embed-1b"
 RERANK_MODEL = "nvidia/llama-nemotron-rerank-vl-1b-v2"
 

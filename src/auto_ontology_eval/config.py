@@ -4,10 +4,12 @@ UPSTREAM_REPO_URL = "https://github.com/NVIDIA/auto-ontology.git"
 UPSTREAM_COMMIT = "cdaf61e1bd0cf3820d11d72b43bb460816aebbd3"
 
 # Default hosted NIM configuration named in S3.
-# Chat pin amended by the spec owner on 2026-11-05 (spec Amendment 1):
-# the original pin nvidia/nemotron-3-nano-30b-a3b is end of life on the
-# hosted endpoint (HTTP 410 Gone, verified 2026-11-05).
-CHAT_MODEL = "nvidia/nemotron-nano-3-30b-a3b"
+# Chat pin history (spec owner amendments, 2026-11-05): the original pin
+# nvidia/nemotron-3-nano-30b-a3b is end of life on the hosted endpoint
+# (HTTP 410 Gone). The Amendment 1 pin nvidia/nemotron-nano-3-30b-a3b is
+# catalog listed but returns HTTP 404 for this account. Amendment 2 pins
+# the candidate that answered the harness live preflight (HTTP 200).
+CHAT_MODEL = "nvidia/nemotron-3.5-lightning-30b-a3b"
 EMBEDDING_MODEL = "nvidia/nemotron-3-embed-1b"
 RERANK_MODEL = "nvidia/llama-nemotron-rerank-vl-1b-v2"
 
