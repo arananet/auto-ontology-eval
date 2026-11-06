@@ -111,3 +111,41 @@ def run(questions, ontology_arm, raw_arm, out_dir) -> dict:
     summary = {"total": len(rows), "ontology_correct": onto, "raw_correct": raw, "delta": onto - raw}
     (out_dir / "ablation.json").write_text(json.dumps({"questions": rows, "summary": summary}, indent=2, default=str))
     return summary
+
+
+def run_ontology_only(questions, ontology_arm, out_dir) -> dict:
+    """Live-internals configuration (spec Amendment 3): run only the Auto
+    Ontology arm. The raw-schema arm is not rerun; its rows stay null and
+    the results document cites the standing control from the default
+    configuration run."""
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    missing = [k for k in REQUIRED_SETTINGS if k not in ontology_arm.settings]
+    if missing:
+        raise ValueError(f"generation settings lack {missing}")
+    generation = {"model": ontology_arm.model, "settings": dict(ontology_arm.settings)}
+    # Ground truth is fixed on disk before any model is asked.
+    (out_dir / "ground_truth.json").write_text(json.dumps([
+        {"id": q["id"], "answer_type": q["answer_type"], "expected": q["expected"],
+         "reference_sql": q.get("reference_sql")}
+        for q in questions
+    ], indent=2))
+    (out_dir / "generation_settings.json").write_text(json.dumps(generation, indent=2))
+    rows = []
+    for q in questions:
+        rows.append({
+            "id": q["id"],
+            "question": q.get("question"),
+            "answer_type": q["answer_type"],
+            "conflict_ids": q.get("conflict_ids", []),
+            "expected": q["expected"],
+            "ontology": _ask(ontology_arm, q, record_provenance=True),
+            "raw": None,
+        })
+    summary = {"total": len(rows),
+               "ontology_correct": sum(r["ontology"]["correct"] for r in rows),
+               "raw_correct": None, "delta": None,
+               "arms": "ontology only (live-internals configuration, spec Amendment 3); "
+                       "the raw-schema control arm was not rerun"}
+    (out_dir / "ablation.json").write_text(json.dumps({"questions": rows, "summary": summary}, indent=2, default=str))
+    return summary

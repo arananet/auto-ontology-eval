@@ -48,6 +48,15 @@ class WorkflowTests(unittest.TestCase):
             "workflow neither pins the commit nor invokes the harness that does",
         )
 
+    def test_amendment3_live_configuration_is_dispatchable(self):
+        # Spec Amendment 3: the second configuration runs through the same
+        # workflow, selected by dispatch inputs whose defaults reproduce
+        # the default configuration run.
+        self.assertIn("live-internals", self.text)
+        self.assertIn("--configuration", self.text)
+        self.assertIn("inputs.run_dir", self.text)
+        self.assertIn("default: runs/eval", self.text)
+
 
 if __name__ == "__main__":
     unittest.main()

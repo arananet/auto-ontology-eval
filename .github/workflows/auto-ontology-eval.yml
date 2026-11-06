@@ -5,8 +5,26 @@ name: auto-ontology-eval
 # hosted NIM key reaches the job only from the repository secret
 # NVIDIA_API_KEY and is never printed. Evidence is uploaded as a workflow
 # artifact; nothing is published.
+#
+# Dispatch inputs (spec Amendment 3): the defaults reproduce the default
+# configuration run exactly. The live-internals configuration is dispatched
+# with configuration=live-internals and run_dir=runs/eval-live.
 on:
   workflow_dispatch:
+    inputs:
+      configuration:
+        description: "Run configuration: default, or live-internals (spec Amendment 3)"
+        type: choice
+        options:
+          - default
+          - live-internals
+        default: default
+        required: true
+      run_dir:
+        description: "Evidence directory for this run, relative to the workspace"
+        type: string
+        default: runs/eval
+        required: true
 
 permissions:
   contents: read
@@ -37,12 +55,12 @@ jobs:
         # directory. A relative run dir made compose resolve the
         # override against the upstream directory and fail at S1
         # (attempt run 42126844035, evidence in runs/eval-attempts/).
-        run: PYTHONPATH=src python -m auto_ontology_eval --run-dir "${GITHUB_WORKSPACE}/runs/eval" --upstream-dir "${RUNNER_TEMP}/auto-ontology"
+        run: PYTHONPATH=src python -m auto_ontology_eval --run-dir "${GITHUB_WORKSPACE}/${{ inputs.run_dir }}" --upstream-dir "${RUNNER_TEMP}/auto-ontology" --configuration "${{ inputs.configuration }}"
 
       - name: Upload run evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: auto-ontology-eval-evidence
-          path: runs/eval
+          path: ${{ inputs.run_dir }}
           if-no-files-found: warn

@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Callable, Mapping, Sequence
 
-from . import environment, equivalents, errors, results, secrets
+from . import config, environment, equivalents, errors, results, secrets
 
 Step = "tuple[str, Callable[[Path, str], Path]]"
 
@@ -17,13 +17,15 @@ def _fail(run_dir: Path, step: str, reason: str, key: str | None) -> None:
         {"step": step, "reason": secrets.redact(reason, key)}, indent=2))
 
 
-def run_all(env: Mapping[str, str], steps: Sequence, run_dir) -> int:
+def run_all(env: Mapping[str, str], steps: Sequence, run_dir,
+            configuration: str = config.DEFAULT_CONFIGURATION) -> int:
     run_dir = Path(run_dir)
     run_dir.mkdir(parents=True, exist_ok=True)
     for stale in (run_dir / "failure.json", run_dir / equivalents.FILENAME):
         if stale.exists():
             stale.unlink()
-    (run_dir / "environment.json").write_text(json.dumps(environment.collect(env), indent=2))
+    (run_dir / "environment.json").write_text(
+        json.dumps(environment.collect(env, configuration=configuration), indent=2))
     key = None
     code = 0
     log = []
@@ -49,5 +51,10 @@ def run_all(env: Mapping[str, str], steps: Sequence, run_dir) -> int:
                 break
             log.append({"step": name, "ok": True, "evidence": str(Path(evidence).name)})
     (run_dir / "steps.json").write_text(json.dumps(log, indent=2))
-    results.write_results(run_dir, run_dir / "RESULTS.md", secret=key)
+    if configuration == config.LIVE_CONFIGURATION:
+        # Spec Amendment 3: the live-internals configuration writes its
+        # own results document, RESULTS-LIVE.md, in its own run directory.
+        results.write_live_results(run_dir, run_dir / "RESULTS-LIVE.md", secret=key)
+    else:
+        results.write_results(run_dir, run_dir / "RESULTS.md", secret=key)
     return code

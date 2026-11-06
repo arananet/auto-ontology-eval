@@ -24,3 +24,18 @@ API_KEY_ENV = "NVIDIA_API_KEY"
 # get_llm_client defaults, called without overrides from
 # retrieval/text_to_sql/main.py); upstream sends no seed, so neither arm does.
 GENERATION_SETTINGS = {"temperature": 0.0, "max_tokens": 8192}
+
+# Run configurations. "default" measures the stack exactly as the pinned
+# upstream ships it. "live-internals" (spec Amendment 3) additionally wires
+# every internal chat model slot of the stack to CHAT_MODEL; nothing else
+# changes between the two configurations.
+DEFAULT_CONFIGURATION = "default"
+LIVE_CONFIGURATION = "live-internals"
+CONFIGURATIONS = (DEFAULT_CONFIGURATION, LIVE_CONFIGURATION)
+
+# The pinned upstream's internal chat model slots at cdaf61e1: the
+# REASONING and NON_REASONING triplets every internal LLM consumer
+# resolves through (auto_ontology/utils/llm_invoke.py), and the shared
+# DEFAULT_MODELS triplet each triplet field falls back to when unset
+# (auto_ontology/utils/model_config.py; .env.example at the same commit).
+INTERNAL_CHAT_MODEL_SLOTS = ("DEFAULT_MODELS_MODEL", "REASONING_MODEL", "NON_REASONING_MODEL")

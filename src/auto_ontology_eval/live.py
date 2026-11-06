@@ -47,6 +47,7 @@ CONTAINER_DATA = "/fixture-data"
 class Context:
     upstream_dir: Path = Path("/tmp/auto-ontology")
     pg_password: str = ""
+    configuration: str = "default"
 
 
 CTX = Context()
@@ -162,7 +163,7 @@ def _env_file(repo: Path, key: str) -> str:
         f"postgresql://postgres:{CTX.pg_password}@postgres:5432/{FIXTURE_DB},"
         f"duckdb://{CONTAINER_DATA}/{DUCKDB_NAME}",
     ]
-    lines += [f"{name}={value}" for name, value in upstream.model_env().items()]
+    lines += [f"{name}={value}" for name, value in upstream.model_env(CTX.configuration).items()]
     return "\n".join(lines) + "\n"
 
 
@@ -245,9 +246,12 @@ def stage_s1(run_dir: Path, key: str) -> Path:
     _wait(lambda: (_http("GET", f"{API}/api/health", key)[0] == 200, "health"), 900, what="API health")
     # Fail closed before any scenario evidence if the stack would call a
     # model other than the spec pins (S3 and both S4 arms depend on it).
+    # In the live-internals configuration the verified slots include the
+    # DEFAULT_MODELS fallback triplet (spec Amendment 3).
     resolved = upstream.verify_resolved_models(_run(
-        _compose("exec", "-T", "auto-ontology", "python", "-c", upstream.RESOLVE_MODELS_SCRIPT,
-                 run_dir=run_dir), key, cwd=dest, timeout=120))
+        _compose("exec", "-T", "auto-ontology", "python", "-c",
+                 upstream.resolve_models_script(CTX.configuration),
+                 run_dir=run_dir), key, cwd=dest, timeout=120), CTX.configuration)
     _write(run_dir / "smoke" / "models.json", resolved)
 
     def health():
@@ -436,6 +440,13 @@ class RawSchemaArm:
 
 
 def stage_s4(run_dir: Path, key: str) -> Path:
+    if CTX.configuration == config.LIVE_CONFIGURATION:
+        # Spec Amendment 3: in the live-internals configuration only the
+        # Auto Ontology arm runs. The raw-schema control arm is not rerun;
+        # its result from the default configuration run stands as the
+        # control and RESULTS-LIVE.md cites it with that provenance.
+        ablation.run_ontology_only(fixture.load_questions(), OntologyArm(key, run_dir), run_dir)
+        return run_dir / "ablation.json"
     equivalents.record(
         run_dir, "S4",
         literal="raw-schema arm SQL executed on the live Postgres (Source A) and DuckDB (Source B) sources",

@@ -56,5 +56,55 @@ class ResolvedModels(unittest.TestCase):
                 upstream.verify_resolved_models(out)
 
 
+class LiveInternalsModelEnv(unittest.TestCase):
+    """Spec Amendment 3: the live-internals configuration wires every
+    internal chat model slot, including the DEFAULT_MODELS fallback
+    triplet, to the pinned chat model. The default configuration keeps
+    leaving the fallback slot unset."""
+
+    EXPECTED_LIVE = {"DEFAULT_MODELS_MODEL": CHAT_MODEL, **EXPECTED}
+
+    def setUp(self):
+        self._saved = live.CTX.configuration
+        live.CTX.configuration = "live-internals"
+
+    def tearDown(self):
+        live.CTX.configuration = self._saved
+
+    def test_live_model_env_wires_every_internal_slot(self):
+        self.assertEqual(upstream.model_env("live-internals"), self.EXPECTED_LIVE)
+
+    def test_default_model_env_still_leaves_the_fallback_slot_unset(self):
+        self.assertEqual(upstream.model_env(), EXPECTED)
+        self.assertNotIn("DEFAULT_MODELS_MODEL", upstream.model_env())
+
+    def test_unknown_configuration_fails_closed(self):
+        with self.assertRaises(errors.StepFailed):
+            upstream.model_env("bogus")
+
+    def test_live_env_file_writes_the_fallback_slot_and_never_the_eol_model(self):
+        with tempfile.TemporaryDirectory() as d:
+            repo = Path(d)
+            (repo / ".env.example").write_text(
+                f"DEFAULT_MODELS_MODEL={EOL_CHAT}\nREASONING_MODEL={EOL_CHAT}\n"
+                f"NON_REASONING_MODEL={EOL_CHAT}\nAPP_URL=http://localhost:3000\n")
+            text = live._env_file(repo, FAKE_KEY)
+        env = dict(l.split("=", 1) for l in text.splitlines() if "=" in l)
+        for name, value in self.EXPECTED_LIVE.items():
+            self.assertEqual(env.get(name), value, name)
+        self.assertNotIn(EOL_CHAT, text)
+
+    def test_live_resolved_models_cover_the_fallback_slot(self):
+        self.assertEqual(
+            upstream.verify_resolved_models(json.dumps(self.EXPECTED_LIVE), "live-internals"),
+            self.EXPECTED_LIVE)
+        bad = dict(self.EXPECTED_LIVE, DEFAULT_MODELS_MODEL=EOL_CHAT)
+        with self.assertRaises(errors.StepFailed):
+            upstream.verify_resolved_models(json.dumps(bad), "live-internals")
+        with self.assertRaises(errors.StepFailed):
+            # The fallback slot silently absent is a failed check, not a pass.
+            upstream.verify_resolved_models(json.dumps(EXPECTED), "live-internals")
+
+
 if __name__ == "__main__":
     unittest.main()

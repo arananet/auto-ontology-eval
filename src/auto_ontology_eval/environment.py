@@ -8,7 +8,8 @@ from typing import Mapping
 from . import config
 
 
-def collect(env: Mapping[str, str], now: _dt.datetime | None = None) -> dict:
+def collect(env: Mapping[str, str], now: _dt.datetime | None = None,
+            configuration: str = config.DEFAULT_CONFIGURATION) -> dict:
     now = now or _dt.datetime.now(_dt.timezone.utc)
     image = env.get("ImageOS", "")
     image_version = env.get("ImageVersion", "")
@@ -24,5 +25,6 @@ def collect(env: Mapping[str, str], now: _dt.datetime | None = None) -> dict:
         "chat_model": config.CHAT_MODEL,
         "embedding_model": config.EMBEDDING_MODEL,
         "rerank_model": config.RERANK_MODEL,
+        "configuration": configuration,
         "run_date": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
