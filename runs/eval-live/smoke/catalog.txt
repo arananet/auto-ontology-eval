@@ -1,0 +1,2 @@
+GET /api/datasources/dbs -> HTTP 200
+{"data":[{"id":"462d42c9-234d-44ba-afc3-99d10d50f1f4","name":"ops_mart","description":null,"num_of_schemas":1,"owner_id":null,"schemas":[]},{"id":"e0111f8e-84f1-4a04-b84a-e2cfbf91ca05","name":"sales_mart","description":null,"num_of_schemas":1,"owner_id":null,"schemas":[]}],"count":2}

@@ -1,0 +1,2 @@
+Pinned MCP server requires a frontend OAuth token on HTTP; listing tools in process (closest equivalent of tools/list):
+{"method": "tools/list (in-process)", "tools": ["ask_question", "check_readiness", "describe_table", "check_answerable", "get_sql_attribute", "search_terms", "get_term", "get_term_columns", "get_term_sql_attributes"]}

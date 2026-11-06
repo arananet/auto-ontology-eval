@@ -1,0 +1,711 @@
+auto-ontology-frontend-migrate  | migrate: ensuring the frontend schema exists...
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+auto-ontology-frontend-migrate  | ◇ injected env (0) from ../.env // tip: ⌁ auth for agents [www.vestauth.com]
+auto-ontology-frontend-migrate  | Loaded Prisma config from prisma.config.ts.
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | Script executed successfully.
+auto-ontology-frontend-migrate  | migrate: checking conversation_analytics for the pre-user_id schema...
+auto-ontology-frontend-migrate  | ◇ injected env (0) from ../.env // tip: ⌘ suppress logs { quiet: true }
+auto-ontology-frontend-migrate  | Loaded Prisma config from prisma.config.ts.
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | Script executed successfully.
+auto-ontology-frontend-migrate  | migrate: running prisma db push...
+auto-ontology-frontend-migrate  | ◇ injected env (0) from ../.env // tip: ◈ encrypted .env [www.dotenvx.com]
+auto-ontology-frontend-migrate  | Loaded Prisma config from prisma.config.ts.
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | Prisma schema loaded from prisma/schema.prisma.
+auto-ontology-frontend-migrate  | Datasource "db": PostgreSQL database "auto_ontology", schemas "frontend" at "postgres:5432"
+auto-ontology-frontend-migrate  | 
+auto-ontology-frontend-migrate  | 🚀  Your database is now in sync with your Prisma schema. Done in 148ms
+auto-ontology-frontend-migrate  | 
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade  -> c778a7d94c20, Create the auto_ontology schema
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade c778a7d94c20 -> 47ffb7499dfa, Trigram index on tag.name for global search
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade 47ffb7499dfa -> 6347ede6dac1, add pii processed to catalog columns
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade 6347ede6dac1 -> b3aed65e49b7, add pii processed to attributes
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade b3aed65e49b7 -> e4850fd803d6, add user groups
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade e4850fd803d6 -> f3a91c0e5b27, add owner_id and glossary edit timestamps
+auto-ontology-migrate           | INFO  [alembic.runtime.migration] Running upgrade f3a91c0e5b27 -> 99d4d343dd0b, add semantic fk join path default
+postgres                        | The files belonging to this database system will be owned by user "postgres".
+postgres                        | This user must also own the server process.
+postgres                        | 
+postgres                        | The database cluster will be initialized with locale "en_US.utf8".
+postgres                        | The default database encoding has accordingly been set to "UTF8".
+postgres                        | The default text search configuration will be set to "english".
+postgres                        | 
+postgres                        | Data page checksums are disabled.
+postgres                        | 
+postgres                        | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+postgres                        | creating subdirectories ... ok
+postgres                        | selecting dynamic shared memory implementation ... posix
+auto-ontology-frontend          | ▲ Next.js 16.3.8
+auto-ontology-frontend          | - Local:         http://localhost:3000
+auto-ontology-frontend          | - Network:       http://0.0.0.0:3000
+auto-ontology-frontend          | ✓ Ready in 0ms
+auto-ontology-frontend          | ✓ Running next.config took 1.3ms
+auto-ontology-frontend          | [seed-admin] created bootstrap admin account for admin@nvidia.com
+auto-ontology                   | 2026-11-06 06:36:28,684 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:36:28,684 INFO auto_ontology.retrieval.text_to_sql.main: Node: retrieve_candidates
+auto-ontology                   | 2026-11-06 06:36:28,685 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1} | Total visits this run: 4
+auto-ontology                   | 2026-11-06 06:36:28,685 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Executing agent: candidate_preparation
+auto-ontology                   | 2026-11-06 06:36:28,685 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Retrieved 0 custom analyses
+auto-ontology                   | 2026-11-06 06:36:28,685 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Found 0 relevant queries from custom analyses
+auto-ontology                   | 2026-11-06 06:36:28,689 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Fetched store context for 1/1 column attributes
+auto-ontology                   | 2026-11-06 06:36:28,690 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Fetched synonyms for 0 term(s)
+auto-ontology                   | 2026-11-06 06:36:28,690 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Anchor attribute id: 7d5d9269-55ed-4d4b-b22c-43d4ace41f07
+auto-ontology                   | 2026-11-06 06:36:28,693 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Tables from candidates: ['dim_product']
+auto-ontology                   | 2026-11-06 06:36:28,835 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                   | 2026-11-06 06:36:28,844 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                   | 2026-11-06 06:36:28,935 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Added 1 table(s) from subject Term 'Item': ['items']
+auto-ontology                   | 2026-11-06 06:36:28,938 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Back-filled column metadata for 1/1 table(s)
+auto-ontology                   | 2026-11-06 06:36:28,938 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Relevance filter bypassed: 2 candidate table(s) <= bypass max 2
+auto-ontology                   | 2026-11-06 06:36:28,947 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Final 2 table(s) reaching SQL generation: ['sales_mart.public.dim_product', 'sales_mart.public.fact_sales']
+auto-ontology                   | 2026-11-06 06:36:28,947 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Agent completed: candidate_preparation -> none
+auto-ontology                   | 2026-11-06 06:36:28,947 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:36:28,947 INFO auto_ontology.retrieval.text_to_sql.main: Node: prepare_candidates
+auto-ontology                   | 2026-11-06 06:36:28,948 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1} | Total visits this run: 5
+auto-ontology                   | 2026-11-06 06:36:28,948 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Executing agent: sql_from_semantic
+auto-ontology                   | 2026-11-06 06:36:28,948 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Semantic context: anchor=Product SKU, join_paths=0, custom_analyses=0, sql_attributes=0, fallback_tables=2
+auto-ontology                   | 2026-11-06 06:36:28,948 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Using 0 similar questions from conversations.
+auto-ontology                   | 2026-11-06 06:36:28,948 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Injecting the counting calculation SQL shape into the SQL prompt.
+auto-ontology                   | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                   |   warnings.warn(
+auto-ontology                   | 2026-11-06 06:36:42,072 INFO uvicorn.access: 127.0.0.1:49750 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:36:42,811 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM response generated: This counts the number of product SKUs defined in the product catalog (dim_product) that have no cor...
+auto-ontology                   | 2026-11-06 06:36:42,811 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Agent completed: sql_from_semantic -> constructable
+auto-ontology                   | 2026-11-06 06:36:42,812 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:36:42,812 INFO auto_ontology.retrieval.text_to_sql.main: Node: construct_sql_from_candidates
+auto-ontology                   | 2026-11-06 06:36:42,813 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1} | Total visits this run: 6
+auto-ontology                   | 2026-11-06 06:36:42,813 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: Executing agent: sql_validation
+postgres                        | selecting default "max_connections" ... 100
+postgres                        | selecting default "shared_buffers" ... 128MB
+postgres                        | selecting default time zone ... Etc/UTC
+postgres                        | creating configuration files ... ok
+postgres                        | running bootstrap script ... ok
+postgres                        | performing post-bootstrap initialization ... ok
+postgres                        | syncing data to disk ... ok
+postgres                        | 
+postgres                        | 
+postgres                        | Success. You can now start the database server using:
+postgres                        | initdb: warning: enabling "trust" authentication for local connections
+postgres                        | 
+postgres                        | initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+postgres                        |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+postgres                        | 
+postgres                        | waiting for server to start....2026-11-06 04:22:10.853 UTC [53] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+postgres                        | 2026-11-06 04:22:10.853 UTC [53] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres                        | 2026-11-06 04:22:10.856 UTC [56] LOG:  database system was shut down at 2026-11-06 04:22:10 UTC
+postgres                        | 2026-11-06 04:22:10.859 UTC [53] LOG:  database system is ready to accept connections
+postgres                        |  done
+postgres                        | server started
+postgres                        | CREATE DATABASE
+postgres                        | 
+postgres                        | 
+auto-ontology                   | 2026-11-06 06:36:42,815 INFO auto_ontology.retrieval.data_access.graph_schemas: time took to get all data from graph: 0.0012502670288085938
+auto-ontology                   | 2026-11-06 06:36:42,823 INFO auto_ontology.retrieval.data_access.graph_schemas: total time it took to create all schemas nodes: 0.004902362823486328
+auto-ontology                   | 2026-11-06 06:36:42,823 INFO auto_ontology.retrieval.data_access.graph_schemas: total time for get_schemas_by_ids(): 0.009270429611206055
+auto-ontology                   | 2026-11-06 06:36:42,826 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: SQL passed static checks: parse, degenerate, vacuous-aggregation, missing-aggregation
+auto-ontology                   | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                   |   warnings.warn(
+auto-ontology                   | 2026-11-06 06:37:02,381 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: SQL passed static and intent validation, columns: 2
+auto-ontology                   | 2026-11-06 06:37:02,382 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: Agent completed: sql_validation -> valid_sql
+auto-ontology                   | 2026-11-06 06:37:02,382 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:37:02,382 INFO auto_ontology.retrieval.text_to_sql.main: Node: validate_sql_query
+auto-ontology                   | 2026-11-06 06:37:02,383 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1} | Total visits this run: 7
+auto-ontology                   | 2026-11-06 06:37:02,383 INFO auto_ontology.retrieval.text_to_sql.base.sql_execution: Executing agent: sql_execution
+auto-ontology                   | 2026-11-06 06:37:02,383 INFO auto_ontology.retrieval.text_to_sql.chat_sql: [sales_mart] Executing chat SQL:
+auto-ontology                   | SELECT COUNT(*) AS sku_count FROM sales_mart.public.dim_product WHERE sku NOT IN (SELECT sku FROM sales_mart.public.fact_sales)
+auto-ontology                   | 2026-11-06 06:37:02,391 INFO auto_ontology.retrieval.text_to_sql.base.sql_execution: Agent completed: sql_execution -> valid_sql
+auto-ontology                   | 2026-11-06 06:37:02,391 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:37:02,391 INFO auto_ontology.retrieval.text_to_sql.main: Node: execute_sql_query
+auto-ontology                   | 2026-11-06 06:37:02,392 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1, 'check_empty_like_result': 1} | Total visits this run: 8
+auto-ontology                   | 2026-11-06 06:37:02,392 INFO auto_ontology.retrieval.text_to_sql.base.empty_like_result_check: Executing agent: empty_like_result_check
+auto-ontology                   | 2026-11-06 06:37:02,392 INFO auto_ontology.retrieval.text_to_sql.base.empty_like_result_check: Agent completed: empty_like_result_check -> valid_sql
+auto-ontology                   | 2026-11-06 06:37:02,392 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:37:02,392 INFO auto_ontology.retrieval.text_to_sql.main: Node: check_empty_like_result
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1, 'check_empty_like_result': 1, 'check_value_repair': 1} | Total visits this run: 9
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.base.empty_result_value_repair: Executing agent: empty_result_value_repair
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.base.empty_result_value_repair: Agent completed: empty_result_value_repair -> valid_sql
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.main: Node: check_value_repair
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1, 'check_empty_like_result': 1, 'check_value_repair': 1, 'format_and_respond': 1} | Total visits this run: 10
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.base.calculation_response: Executing agent: calculation_response
+auto-ontology                   | 2026-11-06 06:37:02,393 INFO auto_ontology.retrieval.text_to_sql.base.calculation_response: Calculation response prepared and returned
+auto-ontology                   | 2026-11-06 06:37:02,394 INFO auto_ontology.retrieval.text_to_sql.base.calculation_response: Agent completed: calculation_response -> none
+auto-ontology                   | 2026-11-06 06:37:02,394 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:37:02,394 INFO auto_ontology.retrieval.text_to_sql.main: Node: format_and_respond
+auto-ontology                   | 2026-11-06 06:37:02,561 INFO auto_ontology.server.chat.router: Chat completions request: {'question': 'How many units of the brand Sol Mar were shipped?', 'evidence': None, 'conversation_id': None, 'prediction': None, 'target_db': None}
+auto-ontology                   | 2026-11-06 06:37:02,563 INFO auto_ontology.server.chat.worker: Conversation context resolution: follow_up=False processing_question=How many units of the brand Sol Mar were shipped?
+auto-ontology                   | 2026-11-06 06:37:02,563 INFO uvicorn.access: 172.18.0.1:49814 - "POST /api/chat/completions HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:37:02,574 INFO auto_ontology.retrieval.text_to_sql.main: Text-to-SQL agent started for question: How many units of the brand Sol Mar were shipped?
+auto-ontology                   | 2026-11-06 06:37:02,576 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:37:02,576 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1} | Total visits this run: 1
+auto-ontology                   | 2026-11-06 06:37:02,576 INFO auto_ontology.retrieval.text_to_sql.base.question_intent: Executing agent: question_intent
+auto-ontology                   | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                   |   warnings.warn(
+auto-ontology                   | 2026-11-06 06:37:12,247 INFO uvicorn.access: 127.0.0.1:54918 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:37:42,413 INFO uvicorn.access: 127.0.0.1:59982 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:38:12,581 INFO uvicorn.access: 127.0.0.1:33852 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:38:42,766 INFO uvicorn.access: 127.0.0.1:48626 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:39:02,935 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for QuestionIntentModel: Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`
+auto-ontology                   | {'message': 'unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`', 'type': 'Bad Request', 'code': 400, 'status': 400}
+auto-ontology                   | Traceback (most recent call last):
+auto-ontology                   |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology                   |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology                   |     raise last_exc
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology                   |     result = chain.invoke(input, config, **kwargs)
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology                   |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology                   |     return self.bound.invoke(
+auto-ontology                   |            ^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology                   |     self.generate_prompt(
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology                   |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology                   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology                   |     self._generate_with_cache(
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology                   |     result = self._generate(
+auto-ontology                   |              ^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology                   |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology                   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology                   |     response, session = self._post(
+auto-ontology                   |                         ^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology                   |     self._try_raise(response)
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology                   |     raise Exception(message) from None
+auto-ontology                   | Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`
+auto-ontology                   | {'message': 'unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`', 'type': 'Bad Request', 'code': 400, 'status': 400}
+auto-ontology                   | 2026-11-06 06:39:02,936 WARNING auto_ontology.utils.llm_invoke: Non-reasoning LLM exhausted 3 retries for QuestionIntentModel (Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_) — falling back to reasoning LLM
+auto-ontology                   | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                   |   warnings.warn(
+auto-ontology                   | 2026-11-06 06:39:12,933 INFO uvicorn.access: 127.0.0.1:42266 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:39:37,058 INFO auto_ontology.retrieval.text_to_sql.base.question_intent: Question intent: type=calculation subtype=counting target_db=None rewritten='Count units of the brand Sol Mar shipped.' evidence_extracted=False
+auto-ontology                   | 2026-11-06 06:39:37,058 INFO auto_ontology.retrieval.text_to_sql.base.question_intent: Agent completed: question_intent -> none
+auto-ontology                   | 2026-11-06 06:39:37,058 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:39:37,058 INFO auto_ontology.retrieval.text_to_sql.main: Node: question_intent
+auto-ontology                   | 2026-11-06 06:39:37,059 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1} | Total visits this run: 2
+auto-ontology                   | 2026-11-06 06:39:37,059 INFO auto_ontology.retrieval.text_to_sql.base.question_extraction: Executing agent: question_extraction
+auto-ontology                   | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                   |   warnings.warn(
+auto-ontology                   | 2026-11-06 06:39:43,095 INFO uvicorn.access: 127.0.0.1:33734 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:40:13,261 INFO uvicorn.access: 127.0.0.1:40074 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:40:43,429 INFO uvicorn.access: 127.0.0.1:60690 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:41:13,604 INFO uvicorn.access: 127.0.0.1:57160 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:41:37,514 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for QuestionExtractionModel: Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`
+auto-ontology                   | {'message': 'unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`', 'type': 'Bad Request', 'code': 400, 'status': 400}
+auto-ontology                   | Traceback (most recent call last):
+auto-ontology                   |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+auto-ontology                   |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology                   |     raise last_exc
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology                   |     result = chain.invoke(input, config, **kwargs)
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology                   |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology                   |     return self.bound.invoke(
+auto-ontology                   |            ^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology                   |     self.generate_prompt(
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology                   |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology                   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology                   |     self._generate_with_cache(
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology                   |     result = self._generate(
+auto-ontology                   |              ^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology                   |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology                   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology                   |     response, session = self._post(
+auto-ontology                   |                         ^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology                   |     self._try_raise(response)
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+pgadmin                         | email config is {'CHECK_EMAIL_DELIVERABILITY': False, 'ALLOW_SPECIAL_EMAIL_DOMAINS': [], 'GLOBALLY_DELIVERABLE': True}
+postgres                        | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+postgres                        | 
+postgres                        | waiting for server to shut down...2026-11-06 04:22:11.024 UTC [53] LOG:  received fast shutdown request
+postgres                        | .2026-11-06 04:22:11.025 UTC [53] LOG:  aborting any active transactions
+postgres                        | 2026-11-06 04:22:11.028 UTC [53] LOG:  background worker "logical replication launcher" (PID 59) exited with exit code 1
+postgres                        | 2026-11-06 04:22:11.028 UTC [54] LOG:  shutting down
+postgres                        | 2026-11-06 04:22:11.028 UTC [54] LOG:  checkpoint starting: shutdown immediate
+postgres                        | 2026-11-06 04:22:11.103 UTC [54] LOG:  checkpoint complete: wrote 921 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.064 s, sync=0.010 s, total=0.075 s; sync files=301, longest=0.007 s, average=0.001 s; distance=4238 kB, estimate=4238 kB; lsn=0/190A9C8, redo lsn=0/190A9C8
+postgres                        | 2026-11-06 04:22:11.110 UTC [53] LOG:  database system is shut down
+auto-ontology                   |     raise Exception(message) from None
+pgadmin                         | /venv/lib/python3.15/site-packages/sshtunnel.py:1044: SyntaxWarning: 'return' in a 'finally' block
+pgadmin                         |   return (ssh_host,
+auto-ontology                   | Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`
+pgadmin                         | /venv/lib/python3.15/site-packages/alembic/operations/batch.py:298: UserWarning: Unnamed CHECK constraint on reflected table 'sharedserver' is being omitted from the table recreate; pass the constraint explicitly using batch_alter_table.table_args.  Naming CHECK constraints avoids this going forward.
+auto-ontology                   | {'message': 'unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`', 'type': 'Bad Request', 'code': 400, 'status': 400}
+postgres                        |  done
+auto-ontology                   | 2026-11-06 06:41:37,514 WARNING auto_ontology.utils.llm_invoke: Non-reasoning LLM exhausted 3 retries for QuestionExtractionModel (Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_) — falling back to reasoning LLM
+postgres                        | server stopped
+postgres                        | 
+postgres                        | PostgreSQL init process complete; ready for start up.
+pgadmin                         |   util.warn(
+pgadmin                         | NOTE: Configuring authentication for SERVER mode.
+pgadmin                         | 
+pgadmin                         | pgAdmin 4 - Application Initialisation
+pgadmin                         | ======================================
+pgadmin                         | 
+pgadmin                         | postfix/postlog: starting the Postfix mail system
+pgadmin                         | [2026-11-06 04:25:12 +0000] [1] [INFO] Starting gunicorn 23.0.0
+pgadmin                         | [2026-11-06 04:25:12 +0000] [1] [INFO] Listening at: http://[::]:80 (1)
+pgadmin                         | [2026-11-06 04:25:12 +0000] [1] [INFO] Using worker: gthread
+pgadmin                         | [2026-11-06 04:25:12 +0000] [125] [INFO] Booting worker with pid: 125
+pgadmin                         | /venv/lib/python3.15/site-packages/sshtunnel.py:1044: SyntaxWarning: 'return' in a 'finally' block
+pgadmin                         |   return (ssh_host,
+auto-ontology                   | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                   |   warnings.warn(
+auto-ontology                   | 2026-11-06 06:41:43,763 INFO uvicorn.access: 127.0.0.1:43634 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:42:13,930 INFO uvicorn.access: 127.0.0.1:45454 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:42:44,092 INFO uvicorn.access: 127.0.0.1:50870 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:43:14,266 INFO uvicorn.access: 127.0.0.1:41656 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                   | 2026-11-06 06:43:38,034 ERROR auto_ontology.utils.llm_invoke: Unexpected error on attempt 1/3 for QuestionExtractionModel: Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`
+auto-ontology                   | {'message': 'unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`', 'type': 'Bad Request', 'code': 400, 'status': 400}
+auto-ontology                   | Traceback (most recent call last):
+postgres                        | 
+auto-ontology                   |   File "/app/auto_ontology/utils/llm_invoke.py", line 570, in safe_invoke_with_structured_output
+postgres                        | 2026-11-06 04:22:11.150 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg12+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit
+postgres                        | 2026-11-06 04:22:11.150 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres                        | 2026-11-06 04:22:11.150 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+auto-ontology                   |     result = model_llm.invoke(_system_messages_first(llm, current_messages))
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1467, in invoke
+auto-ontology                   |     raise last_exc
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 1461, in invoke
+auto-ontology                   |     result = chain.invoke(input, config, **kwargs)
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 3454, in invoke
+auto-ontology                   |     input_ = context.run(step.invoke, input_, config, **kwargs)
+auto-ontology                   |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/runnables/base.py", line 6014, in invoke
+auto-ontology                   |     return self.bound.invoke(
+auto-ontology                   |            ^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 488, in invoke
+auto-ontology                   |     self.generate_prompt(
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1877, in generate_prompt
+auto-ontology                   |     return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+auto-ontology                   |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 1684, in generate
+auto-ontology                   |     self._generate_with_cache(
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_core/language_models/chat_models.py", line 2022, in _generate_with_cache
+auto-ontology                   |     result = self._generate(
+auto-ontology                   |              ^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py", line 706, in _generate
+auto-ontology                   |     response = self._client.get_req(payload=payload, extra_headers=extra_headers)
+auto-ontology                   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 612, in get_req
+auto-ontology                   |     response, session = self._post(
+auto-ontology                   |                         ^^^^^^^^^^^
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 421, in _post
+auto-ontology                   |     self._try_raise(response)
+auto-ontology                   |   File "/opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/_common.py", line 526, in _try_raise
+auto-ontology                   |     raise Exception(message) from None
+auto-ontology                   | Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`
+auto-ontology                   | {'message': 'unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_id`, `token_data`, `max_thinking_tokens`, `cache_salt`, `extra_fields`, `metadata_upload`, `prefill_worker_id`, `decode_worker_id`, `dp_rank`, `prefill_dp_rank`, `agent_hints`, `request_timestamp_ms`, `routing_constraints`, `router`', 'type': 'Bad Request', 'code': 400, 'status': 400}
+auto-ontology                   | 2026-11-06 06:43:38,035 ERROR auto_ontology.utils.llm_invoke: Reasoning LLM also failed for QuestionExtractionModel: Exception: [400] unknown field `guided_json`, expected one of `greed_sampling`, `use_raw_prompt`, `annotations`, `backend_instance_
+auto-ontology                   | 2026-11-06 06:43:38,035 WARNING auto_ontology.retrieval.text_to_sql.base.question_extraction: Question extraction returned None, using original question
+auto-ontology                   | 2026-11-06 06:43:38,035 INFO auto_ontology.retrieval.text_to_sql.base.question_extraction: Agent completed: question_extraction -> none
+auto-ontology                   | 2026-11-06 06:43:38,035 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:43:38,035 INFO auto_ontology.retrieval.text_to_sql.main: Node: question_extraction
+auto-ontology                   | 2026-11-06 06:43:38,036 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1} | Total visits this run: 3
+auto-ontology                   | 2026-11-06 06:43:38,036 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Executing agent: candidate_retrieval
+auto-ontology                   | 2026-11-06 06:43:38,044 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: No CustomAnalysis nodes found for database None — skipping VDB search
+auto-ontology                   | 2026-11-06 06:43:38,324 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                   | 2026-11-06 06:43:38,353 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                   | 2026-11-06 06:43:38,356 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                   | 2026-11-06 06:43:38,490 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Selected candidate database 'sales_mart': 1 entities covered, 1 hits, aggregate score 0.6586
+auto-ontology                   | 2026-11-06 06:43:38,490 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Dropped 1 semantic hits outside candidate database 'sales_mart'
+auto-ontology                   | 2026-11-06 06:43:38,490 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Retrieved 1 ColumnAttributes, 0 CustomAnalysis, 0 SqlAttribute candidates, and subject Term id='20f71901-0c80-4e45-b196-b31dd25a174c' score=0.7930748987622664 (1 entities queried, subject='Count units of the brand Sol Mar shipped.')
+auto-ontology                   | 2026-11-06 06:43:38,490 INFO auto_ontology.retrieval.text_to_sql.base.candidate_retrieval: Agent completed: candidate_retrieval -> none
+auto-ontology                   | 2026-11-06 06:43:38,491 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                   | 2026-11-06 06:43:38,491 INFO auto_ontology.retrieval.text_to_sql.main: Node: retrieve_candidates
+auto-ontology                   | 2026-11-06 06:43:38,491 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1} | Total visits this run: 4
+auto-ontology                   | 2026-11-06 06:43:38,491 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Executing agent: candidate_preparation
+auto-ontology                   | 2026-11-06 06:43:38,491 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Retrieved 0 custom analyses
+auto-ontology                   | 2026-11-06 06:43:38,491 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Found 0 relevant queries from custom analyses
+auto-ontology                   | 2026-11-06 06:43:38,498 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Fetched store context for 1/1 column attributes
+auto-ontology                   | 2026-11-06 06:43:38,499 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Fetched synonyms for 0 term(s)
+auto-ontology                   | 2026-11-06 06:43:38,499 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Anchor attribute id: 92e0fa03-f325-4104-a1d9-772afada828e
+postgres                        | 2026-11-06 04:22:11.151 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres                        | 2026-11-06 04:22:11.153 UTC [69] LOG:  database system was shut down at 2026-11-06 04:22:11 UTC
+postgres                         | 2026-11-06 04:22:11.157 UTC [1] LOG:  database system is ready to accept connections
+postgres                         | 2026-11-06 04:27:11.205 UTC [67] LOG:  checkpoint starting: time
+postgres                         | 2026-11-06 04:29:54.745 UTC [67] LOG:  checkpoint complete: wrote 1636 buffers (10.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=163.535 s, sync=0.004 s, total=163.541 s; sync files=790, longest=0.001 s, average=0.001 s; distance=8535 kB, estimate=8535 kB; lsn=0/21B7940, redo lsn=0/2160758
+postgres                         | 2026-11-06 04:32:11.821 UTC [67] LOG:  checkpoint starting: time
+postgres                         | 2026-11-06 04:32:24.246 UTC [67] LOG:  checkpoint complete: wrote 125 buffers (0.8%); 0 WAL file(s) added, 0 removed, 0 recycled; write=12.423 s, sync=0.001 s, total=12.425 s; sync files=39, longest=0.001 s, average=0.001 s; distance=601 kB, estimate=7741 kB; lsn=0/21F6CF0, redo lsn=0/21F6C60
+auto-ontology-ingestion-service  | 2026-11-06 04:31:15,479 INFO auto_ontology.semantic.visit_enter: [shipments] Embedding 1 term(s)…
+auto-ontology                    | 2026-11-06 06:43:38,501 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Tables from candidates: ['dim_product']
+auto-ontology                    | 2026-11-06 06:43:38,632 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                    | 2026-11-06 06:43:38,642 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology                    | 2026-11-06 06:43:38,734 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Added 1 table(s) from subject Term 'Shipment': ['shipments']
+auto-ontology                    | 2026-11-06 06:43:38,736 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Back-filled column metadata for 1/1 table(s)
+auto-ontology-ingestion-service  | 2026-11-06 04:31:15,480 INFO auto_ontology.utils.embedding: Embed: 8 row(s) in 1 chunk(s) of 1024 via https://integrate.api.nvidia.com/v1 (model nvidia/nemotron-3-embed-1b, batch 32, concurrency 32)
+auto-ontology-ingestion-service  | 2026-11-06 04:31:15,721 INFO httpx: HTTP Request: POST https://integrate.api.nvidia.com/v1/embeddings "HTTP/1.1 200 OK"
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,063 INFO auto_ontology.utils.embedding: Embed chunk 1/1: 8/8 row(s) embedded in 0.6s (8/8 done, 14 rows/s, ~0s left)
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,063 INFO auto_ontology.utils.embedding: Embed: 8/8 row(s) embedded in 0.6s
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,091 INFO auto_ontology.vdb.postgres: PostgresVDB.write_to_index: inserted 8 rows into semantic_layer (skipped 0)
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,091 INFO auto_ontology.semantic.visit_enter: [shipments] Embedding 1 term(s) done in 0.6s
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,091 INFO auto_ontology.semantic.pipeline: Compilation complete — 4 table(s) processed
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,092 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,092 INFO auto_ontology.semantic.compile: Semantic compilation finished — 4 table visits
+auto-ontology                    | 2026-11-06 06:43:38,736 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Relevance filter bypassed: 2 candidate table(s) <= bypass max 2
+auto-ontology                    | 2026-11-06 06:43:38,745 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Final 2 table(s) reaching SQL generation: ['sales_mart.public.dim_product', 'sales_mart.public.fact_sales']
+auto-ontology                    | 2026-11-06 06:43:38,745 INFO auto_ontology.retrieval.text_to_sql.base.candidate_preparation: Agent completed: candidate_preparation -> none
+auto-ontology                    | 2026-11-06 06:43:38,746 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                    | 2026-11-06 06:43:38,746 INFO auto_ontology.retrieval.text_to_sql.main: Node: prepare_candidates
+auto-ontology                    | 2026-11-06 06:43:38,746 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1} | Total visits this run: 5
+auto-ontology                    | 2026-11-06 06:43:38,746 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Executing agent: sql_from_semantic
+auto-ontology                    | 2026-11-06 06:43:38,747 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Semantic context: anchor=Brand, join_paths=0, custom_analyses=0, sql_attributes=0, fallback_tables=2
+auto-ontology                    | 2026-11-06 06:43:38,747 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Using 0 similar questions from conversations.
+auto-ontology                    | 2026-11-06 06:43:38,747 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Injecting the counting calculation SQL shape into the SQL prompt.
+auto-ontology                    | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                    |   warnings.warn(
+auto-ontology                    | 2026-11-06 06:43:44,430 INFO uvicorn.access: 127.0.0.1:41586 - "GET /api/health/live HTTP/1.1" 200
+auto-ontology                    | 2026-11-06 06:43:57,731 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: LLM response generated: This query sums the units column from fact_sales for all sales transactions where the associated pro...
+auto-ontology                    | 2026-11-06 06:43:57,731 INFO auto_ontology.retrieval.text_to_sql.base.sql_from_semantic: Agent completed: sql_from_semantic -> constructable
+auto-ontology                    | 2026-11-06 06:43:57,732 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                    | 2026-11-06 06:43:57,732 INFO auto_ontology.retrieval.text_to_sql.main: Node: construct_sql_from_candidates
+auto-ontology                    | 2026-11-06 06:43:57,732 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1} | Total visits this run: 6
+auto-ontology                    | 2026-11-06 06:43:57,732 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: Executing agent: sql_validation
+auto-ontology                    | 2026-11-06 06:43:57,735 INFO auto_ontology.retrieval.data_access.graph_schemas: time took to get all data from graph: 0.001148223876953125
+auto-ontology                    | 2026-11-06 06:43:57,742 INFO auto_ontology.retrieval.data_access.graph_schemas: total time it took to create all schemas nodes: 0.004569530487060547
+auto-ontology                    | 2026-11-06 06:43:57,742 INFO auto_ontology.retrieval.data_access.graph_schemas: total time for get_schemas_by_ids(): 0.00891733169555664
+auto-ontology                    | 2026-11-06 06:43:57,746 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: SQL passed static checks: parse, degenerate, vacuous-aggregation, missing-aggregation
+auto-ontology                    | /opt/venv/lib/python3.12/site-packages/langchain_nvidia_ai_endpoints/chat_models.py:1283: UserWarning: Model 'nvidia/nemotron-3.5-lightning-30b-a3b' is not known to support structured output. Your output may fail at inference time.
+auto-ontology                    |   warnings.warn(
+auto-ontology                    | 2026-11-06 06:44:14,050 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: SQL passed static and intent validation, columns: 4
+auto-ontology                    | 2026-11-06 06:44:14,050 INFO auto_ontology.retrieval.text_to_sql.base.sql_validation: Agent completed: sql_validation -> valid_sql
+auto-ontology                    | 2026-11-06 06:44:14,050 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                    | 2026-11-06 06:44:14,050 INFO auto_ontology.retrieval.text_to_sql.main: Node: validate_sql_query
+auto-ontology                    | 2026-11-06 06:44:14,051 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1} | Total visits this run: 7
+auto-ontology                    | 2026-11-06 06:44:14,051 INFO auto_ontology.retrieval.text_to_sql.base.sql_execution: Executing agent: sql_execution
+auto-ontology                    | 2026-11-06 06:44:14,051 INFO auto_ontology.retrieval.text_to_sql.chat_sql: [sales_mart] Executing chat SQL:
+auto-ontology                    | SELECT SUM(f.units) AS total_units FROM sales_mart.public.fact_sales AS f JOIN sales_mart.public.dim_product AS p ON f.sku = p.sku WHERE p.brand = 'Sol Mar'
+auto-ontology                    | 2026-11-06 06:44:14,058 INFO auto_ontology.retrieval.text_to_sql.base.sql_execution: Agent completed: sql_execution -> valid_sql
+auto-ontology                    | 2026-11-06 06:44:14,059 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                    | 2026-11-06 06:44:14,059 INFO auto_ontology.retrieval.text_to_sql.main: Node: execute_sql_query
+auto-ontology                    | 2026-11-06 06:44:14,059 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1, 'check_empty_like_result': 1} | Total visits this run: 8
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.base.empty_like_result_check: Executing agent: empty_like_result_check
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.base.empty_like_result_check: Agent completed: empty_like_result_check -> valid_sql
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.main: Node: check_empty_like_result
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,092 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,092 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1, 'check_empty_like_result': 1, 'check_value_repair': 1} | Total visits this run: 9
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,092 INFO auto_ontology.semantic.compile: Resolving semantic FK edges…
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,092 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.base.empty_result_value_repair: Executing agent: empty_result_value_repair
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,095 INFO auto_ontology.semantic.semantic_fk: resolve_semantic_fks: no unlinked FK columns found
+auto-ontology                    | 2026-11-06 06:44:14,060 INFO auto_ontology.retrieval.text_to_sql.base.empty_result_value_repair: Agent completed: empty_result_value_repair -> valid_sql
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,102 INFO auto_ontology.semantic.compile: Semantic FK edges created: 0
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,102 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.main: Node: check_value_repair
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,102 INFO auto_ontology.semantic.compile: Suggesting SqlAttributes from query history…
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.text_to_sql_graph: 🔁 Node visits: {'question_intent': 1, 'question_extraction': 1, 'retrieve_candidates': 1, 'prepare_candidates': 1, 'construct_sql_from_candidates': 1, 'validate_sql_query': 1, 'execute_sql_query': 1, 'check_empty_like_result': 1, 'check_value_repair': 1, 'format_and_respond': 1} | Total visits this run: 10
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,102 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.base.calculation_response: Executing agent: calculation_response
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,102 INFO auto_ontology.semantic.sql_attribute_suggester: Collecting SQL expressions per term…
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.base.calculation_response: Calculation response prepared and returned
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,105 INFO auto_ontology.semantic.sql_attribute_suggester: No terms with associated SQL queries — skipping SqlAttribute suggestion.
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,105 INFO auto_ontology.semantic.compile: New SqlAttribute nodes written: 0
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,105 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.base.calculation_response: Agent completed: calculation_response -> none
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.main: --- AGENT STEP ---
+auto-ontology                    | 2026-11-06 06:44:14,061 INFO auto_ontology.retrieval.text_to_sql.main: Node: format_and_respond
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,105 INFO auto_ontology.semantic.compile: Building bridge tables sql attributes
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,105 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,112 INFO auto_ontology.semantic.bridge_tables: No eligible bridge tables found for database 'ops_mart'.
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,112 INFO auto_ontology.semantic.compile: Bridge tables built: 0
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,112 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,112 INFO auto_ontology.semantic.compile: Semantic calculation finished successfully (database='ops_mart') — 4 table(s), 0 semantic FK edge(s), 0 SqlAttribute(s), 0 bridge table(s) in 136.9s
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,112 INFO auto_ontology.semantic.compile: ============================================================
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,116 INFO auto_ontology.ingestion_service.semantic_scheduler: Finished semantic compilation successfully for database ops_mart: 4 table(s) compiled in 136.9s
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,123 INFO auto_ontology.server.rules.service: No rules to re-apply
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,129 INFO auto_ontology.ingestion_service.semantic_scheduler: semantic: finished successfully — 2 database(s), 8 table(s) compiled in 359.2s
+auto-ontology-ingestion-service  | 2026-11-06 04:31:16,129 INFO auto_ontology.ingestion_service.scheduler: semantic: next run at 2026-11-07T04:31:16.129295+00:00
+auto-ontology-ingestion-service  | 2026-11-06 04:31:17,777 INFO uvicorn.access: 172.18.0.6:36880 - "GET /semantic/status HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:31:29,368 INFO uvicorn.access: 127.0.0.1:44510 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:31:59,534 INFO uvicorn.access: 127.0.0.1:52528 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:32:29,698 INFO uvicorn.access: 127.0.0.1:36834 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:32:59,867 INFO uvicorn.access: 127.0.0.1:42716 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:33:30,031 INFO uvicorn.access: 127.0.0.1:57726 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:34:00,189 INFO uvicorn.access: 127.0.0.1:42618 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:34:30,352 INFO uvicorn.access: 127.0.0.1:53116 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:35:00,515 INFO uvicorn.access: 127.0.0.1:43916 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:35:30,678 INFO uvicorn.access: 127.0.0.1:59570 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:36:00,841 INFO uvicorn.access: 127.0.0.1:37812 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:36:31,002 INFO uvicorn.access: 127.0.0.1:35444 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:37:01,166 INFO uvicorn.access: 127.0.0.1:34650 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:37:31,329 INFO uvicorn.access: 127.0.0.1:47032 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:38:01,487 INFO uvicorn.access: 127.0.0.1:53804 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:38:31,643 INFO uvicorn.access: 127.0.0.1:49252 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:39:01,798 INFO uvicorn.access: 127.0.0.1:43148 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:39:31,955 INFO uvicorn.access: 127.0.0.1:34794 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:40:02,116 INFO uvicorn.access: 127.0.0.1:57182 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:40:32,278 INFO uvicorn.access: 127.0.0.1:35072 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:41:02,441 INFO uvicorn.access: 127.0.0.1:60962 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:41:32,607 INFO uvicorn.access: 127.0.0.1:39946 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:42:02,772 INFO uvicorn.access: 127.0.0.1:52560 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:42:32,932 INFO uvicorn.access: 127.0.0.1:54330 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:43:03,093 INFO uvicorn.access: 127.0.0.1:53498 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:43:33,257 INFO uvicorn.access: 127.0.0.1:55422 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:44:03,423 INFO uvicorn.access: 127.0.0.1:50120 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:44:33,591 INFO uvicorn.access: 127.0.0.1:34952 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:45:03,758 INFO uvicorn.access: 127.0.0.1:44062 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:45:33,925 INFO uvicorn.access: 127.0.0.1:60490 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:46:04,091 INFO uvicorn.access: 127.0.0.1:48350 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:46:34,259 INFO uvicorn.access: 127.0.0.1:50866 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:47:04,422 INFO uvicorn.access: 127.0.0.1:58402 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:47:34,583 INFO uvicorn.access: 127.0.0.1:45576 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:48:04,746 INFO uvicorn.access: 127.0.0.1:43474 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:48:34,912 INFO uvicorn.access: 127.0.0.1:60870 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:49:05,077 INFO uvicorn.access: 127.0.0.1:45156 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:49:35,235 INFO uvicorn.access: 127.0.0.1:51918 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:50:05,394 INFO uvicorn.access: 127.0.0.1:43912 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:50:35,555 INFO uvicorn.access: 127.0.0.1:32986 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:51:05,730 INFO uvicorn.access: 127.0.0.1:46254 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:51:35,912 INFO uvicorn.access: 127.0.0.1:59710 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:52:06,085 INFO uvicorn.access: 127.0.0.1:54638 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:52:36,287 INFO uvicorn.access: 127.0.0.1:51876 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:53:06,470 INFO uvicorn.access: 127.0.0.1:42738 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:53:36,637 INFO uvicorn.access: 127.0.0.1:43790 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:54:06,809 INFO uvicorn.access: 127.0.0.1:51094 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:54:36,970 INFO uvicorn.access: 127.0.0.1:58174 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:55:07,171 INFO uvicorn.access: 127.0.0.1:37060 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:55:37,332 INFO uvicorn.access: 127.0.0.1:35682 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:56:07,491 INFO uvicorn.access: 127.0.0.1:34398 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:56:37,658 INFO uvicorn.access: 127.0.0.1:60678 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:57:07,823 INFO uvicorn.access: 127.0.0.1:41096 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:57:37,988 INFO uvicorn.access: 127.0.0.1:42888 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:58:08,160 INFO uvicorn.access: 127.0.0.1:44196 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:58:38,344 INFO uvicorn.access: 127.0.0.1:39846 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:59:08,509 INFO uvicorn.access: 127.0.0.1:33410 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 04:59:38,673 INFO uvicorn.access: 127.0.0.1:48546 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:00:08,835 INFO uvicorn.access: 127.0.0.1:53106 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:00:38,996 INFO uvicorn.access: 127.0.0.1:49136 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:01:09,155 INFO uvicorn.access: 127.0.0.1:40906 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:01:39,318 INFO uvicorn.access: 127.0.0.1:36596 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:02:09,480 INFO uvicorn.access: 127.0.0.1:40364 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:02:39,638 INFO uvicorn.access: 127.0.0.1:54648 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:03:09,796 INFO uvicorn.access: 127.0.0.1:54576 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:03:39,952 INFO uvicorn.access: 127.0.0.1:51446 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:04:10,106 INFO uvicorn.access: 127.0.0.1:50288 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:04:40,261 INFO uvicorn.access: 127.0.0.1:57552 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:05:10,418 INFO uvicorn.access: 127.0.0.1:54268 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:05:40,576 INFO uvicorn.access: 127.0.0.1:38464 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:06:10,736 INFO uvicorn.access: 127.0.0.1:56878 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:06:40,892 INFO uvicorn.access: 127.0.0.1:43058 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:07:11,058 INFO uvicorn.access: 127.0.0.1:38992 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:07:41,219 INFO uvicorn.access: 127.0.0.1:41618 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:08:11,380 INFO uvicorn.access: 127.0.0.1:34516 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:08:41,539 INFO uvicorn.access: 127.0.0.1:43214 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:09:11,701 INFO uvicorn.access: 127.0.0.1:37588 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:09:41,867 INFO uvicorn.access: 127.0.0.1:37626 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:10:12,032 INFO uvicorn.access: 127.0.0.1:49256 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:10:42,198 INFO uvicorn.access: 127.0.0.1:48602 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:11:12,361 INFO uvicorn.access: 127.0.0.1:35076 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:11:42,530 INFO uvicorn.access: 127.0.0.1:45250 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:12:12,707 INFO uvicorn.access: 127.0.0.1:57200 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:12:42,868 INFO uvicorn.access: 127.0.0.1:46240 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:13:13,037 INFO uvicorn.access: 127.0.0.1:37694 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:13:43,203 INFO uvicorn.access: 127.0.0.1:40404 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:14:13,368 INFO uvicorn.access: 127.0.0.1:43484 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:14:43,525 INFO uvicorn.access: 127.0.0.1:46444 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:15:13,683 INFO uvicorn.access: 127.0.0.1:45614 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:15:43,842 INFO uvicorn.access: 127.0.0.1:36656 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:16:14,000 INFO uvicorn.access: 127.0.0.1:39850 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:16:44,158 INFO uvicorn.access: 127.0.0.1:40222 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:17:14,321 INFO uvicorn.access: 127.0.0.1:46418 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:17:44,487 INFO uvicorn.access: 127.0.0.1:49114 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:18:14,656 INFO uvicorn.access: 127.0.0.1:41938 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:18:44,816 INFO uvicorn.access: 127.0.0.1:60554 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:19:14,981 INFO uvicorn.access: 127.0.0.1:48544 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:19:45,149 INFO uvicorn.access: 127.0.0.1:56022 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:20:15,328 INFO uvicorn.access: 127.0.0.1:45360 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:20:45,495 INFO uvicorn.access: 127.0.0.1:58454 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:21:15,659 INFO uvicorn.access: 127.0.0.1:41996 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:21:45,822 INFO uvicorn.access: 127.0.0.1:49554 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:22:15,981 INFO uvicorn.access: 127.0.0.1:42502 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:22:46,220 INFO uvicorn.access: 127.0.0.1:51698 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:23:16,392 INFO uvicorn.access: 127.0.0.1:36710 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:23:46,545 INFO uvicorn.access: 127.0.0.1:46330 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:24:16,714 INFO uvicorn.access: 127.0.0.1:54338 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:24:46,879 INFO uvicorn.access: 127.0.0.1:47946 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:25:17,043 INFO uvicorn.access: 127.0.0.1:37366 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:25:47,209 INFO uvicorn.access: 127.0.0.1:48914 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:26:17,371 INFO uvicorn.access: 127.0.0.1:46556 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:26:47,537 INFO uvicorn.access: 127.0.0.1:45192 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:27:17,701 INFO uvicorn.access: 127.0.0.1:45068 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:27:47,867 INFO uvicorn.access: 127.0.0.1:47668 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:28:18,030 INFO uvicorn.access: 127.0.0.1:44594 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:28:48,198 INFO uvicorn.access: 127.0.0.1:58120 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:29:18,366 INFO uvicorn.access: 127.0.0.1:39044 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:29:48,542 INFO uvicorn.access: 127.0.0.1:42406 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:30:18,719 INFO uvicorn.access: 127.0.0.1:50078 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:30:48,891 INFO uvicorn.access: 127.0.0.1:50782 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:31:19,056 INFO uvicorn.access: 127.0.0.1:36588 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:31:49,286 INFO uvicorn.access: 127.0.0.1:35188 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:32:19,471 INFO uvicorn.access: 127.0.0.1:35620 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:32:49,652 INFO uvicorn.access: 127.0.0.1:48920 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:33:19,833 INFO uvicorn.access: 127.0.0.1:51030 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:33:50,007 INFO uvicorn.access: 127.0.0.1:44570 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:34:20,171 INFO uvicorn.access: 127.0.0.1:42208 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:34:50,333 INFO uvicorn.access: 127.0.0.1:50308 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:35:20,502 INFO uvicorn.access: 127.0.0.1:52134 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:35:50,680 INFO uvicorn.access: 127.0.0.1:34496 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:36:20,874 INFO uvicorn.access: 127.0.0.1:36178 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:36:51,073 INFO uvicorn.access: 127.0.0.1:41114 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:37:21,249 INFO uvicorn.access: 127.0.0.1:58776 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:37:51,415 INFO uvicorn.access: 127.0.0.1:56776 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:38:21,585 INFO uvicorn.access: 127.0.0.1:33208 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:38:51,762 INFO uvicorn.access: 127.0.0.1:42208 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:39:21,947 INFO uvicorn.access: 127.0.0.1:60230 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:39:52,137 INFO uvicorn.access: 127.0.0.1:42752 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:40:22,320 INFO uvicorn.access: 127.0.0.1:45882 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:40:52,496 INFO uvicorn.access: 127.0.0.1:53902 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:41:22,673 INFO uvicorn.access: 127.0.0.1:57938 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:41:52,851 INFO uvicorn.access: 127.0.0.1:43672 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:42:23,025 INFO uvicorn.access: 127.0.0.1:50312 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:42:53,190 INFO uvicorn.access: 127.0.0.1:39148 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:43:23,360 INFO uvicorn.access: 127.0.0.1:36108 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:43:53,527 INFO uvicorn.access: 127.0.0.1:41232 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:44:23,695 INFO uvicorn.access: 127.0.0.1:49872 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:44:53,855 INFO uvicorn.access: 127.0.0.1:54450 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:45:24,033 INFO uvicorn.access: 127.0.0.1:51462 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:45:54,210 INFO uvicorn.access: 127.0.0.1:58930 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:46:24,366 INFO uvicorn.access: 127.0.0.1:45348 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:46:54,532 INFO uvicorn.access: 127.0.0.1:58328 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:47:24,690 INFO uvicorn.access: 127.0.0.1:53330 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:47:54,848 INFO uvicorn.access: 127.0.0.1:45130 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:48:25,003 INFO uvicorn.access: 127.0.0.1:56678 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:48:55,155 INFO uvicorn.access: 127.0.0.1:33060 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:49:25,311 INFO uvicorn.access: 127.0.0.1:36300 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:49:55,466 INFO uvicorn.access: 127.0.0.1:41458 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:50:25,617 INFO uvicorn.access: 127.0.0.1:51724 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:50:55,777 INFO uvicorn.access: 127.0.0.1:50178 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:51:25,937 INFO uvicorn.access: 127.0.0.1:55786 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:51:56,097 INFO uvicorn.access: 127.0.0.1:51876 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:52:26,269 INFO uvicorn.access: 127.0.0.1:40398 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:52:56,437 INFO uvicorn.access: 127.0.0.1:44266 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:53:26,598 INFO uvicorn.access: 127.0.0.1:56030 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:53:56,760 INFO uvicorn.access: 127.0.0.1:37346 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:54:26,920 INFO uvicorn.access: 127.0.0.1:60384 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:54:57,082 INFO uvicorn.access: 127.0.0.1:34136 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:55:27,251 INFO uvicorn.access: 127.0.0.1:35128 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:55:57,416 INFO uvicorn.access: 127.0.0.1:42198 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:56:27,581 INFO uvicorn.access: 127.0.0.1:35078 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:56:57,750 INFO uvicorn.access: 127.0.0.1:52870 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:57:27,924 INFO uvicorn.access: 127.0.0.1:48710 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:57:58,085 INFO uvicorn.access: 127.0.0.1:56558 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:58:28,245 INFO uvicorn.access: 127.0.0.1:49726 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:58:58,407 INFO uvicorn.access: 127.0.0.1:50898 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:59:28,576 INFO uvicorn.access: 127.0.0.1:33936 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 05:59:58,745 INFO uvicorn.access: 127.0.0.1:57110 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:00:28,910 INFO uvicorn.access: 127.0.0.1:54178 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:00:59,069 INFO uvicorn.access: 127.0.0.1:35346 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:01:29,237 INFO uvicorn.access: 127.0.0.1:53102 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:01:59,401 INFO uvicorn.access: 127.0.0.1:53850 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:02:29,565 INFO uvicorn.access: 127.0.0.1:44216 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:02:59,729 INFO uvicorn.access: 127.0.0.1:51964 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:03:29,911 INFO uvicorn.access: 127.0.0.1:37494 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:04:00,103 INFO uvicorn.access: 127.0.0.1:42138 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:04:30,275 INFO uvicorn.access: 127.0.0.1:35226 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:05:00,436 INFO uvicorn.access: 127.0.0.1:46212 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:05:30,598 INFO uvicorn.access: 127.0.0.1:52402 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:06:00,762 INFO uvicorn.access: 127.0.0.1:55350 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:06:30,922 INFO uvicorn.access: 127.0.0.1:58086 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:07:01,086 INFO uvicorn.access: 127.0.0.1:56094 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:07:31,250 INFO uvicorn.access: 127.0.0.1:37354 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:08:01,407 INFO uvicorn.access: 127.0.0.1:40822 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:08:31,561 INFO uvicorn.access: 127.0.0.1:45716 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:09:01,721 INFO uvicorn.access: 127.0.0.1:58390 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:09:31,887 INFO uvicorn.access: 127.0.0.1:50906 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:10:02,071 INFO uvicorn.access: 127.0.0.1:60450 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:10:32,255 INFO uvicorn.access: 127.0.0.1:51178 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:11:02,441 INFO uvicorn.access: 127.0.0.1:43140 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:11:32,620 INFO uvicorn.access: 127.0.0.1:51258 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:12:02,804 INFO uvicorn.access: 127.0.0.1:52824 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:12:32,995 INFO uvicorn.access: 127.0.0.1:53416 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:13:03,152 INFO uvicorn.access: 127.0.0.1:41808 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:13:33,318 INFO uvicorn.access: 127.0.0.1:33228 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:14:03,485 INFO uvicorn.access: 127.0.0.1:53012 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:14:33,650 INFO uvicorn.access: 127.0.0.1:46942 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:15:03,825 INFO uvicorn.access: 127.0.0.1:50668 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:15:33,995 INFO uvicorn.access: 127.0.0.1:42026 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:16:04,170 INFO uvicorn.access: 127.0.0.1:48480 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:16:34,328 INFO uvicorn.access: 127.0.0.1:57854 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:17:04,487 INFO uvicorn.access: 127.0.0.1:44674 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:17:34,647 INFO uvicorn.access: 127.0.0.1:59106 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:18:04,807 INFO uvicorn.access: 127.0.0.1:35200 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:18:34,976 INFO uvicorn.access: 127.0.0.1:33916 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:19:05,142 INFO uvicorn.access: 127.0.0.1:37686 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:19:35,324 INFO uvicorn.access: 127.0.0.1:33764 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:20:05,493 INFO uvicorn.access: 127.0.0.1:49688 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:20:35,663 INFO uvicorn.access: 127.0.0.1:52372 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:21:05,833 INFO uvicorn.access: 127.0.0.1:56604 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:21:35,999 INFO uvicorn.access: 127.0.0.1:42978 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:22:06,163 INFO uvicorn.access: 127.0.0.1:54118 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:22:36,327 INFO uvicorn.access: 127.0.0.1:35580 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:23:06,503 INFO uvicorn.access: 127.0.0.1:45172 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:23:36,665 INFO uvicorn.access: 127.0.0.1:52542 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:24:06,826 INFO uvicorn.access: 127.0.0.1:35530 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:24:36,982 INFO uvicorn.access: 127.0.0.1:44086 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:25:07,141 INFO uvicorn.access: 127.0.0.1:59142 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:25:37,307 INFO uvicorn.access: 127.0.0.1:55834 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:26:07,476 INFO uvicorn.access: 127.0.0.1:48626 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:26:37,638 INFO uvicorn.access: 127.0.0.1:47296 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:27:07,843 INFO uvicorn.access: 127.0.0.1:33716 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:27:37,996 INFO uvicorn.access: 127.0.0.1:35860 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:28:08,157 INFO uvicorn.access: 127.0.0.1:54920 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:28:38,316 INFO uvicorn.access: 127.0.0.1:44172 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:29:08,478 INFO uvicorn.access: 127.0.0.1:34022 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:29:38,635 INFO uvicorn.access: 127.0.0.1:47020 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:30:08,820 INFO uvicorn.access: 127.0.0.1:54418 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:30:38,978 INFO uvicorn.access: 127.0.0.1:34890 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:31:09,135 INFO uvicorn.access: 127.0.0.1:33860 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:31:39,289 INFO uvicorn.access: 127.0.0.1:35926 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:32:09,444 INFO uvicorn.access: 127.0.0.1:39028 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:32:39,599 INFO uvicorn.access: 127.0.0.1:58642 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:33:09,767 INFO uvicorn.access: 127.0.0.1:54994 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:33:39,961 INFO uvicorn.access: 127.0.0.1:47012 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:34:10,125 INFO uvicorn.access: 127.0.0.1:38916 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:34:40,300 INFO uvicorn.access: 127.0.0.1:46658 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:35:10,463 INFO uvicorn.access: 127.0.0.1:46320 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:35:40,636 INFO uvicorn.access: 127.0.0.1:33932 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:36:10,804 INFO uvicorn.access: 127.0.0.1:54382 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:36:40,983 INFO uvicorn.access: 127.0.0.1:33584 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:37:11,154 INFO uvicorn.access: 127.0.0.1:38478 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:37:41,332 INFO uvicorn.access: 127.0.0.1:33996 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:38:11,501 INFO uvicorn.access: 127.0.0.1:60702 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:38:41,691 INFO uvicorn.access: 127.0.0.1:47836 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:39:11,867 INFO uvicorn.access: 127.0.0.1:53262 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:39:42,041 INFO uvicorn.access: 127.0.0.1:44422 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:40:12,233 INFO uvicorn.access: 127.0.0.1:38828 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:40:42,405 INFO uvicorn.access: 127.0.0.1:57546 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:41:12,577 INFO uvicorn.access: 127.0.0.1:59790 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:41:42,738 INFO uvicorn.access: 127.0.0.1:50060 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:42:12,897 INFO uvicorn.access: 127.0.0.1:42936 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:42:43,059 INFO uvicorn.access: 127.0.0.1:41134 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:43:13,229 INFO uvicorn.access: 127.0.0.1:34912 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:43:43,391 INFO uvicorn.access: 127.0.0.1:38956 - "GET /health/live HTTP/1.1" 200
+auto-ontology-ingestion-service  | 2026-11-06 06:44:13,551 INFO uvicorn.access: 127.0.0.1:53120 - "GET /health/live HTTP/1.1" 200

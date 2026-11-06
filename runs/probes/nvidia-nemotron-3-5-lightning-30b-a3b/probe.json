@@ -1,0 +1,9 @@
+{
+  "kind": "probe",
+  "note": "Probe only, not an evaluation run. stage_preflight from src/auto_ontology_eval/live.py executed with config.CHAT_MODEL set to the candidate; the spec pin was not changed by this probe.",
+  "candidate": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "spec_pin_at_probe_time": "nvidia/nemotron-nano-3-30b-a3b",
+  "outcome": "answered",
+  "detail": "",
+  "github_run_id": "42125151787"
+}

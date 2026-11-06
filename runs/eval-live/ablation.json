@@ -1,0 +1,262 @@
+{
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "What is the company's total net sales after returns?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "expected": 1549.75,
+      "ontology": {
+        "value": "[{\"sum\":1549.75}]",
+        "sql": "SELECT SUM(net_sales) FROM sales_mart.public.fact_sales",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This calculates the company's total net sales after returns by summing the net_sales column from the fact_sales table, which records revenue after adjustments (including returns). The result is a single total value representing all net sales across the company.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q02",
+      "question": "What is the total gross sales value before any returns?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "expected": 1598.25,
+      "ontology": {
+        "value": "[{\"total_gross_sales_before_returns\":1598.25}]",
+        "sql": "SELECT SUM(gross_sales) AS total_gross_sales_before_returns FROM sales_mart.public.fact_sales;",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This calculates the total gross sales revenue from the fact_sales table, which by definition represents total revenue before any deductions including returns. The SUM of the gross_sales column aggregates all sales records to produce the total gross sales value before returns, using the sales_mart.public.fact_sales table.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q03",
+      "question": "What is the total value of returns?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics"
+      ],
+      "expected": 48.5,
+      "ontology": {
+        "value": "[{\"total_value_of_returns\":48.5}]",
+        "sql": "SELECT SUM(return_amount) AS total_value_of_returns FROM sales_mart.public.sales_returns;",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query calculates the total monetary value of all return transactions by summing the return amount column from the sales returns table. It includes every return record since no time window or filtering conditions are applied, and the non-nullable return amount ensures all values contribute to the total.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q04",
+      "question": "What are net sales after returns for the brand Nordwind?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics",
+        "product_hierarchy"
+      ],
+      "expected": 961.55,
+      "ontology": {
+        "value": "[{\"net_sales_after_returns\":950.35}]",
+        "sql": "SELECT SUM(s.net_sales - COALESCE(tr.total_return, 0)) AS net_sales_after_returns FROM sales_mart.public.dim_product AS p JOIN sales_mart.public.fact_sales AS s ON p.sku = s.sku LEFT JOIN (SELECT sale_id, SUM(return_amount) AS total_return FROM sales_mart.public.sales_returns GROUP BY sale_id) AS tr ON s.sale_id = tr.sale_id WHERE p.brand = 'Nordwind'",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query calculates total net sales after returns for the Nordwind brand. It starts with dim_product filtered to brand 'Nordwind', joins to fact_sales on sku to access each sale's net_sales, then left-joins a subquery that aggregates total return_amount per sale_id from sales_returns. COALESCE handles sales with no returns (treating them as 0). The final SUM subtracts total returns from net_sales across all Nordwind sales, yielding the brand's net sales after returns.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q05",
+      "question": "Which categories does the brand Alpine Spring have products in?",
+      "answer_type": "set",
+      "conflict_ids": [
+        "product_hierarchy"
+      ],
+      "expected": [
+        "Soda",
+        "Water"
+      ],
+      "ontology": {
+        "value": [
+          "[{\"category\":\"Soda\"},{\"category\":\"Water\"}]"
+        ],
+        "sql": "SELECT DISTINCT category FROM sales_mart.public.dim_product WHERE brand = 'Alpine Spring';",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query returns the unique product categories for all products branded by Alpine Spring. It filters the dim_product table to rows where the brand column equals 'Alpine Spring' and then projects the distinct values from the category column, giving the complete set of product categories associated with that brand.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q06",
+      "question": "What are net sales after returns for the Juice category?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "net_sales_semantics",
+        "product_hierarchy"
+      ],
+      "expected": 1052.8,
+      "ontology": {
+        "value": null,
+        "sql": null,
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "LLM failed to produce a response.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q07",
+      "question": "How many units were shipped from Lyon Works?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "location_identity"
+      ],
+      "expected": 507.0,
+      "ontology": {
+        "value": "[{\"sum(s.units)\":507.0}]",
+        "sql": "SELECT SUM(s.units) FROM ops_mart.main.shipments AS s JOIN ops_mart.main.plants AS p ON s.plant_code = p.plant_code WHERE p.plant_city = 'Lyon';",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query calculates the total number of units shipped from the Lyon plant by joining the shipments table with the plants table on plant_code and filtering for the plant located in Lyon. The SUM of the units column from matching shipment records gives the total units dispatched from that location.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q08",
+      "question": "What are net sales after returns for sales through distribution center DC-N1?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "location_identity",
+        "net_sales_semantics"
+      ],
+      "expected": 608.15,
+      "ontology": {
+        "value": "[{\"net_sales_after_returns\":625.45}]",
+        "sql": "SELECT SUM(net_sales) AS net_sales_after_returns FROM ops_mart.main.shipments WHERE dc_code = 'DC-N1';",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query calculates the total net sales after returns for all shipments processed through distribution center DC-N1. It sums the net_sales column from the shipments table, which already represents net revenue after returns, and filters to only include shipments where dc_code is 'DC-N1'.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q09",
+      "question": "Which plant codes shipped goods to Milan Depot?",
+      "answer_type": "set",
+      "conflict_ids": [
+        "location_identity"
+      ],
+      "expected": [
+        "PL01",
+        "PL02"
+      ],
+      "ontology": {
+        "value": [
+          "[{\"plant_code\":\"PL01\"},{\"plant_code\":\"PL01\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL01\"},{\"plant_code\":\"PL01\"},{\"plant_code\":\"PL01\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL01\"},{\"plant_code\":\"PL02\"},{\"plant_code\":\"PL02\"}]"
+        ],
+        "sql": "SELECT s.plant_code FROM ops_mart.main.shipments AS s INNER JOIN ops_mart.main.distribution_centers AS d ON s.dc_code = d.dc_code WHERE d.dc_city = 'Milan'",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query retrieves plant codes from the shipments table for all shipments that were sent to distribution centers located in Milan. It joins shipments with distribution_centers on the dc_code column and filters for dc_city = 'Milan', returning the plant_code for each qualifying shipment record.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q10",
+      "question": "Which SKUs exist in both the sales mart and the ops mart?",
+      "answer_type": "set",
+      "conflict_ids": [
+        "shared_sku_identity"
+      ],
+      "expected": [
+        "SKU-1002",
+        "SKU-1003",
+        "SKU-1004",
+        "SKU-1005",
+        "SKU-1006",
+        "SKU-1007"
+      ],
+      "ontology": {
+        "value": [
+          "[{\"sku\":\"SKU-1007\"},{\"sku\":\"SKU-1006\"},{\"sku\":\"SKU-1003\"},{\"sku\":\"SKU-1004\"},{\"sku\":\"SKU-1005\"},{\"sku\":\"SKU-1002\"}]"
+        ],
+        "sql": "SELECT DISTINCT d.sku FROM sales_mart.public.dim_product d INNER JOIN sales_mart.public.fact_sales f ON d.sku = f.sku",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query finds SKUs that appear in both the product catalog (dim_product) and the sales records (fact_sales) within the sales mart. It joins the two tables on the sku column and returns distinct SKUs that have matching entries in both, which are SKU-1002, SKU-1003, SKU-1004, and SKU-1005 based on the sample data.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q11",
+      "question": "How many SKUs exist only in the ops mart?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "shared_sku_identity"
+      ],
+      "expected": 3.0,
+      "ontology": {
+        "value": "[{\"sku_count\":2}]",
+        "sql": "SELECT COUNT(*) AS sku_count FROM sales_mart.public.dim_product WHERE sku NOT IN (SELECT sku FROM sales_mart.public.fact_sales)",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This counts the number of product SKUs defined in the product catalog (dim_product) that have no corresponding sales records in the fact_sales table, representing SKUs that exist only in the ops mart and have never been sold.",
+        "correct": false
+      },
+      "raw": null
+    },
+    {
+      "id": "Q12",
+      "question": "How many units of the brand Sol Mar were shipped?",
+      "answer_type": "number",
+      "conflict_ids": [
+        "shared_sku_identity",
+        "product_hierarchy"
+      ],
+      "expected": 90.0,
+      "ontology": {
+        "value": "[{\"total_units\":90}]",
+        "sql": "SELECT SUM(f.units) AS total_units FROM sales_mart.public.fact_sales AS f JOIN sales_mart.public.dim_product AS p ON f.sku = p.sku WHERE p.brand = 'Sol Mar'",
+        "error": null,
+        "provenance_detail": null,
+        "provenance": false,
+        "response": "This query sums the units column from fact_sales for all sales transactions where the associated product in dim_product has brand 'Sol Mar'. The join between fact_sales and dim_product is on the sku column, which is the common key between sales transactions and product catalog information. Filtering by brand isolates only Sol Mar products, and aggregating the units gives the total shipped quantity.",
+        "correct": false
+      },
+      "raw": null
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "ontology_correct": 0,
+    "raw_correct": null,
+    "delta": null,
+    "arms": "ontology only (live-internals configuration, spec Amendment 3); the raw-schema control arm was not rerun"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "anvil/envelope@1",
+  "from_station": "checks-gate",
+  "to_station": "reviewer-spec",
+  "work_order_id": "wo-gh-1",
+  "artifact_path": "runs/wo-gh-1/checks-gate.pre-review.output.md",
+  "status": "not_configured",
+  "created_at": "2026-11-06T04:06:56.907166+00:00",
+  "phase": "pre-review",
+  "commands": [],
+  "exit_codes": [],
+  "protected_paths": [
+    "tests/",
+    "anvil.json"
+  ],
+  "protected_path_verdict": "pass",
+  "protected_path_findings": [],
+  "observed_additions": [],
+  "basis": "builder_delta (attempt 1)",
+  "gate_verdict": "not_configured",
+  "configured_model": "claude-sonnet-5-5"
+}

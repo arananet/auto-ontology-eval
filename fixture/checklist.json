@@ -1,0 +1,129 @@
+{
+  "conflicts": [
+    {
+      "id": "net_sales_semantics",
+      "description": "Both marts have a column named net_sales with different meanings.",
+      "involves": [
+        {
+          "source": "A",
+          "table": "fact_sales",
+          "column": "net_sales"
+        },
+        {
+          "source": "B",
+          "table": "shipments",
+          "column": "net_sales"
+        }
+      ],
+      "ground_truth": {
+        "source_a_meaning": "gross_sales minus returns (excludes returns)",
+        "source_b_meaning": "gross invoice value (includes returns)",
+        "source_a_total": 1549.75,
+        "source_b_total": 1598.25,
+        "returns_total": 48.5
+      }
+    },
+    {
+      "id": "location_identity",
+      "description": "Source B identifies plants and DCs by codes; Source A uses names for the same sites.",
+      "involves": [
+        {
+          "source": "A",
+          "table": "dim_location",
+          "column": "location_name"
+        },
+        {
+          "source": "B",
+          "table": "plants",
+          "column": "plant_code"
+        },
+        {
+          "source": "B",
+          "table": "distribution_centers",
+          "column": "dc_code"
+        }
+      ],
+      "ground_truth": {
+        "join_path": "dim_location.city = plants.plant_city / distribution_centers.dc_city",
+        "mapping": [
+          {
+            "code": "PL01",
+            "kind": "plant",
+            "name": "Lyon Works"
+          },
+          {
+            "code": "PL02",
+            "kind": "plant",
+            "name": "Porto Works"
+          },
+          {
+            "code": "DC-N1",
+            "kind": "dc",
+            "name": "Rotterdam Hub"
+          },
+          {
+            "code": "DC-S1",
+            "kind": "dc",
+            "name": "Milan Depot"
+          }
+        ]
+      }
+    },
+    {
+      "id": "product_hierarchy",
+      "description": "Source A groups products brand then category; Source B uses product_group with no brand.",
+      "involves": [
+        {
+          "source": "A",
+          "table": "dim_product",
+          "column": "brand"
+        },
+        {
+          "source": "A",
+          "table": "dim_product",
+          "column": "category"
+        },
+        {
+          "source": "B",
+          "table": "items",
+          "column": "product_group"
+        }
+      ],
+      "ground_truth": {
+        "source_a_levels": [
+          "brand",
+          "category"
+        ],
+        "source_b_levels": [
+          "product_group"
+        ]
+      }
+    },
+    {
+      "id": "shared_sku_identity",
+      "description": "The same SKU is dim_product.sku in A and items.item_sku in B.",
+      "involves": [
+        {
+          "source": "A",
+          "table": "dim_product",
+          "column": "sku"
+        },
+        {
+          "source": "B",
+          "table": "items",
+          "column": "item_sku"
+        }
+      ],
+      "ground_truth": {
+        "shared_skus": [
+          "SKU-1002",
+          "SKU-1003",
+          "SKU-1004",
+          "SKU-1005",
+          "SKU-1006",
+          "SKU-1007"
+        ]
+      }
+    }
+  ]
+}

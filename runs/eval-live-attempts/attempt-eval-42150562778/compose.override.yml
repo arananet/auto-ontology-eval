@@ -1,0 +1,7 @@
+services:
+  auto-ontology:
+    volumes:
+      - /home/runner/work/auto-ontology-eval/auto-ontology-eval/runs/eval-live/fixture-data:/fixture-data:ro
+  ingestion-service:
+    volumes:
+      - /home/runner/work/auto-ontology-eval/auto-ontology-eval/runs/eval-live/fixture-data:/fixture-data:ro

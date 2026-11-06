@@ -1,0 +1,17 @@
+[
+  {
+    "event": "source_registered",
+    "source": "A",
+    "at": "2026-11-06T04:25:16.788041Z"
+  },
+  {
+    "event": "source_registered",
+    "source": "B",
+    "at": "2026-11-06T04:25:16.788241Z"
+  },
+  {
+    "event": "catalog_exported",
+    "complete": true,
+    "at": "2026-11-06T04:31:17.858944Z"
+  }
+]

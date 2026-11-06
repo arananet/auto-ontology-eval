@@ -1,0 +1,649 @@
+data_layer:
+  databases:
+  - id: 130118ca-124a-4ce0-b054-d6a1ccca89f4
+    dialect: postgres
+    schemas:
+    - id: f53f9020-9232-461c-9a96-d299f2e0c4b0
+      name: public
+      database_name: sales_mart
+      tables:
+      - id: acb4b372-efb6-42d2-9c77-b2c683f4c182
+        name: dim_location
+        description: ''
+        pk:
+        - location_id
+        type: base table
+        columns:
+        - id: 076f6bce-1b2b-43d8-a98c-d9c23cbddd60
+          name: location_id
+          description: ''
+          type: integer
+          sample_values:
+          - 1
+          - 2
+          - 3
+          - 4
+          is_nullable: false
+          is_unique: true
+        - id: c23f00d3-c705-46a4-87c7-4c80ed7b1fff
+          name: location_name
+          description: ''
+          type: text
+          sample_values:
+          - Lyon Works
+          - Porto Works
+          - Rotterdam Hub
+          - Milan Depot
+          is_nullable: false
+          is_unique: true
+        - id: 1676111d-2df7-49d8-940b-7432067c0999
+          name: city
+          description: ''
+          type: text
+          sample_values:
+          - Lyon
+          - Porto
+          - Rotterdam
+          - Milan
+          is_nullable: false
+          is_unique: true
+        - id: 710772cb-60e3-46ef-ac11-f5bc681fa7a8
+          name: location_kind
+          description: ''
+          type: text
+          sample_values:
+          - plant
+          - dc
+          is_nullable: false
+          is_unique: false
+      - id: 0b2d1621-0e5e-4605-a27f-065b9fb9101c
+        name: dim_product
+        description: ''
+        pk:
+        - sku
+        type: base table
+        columns:
+        - id: 5fae380e-1c52-4e94-aed7-bbc341c14269
+          name: sku
+          description: ''
+          type: text
+          sample_values:
+          - SKU-1001
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          is_nullable: false
+          is_unique: true
+        - id: 0c321c32-d7af-410e-85d6-62c61db6bc3c
+          name: product_name
+          description: ''
+          type: text
+          sample_values:
+          - Alpine Spring Still 1L
+          - Alpine Spring Sparkling 1L
+          - Alpine Spring Lemon Soda 330ml
+          - Nordwind Apple Juice 1L
+          - Nordwind Orange Juice 1L
+          is_nullable: false
+          is_unique: true
+        - id: c504c3c3-b0d0-4410-84e3-ac08fc766dfa
+          name: brand
+          description: ''
+          type: text
+          sample_values:
+          - Alpine Spring
+          - Nordwind
+          - Sol Mar
+          is_nullable: false
+          is_unique: false
+        - id: 2a6b03d7-b388-419f-a18d-b14402410010
+          name: category
+          description: ''
+          type: text
+          sample_values:
+          - Soda
+          - Juice
+          - Water
+          is_nullable: false
+          is_unique: false
+        - id: 904f1191-f8cb-4ace-a242-141885365cc9
+          name: list_price
+          description: ''
+          type: numeric
+          sample_values:
+          - 1.2
+          - 1.4
+          - 0.9
+          - 2.6
+          - 2.8
+          is_nullable: false
+          is_unique: true
+      - id: 2a2cae50-466b-4bc1-aef3-49baa1ccb7ea
+        name: fact_sales
+        description: ''
+        pk:
+        - sale_id
+        type: base table
+        columns:
+        - id: ad8f2341-0270-4aa4-8647-2779610df264
+          name: sale_id
+          description: ''
+          type: integer
+          sample_values:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          is_nullable: false
+          is_unique: true
+        - id: d3f7a6e7-b23e-47bc-a7b6-a5f3d1a88a3c
+          name: sale_date
+          description: ''
+          type: date
+          sample_values: []
+          is_nullable: false
+          is_unique: false
+        - id: b4fa4744-89b4-42ec-bd2d-be66c504a131
+          name: sku
+          description: ''
+          type: text
+          sample_values:
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          - SKU-1006
+          is_nullable: false
+          is_unique: false
+        - id: 9391f5eb-1944-4b4d-a11d-474cea9ccbcc
+          name: location_id
+          description: ''
+          type: integer
+          sample_values:
+          - 4
+          - 3
+          is_nullable: false
+          is_unique: false
+        - id: 8a0865e1-2a32-4445-9f17-13e6a95e3454
+          name: units
+          description: ''
+          type: integer
+          sample_values:
+          - 48
+          - 37
+          - 14
+          - 25
+          - 52
+          is_nullable: false
+          is_unique: false
+        - id: 1f6dde39-85af-4e08-973a-9e4d3524a7ff
+          name: gross_sales
+          description: ''
+          type: numeric
+          sample_values:
+          - 58.8
+          - 43.4
+          - 67.2
+          - 33.3
+          - 135.2
+          is_nullable: false
+          is_unique: false
+        - id: ee0b7f9a-7241-4da3-afea-551b82065d98
+          name: net_sales
+          description: ''
+          type: numeric
+          sample_values:
+          - 33.3
+          - 43.4
+          - 67.2
+          - 135.2
+          - 56
+          is_nullable: false
+          is_unique: false
+      - id: 85560025-e88d-48f4-af3b-2b12244ae198
+        name: sales_returns
+        description: ''
+        pk:
+        - return_id
+        type: base table
+        columns:
+        - id: 5932b9ad-bc8f-468a-a055-1fdc0f7bd470
+          name: return_id
+          description: ''
+          type: integer
+          sample_values:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          is_nullable: false
+          is_unique: true
+        - id: aa725671-9f2b-4f76-ba88-cde6cf36ce9a
+          name: sale_id
+          description: ''
+          type: integer
+          sample_values:
+          - 4
+          - 8
+          - 12
+          - 16
+          - 20
+          is_nullable: false
+          is_unique: true
+        - id: 8375133b-4de8-48a5-a37c-a2f62b8d7be3
+          name: return_date
+          description: ''
+          type: date
+          sample_values: []
+          is_nullable: false
+          is_unique: true
+        - id: 7dee1327-22dd-4107-96a3-64ca437857ec
+          name: return_amount
+          description: ''
+          type: numeric
+          sample_values:
+          - 15.5
+          - 2.8
+          - 4.5
+          - 8.4
+          - 1.8
+          is_nullable: false
+          is_unique: false
+  - id: 8a6e1883-471a-44fd-9389-23c3f31d79f8
+    dialect: duckdb
+    schemas:
+    - id: e0307934-e87f-4361-96e3-0341cf03cef9
+      name: main
+      database_name: ops_mart
+      tables:
+      - id: 9ce72d36-5f5d-482a-9f7a-97ebf5ff55c3
+        name: distribution_centers
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: 8f286ee4-2ec3-406e-a3bc-2264511af9e7
+          name: dc_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - DC-N1
+          - DC-S1
+          is_nullable: false
+          is_unique: true
+        - id: 78a553d8-49f6-4ef3-84fe-473710578ba8
+          name: dc_city
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - Rotterdam
+          - Milan
+          is_nullable: false
+          is_unique: true
+        - id: a30302c0-cb86-4eeb-833b-23cb5d20b8dd
+          name: region
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - North
+          - South
+          is_nullable: false
+          is_unique: true
+      - id: ef53f945-80dc-4c04-bdfa-96786b09e792
+        name: items
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: 4d9d61ae-cc33-41df-8840-125a5e0869c0
+          name: item_sku
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          - SKU-1006
+          is_nullable: false
+          is_unique: true
+        - id: 8e4e22ee-2cfe-4b3f-8389-48fec060c84c
+          name: item_description
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - ALPINE SPRING SPARKLING 1L
+          - ALPINE SPRING LEMON SODA 330ML
+          - NORDWIND APPLE JUICE 1L
+          - NORDWIND ORANGE JUICE 1L
+          - NORDWIND COLA 330ML
+          is_nullable: false
+          is_unique: true
+        - id: ca251e55-9214-4040-939e-547e44a2563b
+          name: product_group
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - Chilled
+          - Ambient
+          is_nullable: false
+          is_unique: false
+      - id: cdd6eff2-2196-4dc4-8ddf-bfaf111338da
+        name: plants
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: e400cf9d-8c77-44ef-b609-b32b6ce751e5
+          name: plant_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - PL01
+          - PL02
+          is_nullable: false
+          is_unique: true
+        - id: 6e60053e-b70a-4dca-9085-93e984d60032
+          name: plant_city
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - Lyon
+          - Porto
+          is_nullable: false
+          is_unique: true
+        - id: e3ed8821-a9e6-4ca0-b726-b0e384471042
+          name: capacity_units
+          description: ''
+          type: INTEGER
+          sample_values:
+          - 12000
+          - 8000
+          is_nullable: false
+          is_unique: true
+      - id: 21b2ffbd-5289-4e0c-8673-15ec9eda5a80
+        name: shipments
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: abcc38a4-bda1-4d3d-b800-1a10a3c77047
+          name: shipment_id
+          description: ''
+          type: INTEGER
+          sample_values:
+          - 5001
+          - 5002
+          - 5003
+          - 5004
+          - 5005
+          is_nullable: false
+          is_unique: true
+        - id: d54e2436-037f-445a-92a4-750c5f4bc08c
+          name: ship_date
+          description: ''
+          type: DATE
+          sample_values: []
+          is_nullable: false
+          is_unique: false
+        - id: d3f61c9f-21c6-46a4-8d9e-149b4a9b955b
+          name: item_sku
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          - SKU-1006
+          is_nullable: false
+          is_unique: false
+        - id: fa56e29f-faf0-4970-ae97-ec367fad773b
+          name: plant_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - PL01
+          - PL02
+          is_nullable: false
+          is_unique: false
+        - id: 509c6f1b-60be-40de-94fc-5fcc32de0048
+          name: dc_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - DC-S1
+          - DC-N1
+          is_nullable: false
+          is_unique: false
+        - id: 80e5ce14-abb1-496a-a610-9931e8237422
+          name: units
+          description: ''
+          type: INTEGER
+          sample_values:
+          - 48
+          - 37
+          - 14
+          - 25
+          - 52
+          is_nullable: false
+          is_unique: false
+        - id: 6c85ff03-4a11-4c98-a7b2-871066817997
+          name: net_sales
+          description: ''
+          type: DECIMAL(12,2)
+          sample_values:
+          - 58.8
+          - 43.4
+          - 67.2
+          - 33.3
+          - 135.2
+          is_nullable: false
+          is_unique: false
+  foreign_keys: []
+  joins: []
+semantic_layer:
+  terms:
+  - id: a08bad0e-7870-4cca-a2ab-ad02bdf471b2
+    name: Dim Location
+    description: Business entity represented by table dim_location
+    represents:
+    - acb4b372-efb6-42d2-9c77-b2c683f4c182
+    columns_attributes:
+    - id: 246a13f5-2a97-440e-80f2-ee093c9cefab
+      name: locationName
+      description: ''
+      column_id: c23f00d3-c705-46a4-87c7-4c80ed7b1fff
+    - id: 6f74cf57-3046-4ebb-bd63-68f57240063d
+      name: locationKind
+      description: ''
+      column_id: 710772cb-60e3-46ef-ac11-f5bc681fa7a8
+    - id: a0deb6bd-ca8c-4ac4-a4fb-c4c87c00184e
+      name: city
+      description: ''
+      column_id: 1676111d-2df7-49d8-940b-7432067c0999
+    - id: ae80235a-b8d2-4e1d-8afa-0f594805306d
+      name: locationId
+      description: ''
+      column_id: 076f6bce-1b2b-43d8-a98c-d9c23cbddd60
+  - id: b97a16a4-c4e2-4339-8b87-72c41b0bf056
+    name: Dim Product
+    description: Business entity represented by table dim_product
+    represents:
+    - 0b2d1621-0e5e-4605-a27f-065b9fb9101c
+    columns_attributes:
+    - id: 1fd7b7a1-7770-48bd-8445-3a7fe61e7f79
+      name: listPrice
+      description: ''
+      column_id: 904f1191-f8cb-4ace-a242-141885365cc9
+    - id: 444a275c-6ae7-4f95-b79a-169ef7d7d9ac
+      name: productName
+      description: ''
+      column_id: 0c321c32-d7af-410e-85d6-62c61db6bc3c
+    - id: 5ee31a98-a9d2-41b6-a835-26cfce5ae263
+      name: category
+      description: ''
+      column_id: 2a6b03d7-b388-419f-a18d-b14402410010
+    - id: 63f89f83-fe5f-4b20-aeec-7143e60cf50c
+      name: sku
+      description: ''
+      column_id: 5fae380e-1c52-4e94-aed7-bbc341c14269
+    - id: e75681e5-fdd6-477f-89ad-bfe6d36c6d6c
+      name: brand
+      description: ''
+      column_id: c504c3c3-b0d0-4410-84e3-ac08fc766dfa
+  - id: d3aeee74-95d5-4dc0-8793-578b2bdaea7f
+    name: Distribution Centers
+    description: Business entity represented by table distribution_centers
+    represents:
+    - 9ce72d36-5f5d-482a-9f7a-97ebf5ff55c3
+    columns_attributes:
+    - id: 236aef5e-0c8f-4345-aae1-0994a5737b5d
+      name: dcCity
+      description: ''
+      column_id: 78a553d8-49f6-4ef3-84fe-473710578ba8
+    - id: 61e97b05-b245-4101-9ff8-6b0921d34328
+      name: region
+      description: ''
+      column_id: a30302c0-cb86-4eeb-833b-23cb5d20b8dd
+    - id: 64577d2b-1652-4720-bca2-8facaab104bd
+      name: dcCode
+      description: ''
+      column_id: 8f286ee4-2ec3-406e-a3bc-2264511af9e7
+  - id: 4e926016-ff88-448c-8eaf-77281901d10a
+    name: Fact Sales
+    description: Business entity represented by table fact_sales
+    represents:
+    - 2a2cae50-466b-4bc1-aef3-49baa1ccb7ea
+    columns_attributes:
+    - id: 059262f4-c080-475c-a1ae-db96a14887b7
+      name: saleId
+      description: ''
+      column_id: ad8f2341-0270-4aa4-8647-2779610df264
+    - id: 08ecd253-63bf-455d-806f-d70ea0246807
+      name: locationId
+      description: ''
+      column_id: 9391f5eb-1944-4b4d-a11d-474cea9ccbcc
+    - id: 16586f64-ff0c-421b-bb96-2f5217066b64
+      name: grossSales
+      description: ''
+      column_id: 1f6dde39-85af-4e08-973a-9e4d3524a7ff
+    - id: 4b1b6dc3-b909-4096-bbcd-78d8949da12a
+      name: sku
+      description: ''
+      column_id: b4fa4744-89b4-42ec-bd2d-be66c504a131
+    - id: 525b949a-d17a-45f4-9bee-a01166f5c8be
+      name: units
+      description: ''
+      column_id: 8a0865e1-2a32-4445-9f17-13e6a95e3454
+    - id: e3d4d10d-e187-41b3-80d8-22f7941a0033
+      name: saleDate
+      description: 'format: YYYY-MM-DD'
+      column_id: d3f7a6e7-b23e-47bc-a7b6-a5f3d1a88a3c
+    - id: e4099c50-2fa8-496a-84b2-c6f0d918a1e3
+      name: netSales
+      description: ''
+      column_id: ee0b7f9a-7241-4da3-afea-551b82065d98
+  - id: af5b5922-d0ca-496b-9c13-9195d194e5bf
+    name: Items
+    description: Business entity represented by table items
+    represents:
+    - ef53f945-80dc-4c04-bdfa-96786b09e792
+    columns_attributes:
+    - id: 05669801-9f75-406d-98bf-4f1d9cfad431
+      name: productGroup
+      description: ''
+      column_id: ca251e55-9214-4040-939e-547e44a2563b
+    - id: 48853f0f-d2db-4179-b1c9-a734554f2425
+      name: itemSku
+      description: ''
+      column_id: 4d9d61ae-cc33-41df-8840-125a5e0869c0
+    - id: 8115803b-c0f5-46fc-9253-165506e309aa
+      name: itemDescription
+      description: ''
+      column_id: 8e4e22ee-2cfe-4b3f-8389-48fec060c84c
+  - id: 634f953d-3a93-4176-94ae-69f56b2cb0f2
+    name: Plants
+    description: Business entity represented by table plants
+    represents:
+    - cdd6eff2-2196-4dc4-8ddf-bfaf111338da
+    columns_attributes:
+    - id: 0f86aacc-aaae-4daf-9ac3-1ad1dbf7c42d
+      name: capacityUnits
+      description: ''
+      column_id: e3ed8821-a9e6-4ca0-b726-b0e384471042
+    - id: ac015b89-9bab-4c63-836b-22b5a66c4ac9
+      name: plantCode
+      description: ''
+      column_id: e400cf9d-8c77-44ef-b609-b32b6ce751e5
+    - id: fed1d5c3-8c59-4bb5-9504-014bdc69406e
+      name: plantCity
+      description: ''
+      column_id: 6e60053e-b70a-4dca-9085-93e984d60032
+  - id: ee3ef5a8-ca77-40b2-8133-65ce7fcd5934
+    name: Sales Returns
+    description: Business entity represented by table sales_returns
+    represents:
+    - 85560025-e88d-48f4-af3b-2b12244ae198
+    columns_attributes:
+    - id: 0ef382a6-6d29-4570-9750-e57f983fe711
+      name: saleId
+      description: ''
+      column_id: aa725671-9f2b-4f76-ba88-cde6cf36ce9a
+    - id: 2fe94915-7bfd-4ad0-af9a-ab004c2999f2
+      name: returnId
+      description: ''
+      column_id: 5932b9ad-bc8f-468a-a055-1fdc0f7bd470
+    - id: d1e6c4c2-1205-4163-8001-c8a1e22c9bbf
+      name: returnDate
+      description: 'format: YYYY-MM-DD'
+      column_id: 8375133b-4de8-48a5-a37c-a2f62b8d7be3
+    - id: f8b7e624-e82a-4eb3-9283-a48b9dfe0a6e
+      name: returnAmount
+      description: ''
+      column_id: 7dee1327-22dd-4107-96a3-64ca437857ec
+  - id: 37ffaafd-76b2-4b94-a6f0-b4c8c4c2c6c4
+    name: Shipments
+    description: Business entity represented by table shipments
+    represents:
+    - 21b2ffbd-5289-4e0c-8673-15ec9eda5a80
+    columns_attributes:
+    - id: 2593d1a7-c454-4acd-84f1-0568846a87fb
+      name: itemSku
+      description: ''
+      column_id: d3f61c9f-21c6-46a4-8d9e-149b4a9b955b
+    - id: 2db4bd9d-63a8-4e1b-98f5-0b4518a4df31
+      name: netSales
+      description: ''
+      column_id: 6c85ff03-4a11-4c98-a7b2-871066817997
+    - id: 4b923ad1-5183-4359-828e-eee94ca7eb37
+      name: shipDate
+      description: 'format: YYYY-MM-DD HH:MM:SS'
+      column_id: d54e2436-037f-445a-92a4-750c5f4bc08c
+    - id: 75e11bac-0ecd-4a68-81e3-1d96a7d0f158
+      name: plantCode
+      description: ''
+      column_id: fa56e29f-faf0-4970-ae97-ec367fad773b
+    - id: b304e6e0-5291-4e21-ac54-1ea0e041b7ae
+      name: units
+      description: ''
+      column_id: 80e5ce14-abb1-496a-a610-9931e8237422
+    - id: d8ae09a0-5b40-469f-99d9-d7dbdb703c9b
+      name: dcCode
+      description: ''
+      column_id: 509c6f1b-60be-40de-94fc-5fcc32de0048
+    - id: f9aec00c-a865-465a-93ab-213d0ebe6994
+      name: shipmentId
+      description: ''
+      column_id: abcc38a4-bda1-4d3d-b800-1a10a3c77047
+  semantic_fks: []
+  sql_attributes:
+    manual: []
+    table: []
+    sql: []
+    bridge_table: []
+  custom_analyses: []
+zones: []

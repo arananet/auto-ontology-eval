@@ -1,0 +1,5 @@
+location_id,location_name,city,location_kind
+1,Lyon Works,Lyon,plant
+2,Porto Works,Porto,plant
+3,Rotterdam Hub,Rotterdam,dc
+4,Milan Depot,Milan,dc

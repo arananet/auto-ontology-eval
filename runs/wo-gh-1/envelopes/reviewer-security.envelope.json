@@ -1,0 +1,27 @@
+{
+  "schema": "anvil/envelope@1",
+  "from_station": "reviewer-security",
+  "to_station": "reviewer-tests",
+  "work_order_id": "wo-gh-1",
+  "artifact_path": "runs/wo-gh-1/reviewer-security.output.md",
+  "status": "executed",
+  "created_at": "2026-11-06T04:08:23.652066+00:00",
+  "review": {
+    "station": "reviewer-security",
+    "verdict": "pass",
+    "findings": [
+      "PASS: NVIDIA_API_KEY is read only from the repository secret via env (workflow step env, secrets.require_api_key). It is never written to the repo. Every subprocess and HTTP output goes through redact() before being stored (live._run, live._http). A grep of the tree found no literal nvapi- key values.",
+      "PASS: The key-carrying Compose .env is written to the upstream checkout (default /tmp/auto-ontology, workflow uses RUNNER_TEMP) with chmod 0600. The change in live.stage_s1 refuses an upstream dir inside the run evidence dir, which is the dir that is committed and uploaded. This closes the main path for the key reaching artifacts. Postgres password and AUTH_SECRET are generated per run with secrets.token_hex, not hardcoded.",
+      "PASS: The workflow uses permissions: contents read, workflow_dispatch only (no pull_request_target or untrusted triggers), and pins upstream to a fixed commit with verify_checkout. Fixture data is synthetic, and nothing is published. The fixture mounts are read-only.",
+      "ADVISORY (low): .github/workflows/auto-ontology-eval.yml interpolates ${{ inputs.run_dir }} and ${{ inputs.configuration }} directly into the shell `run:` line of the step that holds NVIDIA_API_KEY. run_dir is a free-text input, so a dispatcher could inject shell commands. Dispatch needs write access, so the risk is limited. Pass the inputs through env vars (e.g. RUN_DIR) and quote them. Also reject run_dir values that are absolute or contain '..'.",
+      "ADVISORY (low): redact() only does exact-string replacement. Container logs that echo the key in a transformed form (base64, URL-encoded, split across lines) would not be masked in the staged teardown logs or the uploaded artifact. Consider also redacting common encodings, and scanning the evidence dir for the key and its encodings before upload.",
+      "ADVISORY (low): The upstream FastAPI (:3001/:3002) has no auth and the Postgres port 5432 is published on the runner. This is acceptable on an ephemeral GitHub-hosted runner. Do not reuse the harness on a shared or self-hosted runner without binding the ports to localhost."
+    ]
+  },
+  "configured_model": "claude-sonnet-5-5",
+  "executor": {
+    "kind": "command",
+    "detail": "python3"
+  },
+  "executed_model": "claude-sonnet-5-5"
+}

@@ -1,0 +1,11 @@
+{
+  "runner": "ubuntu26 20261101.186.1 (GitHub Actions, GitHub Actions 1000013138, Linux)",
+  "github_run_id": "42150483731",
+  "upstream_repo": "https://github.com/NVIDIA/auto-ontology.git",
+  "upstream_commit": "cdaf61e1bd0cf3820d11d72b43bb460816aebbd3",
+  "chat_model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "embedding_model": "nvidia/nemotron-3-embed-1b",
+  "rerank_model": "nvidia/llama-nemotron-rerank-vl-1b-v2",
+  "configuration": "live-internals",
+  "run_date": "2026-11-06T02:32:42Z"
+}

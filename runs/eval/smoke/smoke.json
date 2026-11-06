@@ -1,0 +1,14 @@
+{
+  "health": {
+    "ok": true,
+    "evidence": "health.txt"
+  },
+  "catalog": {
+    "ok": true,
+    "evidence": "catalog.txt"
+  },
+  "mcp": {
+    "ok": true,
+    "evidence": "mcp.txt"
+  }
+}

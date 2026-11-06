@@ -1,0 +1,17 @@
+{
+  "chat": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "status": 200,
+    "response": "{\"id\":\"chatcmpl-048c7c19-455b-49d7-9f57-4906a5aa580e\",\"choices\":[{\"index\":0,\"message\":{\"content\":null,\"role\":\"assistant\",\"reasoning_content\":\"Here's a thinking process:\\n\\n1.\"},\"finish_reason\":\"length\",\"logprobs\":null}],\"created\":1793919926,\"model\":\"nvidia/nemotron-3.5-lightning-30b-a3b\",\"service_tier\":null,\"system_fingerprint\":null,\"object\":\"chat.completion\",\"usage\":{\"prompt_tokens\":18,\"completion_tokens\":8,\"total_tokens\":26,\"prompt_tokens_details\":{\"audio_tokens\":null,\"cached_tokens\":0},\"compl"
+  },
+  "embedding": {
+    "model": "nvidia/nemotron-3-embed-1b",
+    "status": 200,
+    "response": "{\"object\":\"list\",\"data\":[{\"object\":\"embedding\",\"embedding\":[-0.009366068,-0.049171858,0.014829608,0.006747541,0.00046342524,0.0138261,-0.03880228,-0.032223735,-0.002062765,-0.015442862,0.037854522,-0.006118607,-0.0011359145,0.0029617404,-0.019470828,-0.024864681,-0.02347092,0.043541066,0.004014029,0.008913096,0.029018085,0.011819085,0.030523347,0.0031568666,0.027317697,0.000027875203,0.020488273,-0.030690597,-0.025533685,-0.018815761,-0.0009198817,0.02274878,0.0059652934,-0.0038258715,-0.0198297"
+  },
+  "rerank": {
+    "model": "nvidia/llama-nemotron-rerank-vl-1b-v2",
+    "status": 200,
+    "response": "{\"rankings\":[{\"index\":0,\"logit\":-2.798828125}],\"usage\":{\"prompt_tokens\":8,\"total_tokens\":8}}"
+  }
+}

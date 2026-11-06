@@ -1,0 +1,8 @@
+[
+  {
+    "scenario": "S1",
+    "literal": "MCP tools/list request sent over the network to the running MCP server",
+    "equivalent": "MCP tools listed in process against the pinned MCP server module (fastmcp in-memory client)",
+    "reason": "the pinned MCP server is not part of the upstream compose stack and its HTTP endpoint requires a frontend OAuth token, which the harness has no way to obtain without the interactive web login"
+  }
+]

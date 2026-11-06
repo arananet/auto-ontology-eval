@@ -1,0 +1,14 @@
+[
+  {
+    "scenario": "S1",
+    "literal": "MCP tools/list request sent over the network to the running MCP server",
+    "equivalent": "MCP tools listed in process against the pinned MCP server module (fastmcp in-memory client)",
+    "reason": "the pinned MCP server is not part of the upstream compose stack and its HTTP endpoint requires a frontend OAuth token, which the harness has no way to obtain without the interactive web login"
+  },
+  {
+    "scenario": "S4",
+    "literal": "raw-schema arm SQL executed on the live Postgres (Source A) and DuckDB (Source B) sources",
+    "equivalent": "raw-schema arm SQL executed on an in-memory SQLite copy of the fixture, loaded from the same seed files, with Source A as schema a and Source B as schema b",
+    "reason": "the two live sources are separate engines, so one model-written query cannot join across them; a single SQLite copy holding both sources lets the raw-schema arm answer every question, including cross-source ones, with one query, and is the same engine the reference SQL ground truths were computed on"
+  }
+]
