@@ -24,7 +24,9 @@ No real company data is used anywhere in this project. The evaluation and its di
 
 ## Status
 
-Executed. The default-configuration run completed on GitHub Actions on 2026-11-05 (run 42127124473) at the pinned upstream commit, with the evaluation chat model pinned by recorded spec amendment to nvidia/nemotron-3.5-lightning-30b-a3b. Headline results: first complete catalog in 15.42 s; all four planted conflicts scored ignored; the Auto Ontology chat arm answered 0 of 12 questions against 8 of 12 for the raw-schema control. The full evidence is on the `anvil/run-auto-ontology-eval` branch: [RESULTS.md](https://github.com/arananet/auto-ontology-eval/blob/anvil/run-auto-ontology-eval/runs/eval/RESULTS.md) and the [diagnosis of the chat arm's silence](https://github.com/arananet/auto-ontology-eval/blob/anvil/run-auto-ontology-eval/runs/eval/S4-DIAGNOSIS.md). A second run with the product's internal models wired to the live pinned model (spec Amendment 3) is in progress; its results will land in `runs/eval-live/` on the same branch.
+Executed, twice. The default-configuration run completed on GitHub Actions on 2026-11-05 (run 42127124473) at the pinned upstream commit, with the evaluation chat model pinned by recorded spec amendment to nvidia/nemotron-3.5-lightning-30b-a3b. Headline results: first complete catalog in 15.42 s; all four planted conflicts scored ignored; the Auto Ontology chat arm answered 0 of 12 questions and produced no SQL, against 8 of 12 for the raw-schema control. Full evidence: [RESULTS.md](runs/eval/RESULTS.md) and the [diagnosis of the chat arm's silence](runs/eval/S4-DIAGNOSIS.md).
+
+A second run (2026-11-06, run 42162053401), under spec Amendment 3, wired the product's internal models to nvidia/nemotron-3.5-lightning-30b-a3b. With live internals the catalog carried 39 authored descriptions of 88 (the default run authored 0), yet all four planted conflicts were still ignored, and the chat arm scored 0 of 12 again, this time producing SQL for 11 of 12 questions. Full evidence: [RESULTS-LIVE.md](runs/eval-live/RESULTS-LIVE.md).
 
 ## Repository layout
 
