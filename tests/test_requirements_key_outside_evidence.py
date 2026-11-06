@@ -171,8 +171,28 @@ class WorkflowUploadScopeTests(unittest.TestCase):
 class CommittedEvidenceTests(unittest.TestCase):
     """No committed run artifact is, or carries, a key file."""
 
-    ASSIGNMENT = re.compile(r"NVIDIA_API_KEY\s*=\s*(?!\s|$|\*+|\[REDACTED\]|<redacted>)\S+",
-                            re.IGNORECASE)
+    # A value is anything after `=` except: nothing, a mask, or a lone
+    # closing quote or backtick (prose such as "a real `NVIDIA_API_KEY=` value"),
+    # or an empty quoted pair. A quoted real value is still a value.
+    ASSIGNMENT = re.compile(
+        r"NVIDIA_API_KEY\s*=\s*"
+        r"(?!\s|$|\*+|\[REDACTED\]|<redacted>|[`'\"](?:[\s.,;:)]|$)|``|''|\"\")\S+",
+        re.IGNORECASE | re.MULTILINE)
+
+    def test_assignment_pattern_flags_values_and_ignores_prose_and_masks(self):
+        flagged = ["NVIDIA_API_KEY=nvapi-abc123", 'NVIDIA_API_KEY="nvapi-abc123"',
+                   "export NVIDIA_API_KEY='nvapi-abc123'", "NVIDIA_API_KEY = nvapi-x",
+                   "NVIDIA_API_KEY=`nvapi-abc123`"]
+        ignored = ["a real `NVIDIA_API_KEY=` value", "NVIDIA_API_KEY=", "NVIDIA_API_KEY=\n",
+                   "NVIDIA_API_KEY=***", "NVIDIA_API_KEY=[REDACTED]",
+                   "NVIDIA_API_KEY=<redacted>", 'NVIDIA_API_KEY=""', "NVIDIA_API_KEY=''",
+                   "set `NVIDIA_API_KEY=`, then", "the line `NVIDIA_API_KEY=`."]
+        for text in flagged:
+            with self.subTest(flagged=text):
+                self.assertIsNotNone(self.ASSIGNMENT.search(text))
+        for text in ignored:
+            with self.subTest(ignored=text):
+                self.assertIsNone(self.ASSIGNMENT.search(text))
 
     def test_env_files_are_git_ignored(self):
         patterns = (ROOT / ".gitignore").read_text().splitlines()

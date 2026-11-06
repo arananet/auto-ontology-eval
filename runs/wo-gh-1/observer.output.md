@@ -1,13 +1,12 @@
-I wrote the observation report to `runs/wo-gh-1/observer.output.md`, in the project root one level above the factory directory. Nothing was released, so the report covers what the run evidence shows. I didn't re-run anything.
+I couldn't observe anything for wo-gh-1, so I wrote `runs/wo-gh-1/observer.report.md` saying what's missing instead of reporting results.
 
-- **No release:** the deployer record is a packet only, `deployment_status` is `null`, and the approver verdict is `changes_requested` with a loopback to builder.
-- **Builder:** the step timed out after 1500s, so passing tests can't be credited to a builder run. The reviewer-design step also failed.
-- **S1:** the health, catalog and MCP smoke probes recorded pass at the pinned commit.
-- **S3:** all 4 planted conflicts are marked "ignored". Every quote is a bare table name, so the marks show no reconciliation, not that the product saw and discarded the conflicts.
-- **Model:** the run used `nvidia/nemotron-3.5-lightning-30b-a3b`, not the `nvidia/nemotron-3-nano-30b-a3b` the work order specified.
-- **S4:** the Auto Ontology arm scored 0/12 against 8/12 for the raw-schema arm. `S4-DIAGNOSIS.md` attributes this to the product's internal model slots pointing at a retired model (HTTP 410), so it is a misconfigured-stack result, not a verdict on the product.
-- **Not delivered:** `runs/eval-live/` and `RESULTS-LIVE.md` don't exist, so the approver's 22 failing tests would still fail.
-- **Secrets:** a pattern search of the working tree found no key-shaped `nvapi-` value. I didn't check the Actions logs or uploaded artifacts.
+- **No release record:** the deployer step is only `packet_ready`, and no release record exists.
+- **Nothing in the repo for this work order:**
+  - The spec `.openspec/specs/auto-ontology-enterprise-eval/spec.md` isn't there.
+  - A repo-wide search finds no mention of `auto-ontology`.
+  - There is no fixture, Compose file, workflow, ablation harness or `RESULTS.md`.
+  - Nothing shows S1–S5 were ever run.
+- **Run directory belongs to another job:** the existing `runs/wo-gh-1/` files describe an older "project design systems" work order that also used the id `wo-gh-1`. I did not use them as evidence and left the existing `observer.output.md` alone.
 
-The report also lists the inputs I was missing: a real release record, the Actions logs for run 42127124473, and any successful builder output.
+The report lists what's needed to proceed: the release record, the spec and builder output, the Actions run logs and `RESULTS.md`, and a fix for the id collision. I haven't committed anything.
 {"model": "claude-sonnet-5-5"}

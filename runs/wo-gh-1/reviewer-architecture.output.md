@@ -1,9 +1,10 @@
-I wrote the review to `runs/wo-gh-1/reviewer-architecture.review.json`. The verdict is `changes_requested`. I didn't run any tests; I read the diff and the test file.
+I wrote the review to `runs/wo-gh-1/reviewer-architecture.review.json` with the verdict **pass**. I read the code and the run evidence but did not run the harness or the tests myself.
 
-- **Packet mismatch:** the packet's `builder.output.md` and the factory copy describe a different work order, the project design system. I reviewed the real change in the parent repo instead. That is a 9-line guard in `src/auto_ontology_eval/live.py`, a spec edit, a `tests/SCENARIOS.md` row and `tests/test_requirements_key_outside_evidence.py`.
-- **Fit:** the guard sits in the existing S1 stage, fails closed like the code around it, and runs before anything is cloned or written. The change is small and maps to the spec's key-secrecy requirement. Decision 0003 doesn't apply, because this deliverable is an evidence harness rather than something bundled or served. The repo has no `brain/decisions` of its own, so I only had the factory's decisions 0001 to 0004.
-- **Spec edit:** the owner should approve it, including that Amendment 2 overrides the work order's older nano chat pin.
-- **Evidence provenance:** the S1–S3 evidence under `runs/eval` comes from earlier runs, not from this change. The run record should say so.
-- **New test not green:** `test_no_key_assignment_in_any_committed_run_artifact` flags a closing backtick in `runs/wo-gh-1/test-writer.output.md` as a key value. The pattern needs fixing.
-- **Workflow injection:** `.github/workflows/auto-ontology-eval.yml` interpolates `inputs.run_dir` and `inputs.configuration` straight into the shell step that holds `NVIDIA_API_KEY`. reviewer-security flagged this, and I carried it over. They should go through env vars.
+- **Where the work lives:** the implementation is in the parent project directory (`src/auto_ontology_eval`, `fixture/`, `tests/`, `runs/eval`, `runs/eval-live`, and `.github/workflows/auto-ontology-eval.yml`). The `.anvil-factory` copy holds only stage outputs, and the builder output there describes an unrelated design-system change.
+- **Fit with the structure:** there is one module per spec scenario, `pipeline.py` is the single orchestrator, and dependencies run one way. The only third-party dependency is a pinned `duckdb`.
+- **Decisions:** the project brain has no decisions directory. Factory decision 0003 (production-shape evidence) doesn't apply, because this deliverable is an executed evaluation and not a served artifact.
+- **Open item from reviewer-security:** the workflow still puts `inputs.run_dir` and `inputs.configuration` directly in the `run:` line of the step that holds the secret. It also uses `run_dir` unchecked as the upload path. I did not block on this, but it should be fixed before the workflow is reused.
+- **Stale provenance:** the builder and test-writer outputs under `.anvil-factory/runs/wo-gh-1` don't match this work order and should be regenerated.
+
+I didn't assess the spec amendment behind the chat-model pin. That belongs to reviewer-spec.
 {"model": "claude-sonnet-5-5"}

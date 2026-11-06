@@ -111,36 +111,38 @@ Example 3: Interface meets design system
 
 ## Diff summary
 
-- .openspec/specs/auto-ontology-enterprise-eval/spec.md: +9, -1
-- line-output.log: +0, -343
-- runs/wo-gh-1/builder.packet.md: +1, -36
-- runs/wo-gh-1/envelopes/builder.envelope.json: +4, -5
+- .openspec/specs/auto-ontology-enterprise-eval/spec.md: +6, -3
+- line-output.log: +0, -351
+- runs/wo-gh-1/builder.output.md: +7, -7
+- runs/wo-gh-1/builder.packet.md: +36, -1
+- runs/wo-gh-1/envelopes/builder.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/checks-gate.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/intake.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/reviewer-architecture.envelope.json: +1, -1
-- runs/wo-gh-1/envelopes/reviewer-security.envelope.json: +13, -2
-- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json: +14, -2
-- runs/wo-gh-1/envelopes/reviewer-tests.envelope.json: +2, -13
+- runs/wo-gh-1/envelopes/reviewer-security.envelope.json: +7, -7
+- runs/wo-gh-1/envelopes/reviewer-spec.envelope.json: +11, -9
+- runs/wo-gh-1/envelopes/reviewer-tests.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/spec-writer.envelope.json: +1, -1
 - runs/wo-gh-1/envelopes/test-writer.envelope.json: +1, -1
-- runs/wo-gh-1/intake.output.md: +1, -7
-- runs/wo-gh-1/reviewer-architecture.output.md: +7, -7
-- runs/wo-gh-1/reviewer-architecture.packet.md: +2, -18
-- runs/wo-gh-1/reviewer-security.output.md: +8, -7
-- runs/wo-gh-1/reviewer-security.packet.md: +2, -18
-- runs/wo-gh-1/reviewer-spec.output.md: +9, -7
-- runs/wo-gh-1/reviewer-spec.packet.md: +2, -18
-- runs/wo-gh-1/reviewer-tests.output.md: +7, -7
-- runs/wo-gh-1/reviewer-tests.packet.md: +2, -18
-- runs/wo-gh-1/reviewer-tests.review.json: +0, -12
-- runs/wo-gh-1/routing.json: +3, -3
-- runs/wo-gh-1/spec-writer.output.md: +11, -10
-- runs/wo-gh-1/spec-writer.packet.md: +1, -17
-- runs/wo-gh-1/test-writer.output.md: +16, -13
-- runs/wo-gh-1/test-writer.packet.md: +1, -17
-- src/auto_ontology_eval/live.py: +9, -1
-- tests/SCENARIOS.md: +1, -0
-- work_orders/wo-gh-1.json: +8, -3
+- runs/wo-gh-1/intake.output.md: +7, -1
+- runs/wo-gh-1/reviewer-architecture.output.md: +8, -7
+- runs/wo-gh-1/reviewer-architecture.packet.md: +17, -1
+- runs/wo-gh-1/reviewer-security.output.md: +11, -8
+- runs/wo-gh-1/reviewer-security.packet.md: +17, -1
+- runs/wo-gh-1/reviewer-security.review.json: +6, -6
+- runs/wo-gh-1/reviewer-spec.output.md: +6, -9
+- runs/wo-gh-1/reviewer-spec.packet.md: +17, -1
+- runs/wo-gh-1/reviewer-spec.review.json: +10, -8
+- runs/wo-gh-1/reviewer-tests.output.md: +8, -7
+- runs/wo-gh-1/reviewer-tests.packet.md: +17, -1
+- runs/wo-gh-1/routing.json: +4, -4
+- runs/wo-gh-1/spec-writer.output.md: +13, -11
+- runs/wo-gh-1/spec-writer.packet.md: +17, -1
+- runs/wo-gh-1/test-writer.output.md: +10, -16
+- runs/wo-gh-1/test-writer.packet.md: +17, -1
+- tests/SCENARIOS.md: +1, -1
+- tests/test_requirements_key_outside_evidence.py: +22, -2
+- work_orders/wo-gh-1.json: +4, -9
 
 ## File access allowlist
 
@@ -149,6 +151,7 @@ This packet may only embed content from:
 - design/tokens.json
 - .openspec/specs/auto-ontology-enterprise-eval/spec.md
 - line-output.log
+- runs/wo-gh-1/builder.output.md
 - runs/wo-gh-1/builder.packet.md
 - runs/wo-gh-1/envelopes/builder.envelope.json
 - runs/wo-gh-1/envelopes/checks-gate.envelope.json
@@ -164,18 +167,19 @@ This packet may only embed content from:
 - runs/wo-gh-1/reviewer-architecture.packet.md
 - runs/wo-gh-1/reviewer-security.output.md
 - runs/wo-gh-1/reviewer-security.packet.md
+- runs/wo-gh-1/reviewer-security.review.json
 - runs/wo-gh-1/reviewer-spec.output.md
 - runs/wo-gh-1/reviewer-spec.packet.md
+- runs/wo-gh-1/reviewer-spec.review.json
 - runs/wo-gh-1/reviewer-tests.output.md
 - runs/wo-gh-1/reviewer-tests.packet.md
-- runs/wo-gh-1/reviewer-tests.review.json
 - runs/wo-gh-1/routing.json
 - runs/wo-gh-1/spec-writer.output.md
 - runs/wo-gh-1/spec-writer.packet.md
 - runs/wo-gh-1/test-writer.output.md
 - runs/wo-gh-1/test-writer.packet.md
-- src/auto_ontology_eval/live.py
 - tests/SCENARIOS.md
+- tests/test_requirements_key_outside_evidence.py
 - work_orders/wo-gh-1.json
 
 ## Work order
@@ -184,7 +188,23 @@ This packet may only embed content from:
 - kind: feature
 - title: Evaluate NVIDIA Auto Ontology as an enterprise semantic layer (executed ablation test)
 - source: github-issue
-- description: Implement spec auto-ontology-enterprise-eval (S1–S3 only) in the factory: (S1) stand up NVIDIA/auto-ontology at pinned commit cdaf61e1bd0cf3820d11d72b43bb460816aebbd3 via its own Docker Compose on a Docker-capable GitHub Actions runner and record smoke evidence (API health check, one catalog page or API response, an MCP tools/list or equivalent probe); (S2) build the deterministic two-source fixture with planted conflicts (Source A Postgres sales mart where net_sales excludes returns and hierarchy is brand then category; Source B DuckDB ops mart where net_sales is gross including returns and locations use plant/DC codes differing from Source A names; shared SKUs; 8 to 10 tables total; fixed seeds; ground truths documented inside the fixture); (S3) run ontology generation against both sources with the default hosted NIM configuration (chat nvidia/nemotron-3-nano-30b-a3b, embeddings nvidia/nemotron-3-embed-1b, rerank nvidia/llama-nemotron-rerank-vl-1b-v2), with the API key supplied only as the NVIDIA_API_KEY repository secret (never written to logs, artifacts, or the repo), and score the generated ontology against the planted-conflict checklist, marking each conflict detected, reconciled, or ignored, each mark backed by a verbatim quote from the generated catalog. No real company data is used and nothing is published.
+- description: Spec: .openspec/specs/auto-ontology-enterprise-eval/spec.md (slug auto-ontology-enterprise-eval), approved and written before this implementation. Implement it in the factory.
+
+The problem it solves: NVIDIA Auto Ontology claims it can generate a semantic layer over enterprise data, reconcile conflicting definitions across systems, and serve that layer to agents through MCP. Those claims are currently vendor claims. This work order replaces them with executed evidence on a fixture designed to stress exactly the reconciliation claim, before any writing about the tool is considered.
+
+What to build, per the spec scenarios:
+
+S1: Stand up NVIDIA/auto-ontology at the pinned commit cdaf61e1bd0cf3820d11d72b43bb460816aebbd3 with its own Docker Compose on a Docker-capable GitHub Actions runner. Record smoke evidence: API health check, one catalog page or API response, and an MCP tools/list or equivalent probe.
+
+S2: Build a deterministic two-source fixture with planted conflicts: Source A, a Postgres sales mart where net_sales excludes returns and the product hierarchy is brand then category; Source B, a DuckDB ops mart where net_sales is gross including returns and locations use plant and DC codes that differ from Source A names for the same entities; shared SKUs across both. 8 to 10 tables total, fixed seeds, ground truths documented inside the fixture.
+
+S3: Run ontology generation against both sources with the default hosted NIM configuration (chat nvidia/nemotron-3-nano-30b-a3b, embeddings nvidia/nemotron-3-embed-1b, rerank nvidia/llama-nemotron-rerank-vl-1b-v2), the API key supplied only as the NVIDIA_API_KEY repository secret. Score the generated ontology against the planted-conflict checklist: every conflict marked detected, reconciled or ignored, each mark backed by a verbatim quote from the generated catalog.
+
+S4: Ablation over 12 natural-language questions with ground truths computed by reference SQL: each question answered through the Auto Ontology chat API and by the same LLM with raw schema only. Score exact-answer correctness per arm, record the delta, and record whether each Auto Ontology answer carries provenance or lineage.
+
+S5: Produce RESULTS.md from the executed run only: environment, pinned commit, model ids, time to first ontology, the reconciliation checklist, the per-question table for both arms, a failure gallery with verbatim wrong SQL, and a limits section. No claim in RESULTS.md may exceed what the fixture exercised.
+
+No real company data is used, and nothing is published from this work order.
 - risk_hints: secrets
 - status: new
 
@@ -232,4 +252,23 @@ No specific product type declared. Using general guidelines only.
 **Spacing:**
 - Use consistent spacing scale throughout (e.g., 4px, 8px, 16px, 24px, 32px)
 - Group related elements together with whitespace separating distinct sections
+
+
+## Quality Charter
+
+Product type: physical_product
+
+Observable criteria:
+
+- **Materials**: Surfaces read as the materials the product is actually made of
+- **Light**: One coherent light story, with shadows and reflections that agree with it
+- **Contact**: Objects meet skin, surfaces and each other the way physical things do
+- **Scale**: The object's size reads true against its context and human anatomy
+
+
+## Reference Anchors
+
+⚠️ **WARNING**: This run has no reference anchors.
+
+The review will proceed under the charter floor alone.
 
