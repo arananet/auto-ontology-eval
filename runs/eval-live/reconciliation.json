@@ -1,0 +1,26 @@
+[
+  {
+    "conflict_id": "net_sales_semantics",
+    "mark": "ignored",
+    "quote": "name: shipments",
+    "counted": true
+  },
+  {
+    "conflict_id": "location_identity",
+    "mark": "ignored",
+    "quote": "name: distribution_centers",
+    "counted": true
+  },
+  {
+    "conflict_id": "product_hierarchy",
+    "mark": "ignored",
+    "quote": "name: items",
+    "counted": true
+  },
+  {
+    "conflict_id": "shared_sku_identity",
+    "mark": "ignored",
+    "quote": "name: items",
+    "counted": true
+  }
+]

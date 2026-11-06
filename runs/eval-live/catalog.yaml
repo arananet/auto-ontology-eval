@@ -1,0 +1,696 @@
+data_layer:
+  databases:
+  - id: 462d42c9-234d-44ba-afc3-99d10d50f1f4
+    dialect: duckdb
+    schemas:
+    - id: 50d50100-9765-4fc4-b9b7-4a586c3c07e3
+      name: main
+      database_name: ops_mart
+      tables:
+      - id: 26d9dbca-186c-4042-9cf5-e5a80df8d7d8
+        name: distribution_centers
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: 3320674f-e5b8-4ad5-86c2-8c3a6065d504
+          name: dc_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - DC-N1
+          - DC-S1
+          is_nullable: false
+          is_unique: true
+        - id: d7a45db4-eb2e-4cf9-a24d-750864641a81
+          name: dc_city
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - Rotterdam
+          - Milan
+          is_nullable: false
+          is_unique: true
+        - id: 94fd6a89-62fe-4127-a8c1-f31ec1b91938
+          name: region
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - North
+          - South
+          is_nullable: false
+          is_unique: true
+      - id: d616187f-b1c9-4561-9853-06c51f9024d5
+        name: items
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: 95d4ca75-786e-4bba-9d73-c810f9fa58de
+          name: item_sku
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          - SKU-1006
+          is_nullable: false
+          is_unique: true
+        - id: 86beabbc-7384-46bd-9486-b5a1c31a8987
+          name: item_description
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - ALPINE SPRING SPARKLING 1L
+          - ALPINE SPRING LEMON SODA 330ML
+          - NORDWIND APPLE JUICE 1L
+          - NORDWIND ORANGE JUICE 1L
+          - NORDWIND COLA 330ML
+          is_nullable: false
+          is_unique: true
+        - id: ca93de21-4a44-4841-877d-90087aaefd67
+          name: product_group
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - Chilled
+          - Ambient
+          is_nullable: false
+          is_unique: false
+      - id: 0bf31d6b-7f7d-4b1e-abdf-005feaf51519
+        name: plants
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: 91b8f799-ae20-41d6-9187-8e1c53be5736
+          name: plant_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - PL01
+          - PL02
+          is_nullable: false
+          is_unique: true
+        - id: 8609affe-e1ef-45f4-8d24-1087746b61b5
+          name: plant_city
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - Lyon
+          - Porto
+          is_nullable: false
+          is_unique: true
+        - id: 503c7b65-54f2-43c4-aac4-a20a0d80a574
+          name: capacity_units
+          description: ''
+          type: INTEGER
+          sample_values:
+          - 12000
+          - 8000
+          is_nullable: false
+          is_unique: true
+      - id: c31f7c3d-6003-4485-bcad-97c16590f7e8
+        name: shipments
+        description: ''
+        pk: []
+        type: base table
+        columns:
+        - id: 257325fe-da46-4205-bd2d-241dfac4d68c
+          name: shipment_id
+          description: ''
+          type: INTEGER
+          sample_values:
+          - 5001
+          - 5002
+          - 5003
+          - 5004
+          - 5005
+          is_nullable: false
+          is_unique: true
+        - id: d66c2141-1733-493d-ab04-91c9391b08fb
+          name: ship_date
+          description: ''
+          type: DATE
+          sample_values: []
+          is_nullable: false
+          is_unique: false
+        - id: dd7055f2-783f-4743-9fdf-7574baaeeb94
+          name: item_sku
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          - SKU-1006
+          is_nullable: false
+          is_unique: false
+        - id: 9f38ffba-59be-444f-9d79-839fce5dd08d
+          name: plant_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - PL01
+          - PL02
+          is_nullable: false
+          is_unique: false
+        - id: a7449ea0-83f6-41db-a972-b54f819bc454
+          name: dc_code
+          description: ''
+          type: VARCHAR
+          sample_values:
+          - DC-S1
+          - DC-N1
+          is_nullable: false
+          is_unique: false
+        - id: 6bf5414f-ee67-47cb-9df1-48abc62bf0a5
+          name: units
+          description: ''
+          type: INTEGER
+          sample_values:
+          - 48
+          - 37
+          - 14
+          - 25
+          - 52
+          is_nullable: false
+          is_unique: false
+        - id: 411755bf-c214-4986-b882-3ac259792a7c
+          name: net_sales
+          description: ''
+          type: DECIMAL(12,2)
+          sample_values:
+          - 58.8
+          - 43.4
+          - 67.2
+          - 33.3
+          - 135.2
+          is_nullable: false
+          is_unique: false
+  - id: e0111f8e-84f1-4a04-b84a-e2cfbf91ca05
+    dialect: postgres
+    schemas:
+    - id: 6984c834-ec35-410c-b6e0-f2101116b78f
+      name: public
+      database_name: sales_mart
+      tables:
+      - id: a0972a97-04e7-4e4d-a272-3df9b482f3a8
+        name: dim_location
+        description: ''
+        pk:
+        - location_id
+        type: base table
+        columns:
+        - id: df8f4951-35f4-418b-a6dd-24375a8c1bb6
+          name: location_id
+          description: ''
+          type: integer
+          sample_values:
+          - 1
+          - 2
+          - 3
+          - 4
+          is_nullable: false
+          is_unique: true
+        - id: a0f5c0e7-4c78-4281-9161-679c920319ee
+          name: location_name
+          description: ''
+          type: text
+          sample_values:
+          - Lyon Works
+          - Porto Works
+          - Rotterdam Hub
+          - Milan Depot
+          is_nullable: false
+          is_unique: true
+        - id: 49dc3b46-809b-4135-bbd4-3dbb5c06bced
+          name: city
+          description: ''
+          type: text
+          sample_values:
+          - Lyon
+          - Porto
+          - Rotterdam
+          - Milan
+          is_nullable: false
+          is_unique: true
+        - id: 27357834-81e9-4a3d-9866-c8104d8b60a8
+          name: location_kind
+          description: ''
+          type: text
+          sample_values:
+          - plant
+          - dc
+          is_nullable: false
+          is_unique: false
+      - id: 948f7aac-3ebd-440e-b9f7-5beff0fdd5b5
+        name: dim_product
+        description: ''
+        pk:
+        - sku
+        type: base table
+        columns:
+        - id: 9c628899-2d79-4094-83ca-ee47deb2ff82
+          name: sku
+          description: ''
+          type: text
+          sample_values:
+          - SKU-1001
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          is_nullable: false
+          is_unique: true
+        - id: 843e7697-10e3-4cae-bfad-7848af4180fe
+          name: product_name
+          description: ''
+          type: text
+          sample_values:
+          - Alpine Spring Still 1L
+          - Alpine Spring Sparkling 1L
+          - Alpine Spring Lemon Soda 330ml
+          - Nordwind Apple Juice 1L
+          - Nordwind Orange Juice 1L
+          is_nullable: false
+          is_unique: true
+        - id: eba2a8a5-a764-4a79-9ab7-8932c0a9899e
+          name: brand
+          description: ''
+          type: text
+          sample_values:
+          - Alpine Spring
+          - Nordwind
+          - Sol Mar
+          is_nullable: false
+          is_unique: false
+        - id: 2f9a25a7-54e9-4136-bddb-eb17078f0316
+          name: category
+          description: ''
+          type: text
+          sample_values:
+          - Soda
+          - Juice
+          - Water
+          is_nullable: false
+          is_unique: false
+        - id: 9179f289-ab2a-4137-8ed1-7d60f4a01ade
+          name: list_price
+          description: ''
+          type: numeric
+          sample_values:
+          - 1.2
+          - 1.4
+          - 0.9
+          - 2.6
+          - 2.8
+          is_nullable: false
+          is_unique: true
+      - id: 9c84ed5c-04f6-4eae-9160-6753c4deebf2
+        name: fact_sales
+        description: ''
+        pk:
+        - sale_id
+        type: base table
+        columns:
+        - id: 66e24a8d-95d4-4ccf-8015-7257d9bc359c
+          name: sale_id
+          description: ''
+          type: integer
+          sample_values:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          is_nullable: false
+          is_unique: true
+        - id: ced4f6fb-994a-4e97-8609-435ff977eda2
+          name: sale_date
+          description: ''
+          type: date
+          sample_values: []
+          is_nullable: false
+          is_unique: false
+        - id: 623c98e8-f909-4563-87d9-31aba8b49999
+          name: sku
+          description: ''
+          type: text
+          sample_values:
+          - SKU-1002
+          - SKU-1003
+          - SKU-1004
+          - SKU-1005
+          - SKU-1006
+          is_nullable: false
+          is_unique: false
+        - id: 7875a52b-23bc-4f38-85e1-8b0e7904b32f
+          name: location_id
+          description: ''
+          type: integer
+          sample_values:
+          - 4
+          - 3
+          is_nullable: false
+          is_unique: false
+        - id: 39d80f90-1211-4b9b-8714-4addac593320
+          name: units
+          description: ''
+          type: integer
+          sample_values:
+          - 48
+          - 37
+          - 14
+          - 25
+          - 52
+          is_nullable: false
+          is_unique: false
+        - id: 6f542945-3c39-4c9a-9561-d61de0647b01
+          name: gross_sales
+          description: ''
+          type: numeric
+          sample_values:
+          - 58.8
+          - 43.4
+          - 67.2
+          - 33.3
+          - 135.2
+          is_nullable: false
+          is_unique: false
+        - id: 72ecb46a-90fd-417d-a3cd-c59caf659a6b
+          name: net_sales
+          description: ''
+          type: numeric
+          sample_values:
+          - 33.3
+          - 43.4
+          - 67.2
+          - 135.2
+          - 56
+          is_nullable: false
+          is_unique: false
+      - id: 2f95545c-26a7-44f4-9ecc-293ccb485644
+        name: sales_returns
+        description: ''
+        pk:
+        - return_id
+        type: base table
+        columns:
+        - id: 991f98c0-e2bf-416a-8ab8-a9c1bbfab05b
+          name: return_id
+          description: ''
+          type: integer
+          sample_values:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          is_nullable: false
+          is_unique: true
+        - id: 69b51e99-81ef-4d62-9479-9a2c429a4ba1
+          name: sale_id
+          description: ''
+          type: integer
+          sample_values:
+          - 4
+          - 8
+          - 12
+          - 16
+          - 20
+          is_nullable: false
+          is_unique: true
+        - id: 9b6985c8-3c40-4871-9ff9-4e889709569c
+          name: return_date
+          description: ''
+          type: date
+          sample_values: []
+          is_nullable: false
+          is_unique: true
+        - id: 90593b35-c12a-46b2-a171-95f8e43c1a47
+          name: return_amount
+          description: ''
+          type: numeric
+          sample_values:
+          - 15.5
+          - 2.8
+          - 4.5
+          - 8.4
+          - 1.8
+          is_nullable: false
+          is_unique: false
+  foreign_keys: []
+  joins: []
+semantic_layer:
+  terms:
+  - id: c4026dd6-c698-461b-95c7-628614c1e38a
+    name: Distribution Center
+    description: Represents a physical or logical site where goods are stored and
+      dispatched.
+    represents:
+    - 26d9dbca-186c-4042-9cf5-e5a80df8d7d8
+    columns_attributes:
+    - id: 253293cb-e171-4a47-90fb-3617c9f135a0
+      name: Distribution Center Code
+      description: dc_code is a VARCHAR text field storing distribution center identifiers
+        such as DC-N1 and DC-S1.
+      column_id: 3320674f-e5b8-4ad5-86c2-8c3a6065d504
+    - id: 5e964078-2807-4dea-b546-5b4b810fa831
+      name: Distribution Center City
+      description: dc_city is a VARCHAR text field recording city names like Rotterdam
+        and Milan for each location.
+      column_id: d7a45db4-eb2e-4cf9-a24d-750864641a81
+    - id: 8b2eece5-ed28-43c9-9682-a18f687d4ae0
+      name: Distribution Center Region
+      description: region is a VARCHAR text field assigning geographical designations
+        such as North and South.
+      column_id: 94fd6a89-62fe-4127-a8c1-f31ec1b91938
+  - id: 9152ccc6-2685-4fa9-9b79-6ca78332d1ea
+    name: Item
+    description: Core product/item record
+    represents:
+    - d616187f-b1c9-4561-9853-06c51f9024d5
+    columns_attributes:
+    - id: 42c2f2fa-8406-4919-9188-356da3b562ef
+      name: Item Description
+      description: '`item_description` (VARCHAR): The `item_description` column contains
+        human-readable product labels (e.g., ALPINE SPRING SPARKLING 1L) specifying
+        flavor and packaging size.'
+      column_id: 86beabbc-7384-46bd-9486-b5a1c31a8987
+    - id: 5eece240-8f1b-4d64-8e28-fac06a24d9d1
+      name: Item Sku
+      description: '`item_sku` (VARCHAR): The `item_sku` column stores unique product
+        identifiers (e.g., SKU-1002, SKU-1003) for individual sellable units.'
+      column_id: 95d4ca75-786e-4bba-9d73-c810f9fa58de
+    - id: fac26e14-fc13-40c8-b238-588fdb2b46fe
+      name: Product Group
+      description: '`product_group` (VARCHAR): The `product_group` column classifies
+        products by storage condition (e.g., Chilled, Ambient).'
+      column_id: ca93de21-4a44-4841-877d-90087aaefd67
+  - id: b6251d8c-02ae-4967-9a98-29b9076db66d
+    name: Location
+    description: ''
+    represents:
+    - a0972a97-04e7-4e4d-a272-3df9b482f3a8
+    columns_attributes:
+    - id: 2241c117-0cda-461f-b2ba-731061e5e00d
+      name: Location Kind
+      description: ''
+      column_id: 27357834-81e9-4a3d-9866-c8104d8b60a8
+    - id: 23429fea-b4d4-4121-ab3b-91f82d5908aa
+      name: City
+      description: ''
+      column_id: 49dc3b46-809b-4135-bbd4-3dbb5c06bced
+    - id: 5b890cc8-ae22-4e58-a376-8edb68ef0bbf
+      name: Location Name
+      description: The location_name column stores the textual name of each site,
+        combining a city reference with a facility type such as
+      column_id: a0f5c0e7-4c78-4281-9161-679c920319ee
+    - id: 7ad5e2da-dce5-4ed4-8f3f-40bd31c98828
+      name: Location ID
+      description: "The location_id column assigns a unique integer identifier (1\u2013\
+        4) to each facility site, serving as the primary key for distinguishing operational\
+        \ locations."
+      column_id: df8f4951-35f4-418b-a6dd-24375a8c1bb6
+  - id: a031ace8-ee2a-41b9-a54b-742d56b28b33
+    name: Product
+    description: Core product entity capturing catalog items and their attributes.
+    represents:
+    - 948f7aac-3ebd-440e-b9f7-5beff0fdd5b5
+    columns_attributes:
+    - id: 7355f9ee-3c3c-4753-8508-f696fa48c9b2
+      name: Product Name
+      description: The product_name column (text) lists the consumer-facing product
+        names exemplified by Alpine Spring Still 1L, Alpine Spring Sparkling 1L, and
+        Nordwind Apple Juice 1L, representing what appears on shelf labels.
+      column_id: 843e7697-10e3-4cae-bfad-7848af4180fe
+    - id: 7d5d9269-55ed-4d4b-b22c-43d4ace41f07
+      name: Product SKU
+      description: The sku column (text) contains unique product identifiers such
+        as SKU-1001 through SKU-1005, serving as the catalog's primary key for each
+        distinct item.
+      column_id: 9c628899-2d79-4094-83ca-ee47deb2ff82
+    - id: 91adb777-2652-4dfe-a991-da23befae12e
+      name: List Price
+      description: The list_price column (numeric) captures the retail selling price
+        per unit with sample values of 0.9, 1.2, 1.4, 2.6, and 2.8, representing the
+        amount at which items are offered for sale.
+      column_id: 9179f289-ab2a-4137-8ed1-7d60f4a01ade
+    - id: 92e0fa03-f325-4104-a1d9-772afada828e
+      name: Brand
+      description: The brand column (text) records the manufacturer label with samples
+        including Alpine Spring, Nordwind, and Sol Mar, indicating the source company
+        behind each product.
+      column_id: eba2a8a5-a764-4a79-9ab7-8932c0a9899e
+    - id: df7bf59d-d0d1-4217-911e-5a3c1f38b2af
+      name: Category
+      description: The category column (text) classifies products into business groupings
+        such as Soda, Juice, and Water, reflecting the product type hierarchy used
+        for analysis.
+      column_id: 2f9a25a7-54e9-4136-bddb-eb17078f0316
+  - id: 19596c55-98c2-49a6-8846-3e6a9b3cda63
+    name: Production Plant
+    description: ''
+    represents:
+    - 0bf31d6b-7f7d-4b1e-abdf-005feaf51519
+    columns_attributes:
+    - id: 37128fd5-4b6f-49bc-a1aa-120804e2cb4c
+      name: Plant City
+      description: plant_city records the city where the production plant is physically
+        located, for example Lyon or Porto.
+      column_id: 8609affe-e1ef-45f4-8d24-1087746b61b5
+    - id: 69918991-27e7-4f93-909c-83c8ebd2c16c
+      name: Capacity Units
+      description: capacity_units quantifies the maximum production or storage capacity
+        of the plant in whole units, such as 12000 or 8000.
+      column_id: 503c7b65-54f2-43c4-aac4-a20a0d80a574
+    - id: c6654e70-c6a8-46b1-9227-2b8aca842675
+      name: Plant Code
+      description: plant_code functions as a unique business identifier for each production
+        plant, using alphanumeric codes such as PL01 and PL02.
+      column_id: 91b8f799-ae20-41d6-9187-8e1c53be5736
+  - id: 0df9b11a-4d9b-40d2-85d6-f29633aee9cc
+    name: Sale
+    description: ''
+    represents:
+    - 9c84ed5c-04f6-4eae-9160-6753c4deebf2
+    columns_attributes:
+    - id: 1419fbc0-bf69-4750-a543-5e12129a79ac
+      name: Units Sold
+      description: units is an integer column tracking quantities sold per transaction,
+        with sample values ranging from 14 to 52.
+      column_id: 39d80f90-1211-4b9b-8714-4addac593320
+    - id: 2b5e59c1-d439-4710-8192-2c44e7742b19
+      name: Store Location ID
+      description: location_id is an integer foreign key referencing store locations,
+        with sample values 3 and 4.
+      column_id: 7875a52b-23bc-4f38-85e1-8b0e7904b32f
+    - id: 771a4948-1d5c-48df-9a90-7c54503219c2
+      name: Gross Sales
+      description: gross_sales is a numeric column recording total revenue before
+        deductions, with sample values 58.8, 43.4, 67.2, 33.3, and 135.2.
+      column_id: 6f542945-3c39-4c9a-9561-d61de0647b01
+    - id: 91b504a7-901f-414b-ac2b-31d3aaf7235f
+      name: Sale ID
+      description: sale_id is an integer representing unique sales transaction identifiers,
+        with sample values 1 through 5.
+      column_id: 66e24a8d-95d4-4ccf-8015-7257d9bc359c
+    - id: b36234b0-67e6-479f-9a1e-045050301c88
+      name: Sale Date
+      description: "sale_date is a date field recording the transaction date for each\
+        \ sales event. \u2014 format: YYYY-MM-DD"
+      column_id: ced4f6fb-994a-4e97-8609-435ff977eda2
+    - id: bd3eb36c-72af-4266-9d99-2953bcb4ae08
+      name: Product SKU
+      description: sku is a text identifier for product variants, with sample values
+        SKU-1002 through SKU-1006.
+      column_id: 623c98e8-f909-4563-87d9-31aba8b49999
+    - id: fc06055b-0d8a-45c4-b451-a3f9a68c0a05
+      name: Net Sales
+      description: net_sales is a numeric column recording revenue after adjustments,
+        with sample values 33.3, 43.4, 67.2, 135.2, and 56.
+      column_id: 72ecb46a-90fd-417d-a3cd-c59caf659a6b
+  - id: c62ba1f4-66ea-4b54-aae8-54983c0dde13
+    name: Sales Return
+    description: A single entity representing return transactions linked to sales.
+    represents:
+    - 2f95545c-26a7-44f4-9ecc-293ccb485644
+    columns_attributes:
+    - id: 0cb5018f-0a81-4810-b2fc-67383457e162
+      name: Sale ID
+      description: sale_id functions as an integer key linking each return to its
+        corresponding sale transaction, with values representing specific sale records.
+      column_id: 69b51e99-81ef-4d62-9479-9a2c429a4ba1
+    - id: 36adf418-4e7d-4e66-9338-508fbb5f2e1b
+      name: Return ID
+      description: return_id serves as a unique integer identifier for each return
+        record, with sequential values distinguishing individual return entries.
+      column_id: 991f98c0-e2bf-416a-8ab8-a9c1bbfab05b
+    - id: 4516b782-ad71-438a-8da2-e83cc5e61ddb
+      name: Return Date
+      description: "return_date captures the date on which the return was processed\
+        \ or recorded, reflecting the temporal aspect of the return event. \u2014\
+        \ format: YYYY-MM-DD"
+      column_id: 9b6985c8-3c40-4871-9ff9-4e889709569c
+    - id: 884c828d-5650-4029-bfb0-d1411a891174
+      name: Return Amount
+      description: return_amount stores the numeric monetary value of each return
+        transaction, with decimal samples representing currency amounts.
+      column_id: 90593b35-c12a-46b2-a171-95f8e43c1a47
+  - id: 20f71901-0c80-4e45-b196-b31dd25a174c
+    name: Shipment
+    description: Core shipment record entity
+    represents:
+    - c31f7c3d-6003-4485-bcad-97c16590f7e8
+    columns_attributes:
+    - id: 09618cdd-a652-4fbd-8d29-5eab40ab9143
+      name: Plant Code
+      description: This column codes the production plant location associated with
+        each shipment, using short alphanumeric labels (e.g., PL01) to distinguish
+        plant sites.
+      column_id: 9f38ffba-59be-444f-9d79-839fce5dd08d
+    - id: 3be00ef2-64c2-4c1b-9852-87cff1e124f4
+      name: Shipment ID
+      description: This column represents a unique sequential identifier for each
+        shipment record, using integer values (e.g., 5001, 5002) to distinguish individual
+        shipment entries.
+      column_id: 257325fe-da46-4205-bd2d-241dfac4d68c
+    - id: 55193340-8a68-4b0b-8b75-1cadae5ed66c
+      name: DC Code
+      description: This column identifies the distribution center location handling
+        each shipment, using alphanumeric codes (e.g., DC-S1) to represent specific
+        warehouse nodes.
+      column_id: a7449ea0-83f6-41db-a972-b54f819bc454
+    - id: 72b53f8c-8c5a-4ae2-8cb5-126c024cbea4
+      name: Net Sales
+      description: This column stores the net sales revenue from each shipment with
+        two-decimal precision (e.g., 58.80, 43.40) in monetary units.
+      column_id: 411755bf-c214-4986-b882-3ac259792a7c
+    - id: 74bd04ec-773f-4f92-9d4a-4733b9a39b6a
+      name: Units
+      description: This column records the quantity of items shipped per transaction,
+        expressed as whole numbers (e.g., 48, 37) representing unit counts.
+      column_id: 6bf5414f-ee67-47cb-9df1-48abc62bf0a5
+    - id: 755af6ca-7bb0-4a59-989e-85477d1a5788
+      name: Item SKU
+      description: This column stores the stock keeping unit code for each item, using
+        alphanumeric identifiers (e.g., SKU-1002) to uniquely identify product variants.
+      column_id: dd7055f2-783f-4743-9fdf-7574baaeeb94
+    - id: e080d508-27ba-405a-a04e-a2a97757a252
+      name: Ship Date
+      description: "This column records the shipment date using a date data type,\
+        \ indicating the calendar date of each dispatch event. \u2014 format: YYYY-MM-DD\
+        \ HH:MM:SS"
+      column_id: d66c2141-1733-493d-ab04-91c9391b08fb
+  semantic_fks: []
+  sql_attributes:
+    manual: []
+    table: []
+    sql: []
+    bridge_table: []
+  custom_analyses: []
+zones: []

@@ -1,0 +1,32 @@
+{
+  "tables": {
+    "A": [
+      "dim_product",
+      "dim_location",
+      "fact_sales",
+      "sales_returns"
+    ],
+    "B": [
+      "plants",
+      "distribution_centers",
+      "items",
+      "shipments"
+    ]
+  },
+  "rows": {
+    "A": {
+      "dim_product": 8,
+      "dim_location": 4,
+      "fact_sales": 24,
+      "sales_returns": 6
+    },
+    "B": {
+      "plants": 2,
+      "distribution_centers": 2,
+      "items": 9,
+      "shipments": 24
+    }
+  },
+  "duckdb_sha256": "faf7f54eca51f901d90e76000e552a32e2f92f60b296c3bc05419a897a94dd04",
+  "source_a_sql_sha256": "e16aa231e30968022b0557d3638c0f9eaf070735b7c095d4d051d3fbcee5bd8d"
+}
