@@ -20,11 +20,11 @@ The spec under `.openspec/specs/auto-ontology-enterprise-eval/` defines five sce
 - S4: Ablation: 12 natural-language questions with ground truths from reference SQL, answered through the Auto Ontology chat API and by the same LLM with raw schema only. Correctness is scored per arm and the delta recorded, along with whether each ontology answer carries provenance.
 - S5: RESULTS.md written from the executed run only: environment, pinned commit, model ids, time to first ontology, the reconciliation checklist, the per-question table, a failure gallery with verbatim wrong SQL, and a limits section.
 
-No real company data is used anywhere in this project. Nothing is published from it.
+No real company data is used anywhere in this project. The evaluation and its diagnosis are written up in a LinkedIn article: https://www.linkedin.com/pulse/i-planted-four-conflicts-database-asked-nvidia-auto-ontology-arana-axswe/
 
 ## Status
 
-Execution is held. The run fires only when the factory AI Gateway balance is restored and the NVIDIA_API_KEY repository secret exists on this repo. See OPERATOR-NOTES.md for the blockers and the exact step that fires the run.
+Executed. The default-configuration run completed on GitHub Actions on 2026-11-05 (run 42127124473) at the pinned upstream commit, with the evaluation chat model pinned by recorded spec amendment to nvidia/nemotron-3.5-lightning-30b-a3b. Headline results: first complete catalog in 15.42 s; all four planted conflicts scored ignored; the Auto Ontology chat arm answered 0 of 12 questions against 8 of 12 for the raw-schema control. The full evidence is on the `anvil/run-auto-ontology-eval` branch: [RESULTS.md](https://github.com/arananet/auto-ontology-eval/blob/anvil/run-auto-ontology-eval/runs/eval/RESULTS.md) and the [diagnosis of the chat arm's silence](https://github.com/arananet/auto-ontology-eval/blob/anvil/run-auto-ontology-eval/runs/eval/S4-DIAGNOSIS.md). A second run with the product's internal models wired to the live pinned model (spec Amendment 3) is in progress; its results will land in `runs/eval-live/` on the same branch.
 
 ## Repository layout
 
