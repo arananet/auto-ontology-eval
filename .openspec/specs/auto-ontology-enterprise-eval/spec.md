@@ -16,7 +16,7 @@ NVIDIA Auto Ontology claims it can build a semantic, graph-based reasoning layer
 - Upstream is pinned to NVIDIA/auto-ontology commit cdaf61e1bd0cf3820d11d72b43bb460816aebbd3. The harness clones the official repository and checks out exactly that commit.
 - The run executes on a Docker-capable runner (GitHub Actions), because the upstream stack is defined by its own Docker Compose file and needs a working Docker daemon.
 - All evaluation data is synthetic. No real company data, no production system and no personal data is connected, copied or queried.
-- The hosted NVIDIA NIM API key reaches the run only as the GitHub repository secret NVIDIA_API_KEY. It never appears in code, in committed files, in logs or in RESULTS.md.
+- The hosted NVIDIA NIM API key reaches the run only as the GitHub repository secret NVIDIA_API_KEY. It never appears in code, in committed files, in logs, in run artifacts (whether committed to the repository or uploaded as workflow artifacts) or in RESULTS.md. Any file that has to carry the key for the upstream stack to start (such as the Compose env file) is written outside the run evidence directory and is never committed or uploaded.
 - The fixture is deterministic: fixed seeds, fixed row sets, and ground truths that a human can recompute by hand from the fixture files.
 - RESULTS.md is written from run artifacts only. Every number in it traces to a file the run produced. No claim in RESULTS.md may exceed what the fixture exercised.
 - Nothing is published from this work order: no post, no article, no external announcement. RESULTS.md is an internal evidence artifact.
@@ -40,6 +40,14 @@ NVIDIA Auto Ontology claims it can build a semantic, graph-based reasoning layer
 
 ### Scenario: RESULTS.md from the executed run only
 - S5: Given a completed run, when the harness writes RESULTS.md, then it contains only what the run produced: the environment (runner, upstream commit, model identifiers, run date), the measured time to first ontology, the planted-conflict checklist with its marks and quotes, the per-question correctness table for both arms with the delta, a failure gallery quoting the wrong SQL verbatim, and a limits section stating what the fixture did not exercise. The limits section also names every place where the run used an equivalent instead of the literal step in S1 to S4, and says why. Two known cases: the MCP probe in S1 listing tools in process rather than over the network (the pinned MCP server requires an OAuth token), and SQL from the raw-schema arm in S4 running on a copy of the fixture rather than on the live Postgres and DuckDB sources. If a section has no run evidence, the section says so instead of estimating.
+
+## Work order coverage
+
+Non-normative. This section maps work orders to scenarios and changes no requirement or scenario.
+
+- wo-gh-1, as rescoped at intake: S1, S2 and S3, plus every requirement above that applies to them (upstream pin, Docker-capable runner, synthetic data only, the NVIDIA_API_KEY secret rule, deterministic fixture, fail closed, nothing published). S4 and S5 are out of scope for wo-gh-1 and remain in this spec unchanged for a follow-up work order. Amendment 3 is likewise not part of wo-gh-1.
+- The rescoped wo-gh-1 text names the chat model `nvidia/nemotron-3-nano-30b-a3b`. Amendment 2 governs: the S3 chat model is `nvidia/nemotron-3.5-lightning-30b-a3b`. The embedding and reranking pins in the work order match S3.
+- The rescoped wo-gh-1 text forbids the key in logs, artifacts and the repository. The NVIDIA_API_KEY requirement above states the same rule, including uploaded workflow artifacts.
 
 ## Amendments
 

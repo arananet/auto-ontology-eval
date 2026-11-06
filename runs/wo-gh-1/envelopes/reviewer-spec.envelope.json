@@ -5,8 +5,20 @@
   "work_order_id": "wo-gh-1",
   "artifact_path": "runs/wo-gh-1/reviewer-spec.output.md",
   "status": "executed",
-  "created_at": "2026-11-06T02:57:18.170602+00:00",
-  "review_file_missing": true,
+  "created_at": "2026-11-06T04:07:38.780909+00:00",
+  "review": {
+    "station": "reviewer-spec",
+    "verdict": "changes_requested",
+    "findings": [
+      "S1 met: runs/eval/smoke has health, catalog and mcp evidence, all pass, against pinned commit cdaf61e1bd0cf3820d11d72b43bb460816aebbd3 (runs/eval/RESULTS.md). The MCP probe runs in process; the spec names this equivalent as a known case.",
+      "S2 met: fixture/ holds Source A (4 tables) and Source B (4 tables), 8 in total, within the 8 to 10 range. It has seed CSVs, GROUND_TRUTH.md, and checklist.json with 4 conflicts (net_sales semantics, location identity, product hierarchy, shared SKU identity).",
+      "S3 met on structure: every conflict has exactly one mark. Time to first ontology is recorded as 15.42 s from run timestamps. The models match Amendment 2 (chat nvidia/nemotron-3.5-lightning-30b-a3b; the work order's older nano pin is superseded by the amendment).",
+      "S3 evidence quality is weak: all 4 conflicts are marked 'ignored', and each quote is just a bare table-name line ('name: fact_sales', 'name: dim_location', 'name: dim_product' twice). These are verbatim, so the marks count. They do not show the catalog's handling of the conflicts, and the same dim_product line backs two different conflicts. The spec owner should confirm that a catalog with 77 of 88 blank descriptions and no cross-source reconciliation is an accepted S3 outcome, not a harness or scorer defect.",
+      "Requirement gap, secrets rule: the run evidence has no key. The grep for nvapi- found only prose mentions in review files. Builder's added guard in live.py fails closed if the upstream dir is inside the run dir, which supports the key-outside-evidence rule.",
+      "Requirement gap, test suite: the builder reports 35 of 200 tests failing and did not commit. 34 are in test_run_evidence_live.py and belong to Amendment 3, which is out of scope for wo-gh-1, so they are not counted against this work order. 1 is a false positive: test_no_key_assignment_in_any_committed_run_artifact flags runs/wo-gh-1/test-writer.output.md line 10 because the pattern misreads a closing backtick as a key value. It stays red until the test-writer fixes the pattern or the file is reworded.",
+      "Scope note: runs/eval also holds S4 (ablation) output and RESULTS.md, which belong to a separate work order and were not evaluated here. The builder made no S1 to S3 code change beyond the 9-line guard in live.py, so the S1 to S3 evidence comes from earlier runs (GitHub run 42127124473), not a fresh run for this change."
+    ]
+  },
   "configured_model": "claude-sonnet-5-5",
   "executor": {
     "kind": "command",

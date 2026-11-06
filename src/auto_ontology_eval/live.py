@@ -226,8 +226,16 @@ def _mcp_tools_in_process(key: str) -> tuple[bool, str]:
 
 
 def stage_s1(run_dir: Path, key: str) -> Path:
-    CTX.pg_password = _pysecrets.token_hex(16)
     dest = CTX.upstream_dir
+    # The upstream checkout receives the key-carrying Compose .env. The run
+    # dir is the evidence that gets committed and uploaded, so refuse an
+    # upstream dir inside it before anything is cloned or written (spec
+    # Requirements, NVIDIA_API_KEY rule).
+    if Path(dest).resolve().is_relative_to(Path(run_dir).resolve()):
+        raise errors.StepFailed(
+            "S1: the upstream dir is inside the run evidence directory; the Compose .env that "
+            "carries the key must be written outside it (pass --upstream-dir outside the run dir)")
+    CTX.pg_password = _pysecrets.token_hex(16)
     if not (dest / ".git").exists():
         for cmd in upstream.clone_commands(dest)[:2]:
             _run(cmd, key)

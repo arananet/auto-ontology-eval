@@ -5,19 +5,8 @@
   "work_order_id": "wo-gh-1",
   "artifact_path": "runs/wo-gh-1/reviewer-tests.output.md",
   "status": "executed",
-  "created_at": "2026-11-06T02:58:31.116054+00:00",
-  "review": {
-    "station": "reviewer-tests",
-    "verdict": "changes_requested",
-    "findings": [
-      "Test run (PYTHONPATH=src python -m pytest tests): 22 failed, 166 passed, 294 subtests passed. All 22 failures are in tests/test_run_evidence_live.py. Cause: runs/eval-live/RESULTS-LIVE.md does not exist, so every LiveResultsMarkdownTests case and test_live_run_directory_and_results_are_committed fail. The suite is not passing.",
-      "Amendment 3 (live-internals run) is undelivered. runs/eval-live/ holds raw artifacts but no RESULTS-LIVE.md. Complete the run and write RESULTS-LIVE.md from the executed artifacts. Do not hand-write it.",
-      "The tests for S1-S5 on the default run (test_s1_*, test_s2_fixture, test_s3_reconciliation, test_s4_ablation, test_s5_*, test_run_evidence.py, test_requirements_config_secrets, test_workflow) pass. They check the committed runs/eval artifacts and are mapped to spec scenarios. They check artifact structure and consistency. They do not show that the Auto Ontology arm worked.",
-      "Test coverage gap: the S4 Auto Ontology arm scored 0/12 with no answer on every question (see runs/eval/S4-DIAGNOSIS.md: internal model slots hit a retired model, HTTP 410). No test requires RESULTS.md to qualify the delta (-8) as the result of a misconfigured stack. No test requires RESULTS.md to note that the S3 'ignored' marks rest on bare table-name quotes from a catalog with mostly blank descriptions. Add such tests along with the RESULTS.md corrections.",
-      "Provenance: the builder step is recorded as failed. The old builder.output.md described an unrelated design-system feature, and the working tree shows it deleted. Passing tests therefore cannot be attributed to a successful builder run for this work order.",
-      "Secrets: no NVIDIA_API_KEY value or nvapi- string was found by the secrets-config test or by the reviewer-spec grep. This is not a blocker."
-    ]
-  },
+  "created_at": "2026-11-06T04:08:49.541678+00:00",
+  "review_file_missing": true,
   "configured_model": "claude-sonnet-5-5",
   "executor": {
     "kind": "command",

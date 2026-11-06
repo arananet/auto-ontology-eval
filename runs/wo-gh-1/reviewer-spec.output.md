@@ -1,9 +1,11 @@
-I wrote the review to `runs/wo-gh-1/reviewer-spec.review.json` with verdict `changes_requested`. I didn't run the test suite (pytest isn't installed here) or re-run the harness.
+I wrote the review to `.anvil-factory/runs/wo-gh-1/reviewer-spec.review.json`, the path the validator wanted. The verdict is `changes_requested`. It is the same review I had earlier put at `runs/wo-gh-1/reviewer-spec.review.json` in the repo root, copied to the correct path.
 
-- **Default configuration:** S1–S5 were executed in GitHub Actions run 42127124473. `runs/eval/RESULTS.md` has every section the spec asks for, including the two required equivalents in Limits.
-- **Amendment 3 isn't delivered:** `runs/eval-live/` has no `RESULTS-LIVE.md`. It holds only a single S4 event stream (Q01).
-- **Misleading S4 result:** The Auto Ontology arm scored 0/12 because every internal model slot pointed at a retired model (HTTP 410), per `runs/eval/S4-DIAGNOSIS.md`. `RESULTS.md` doesn't say so, so the −8 delta reads as a product verdict. Fixing this needs a spec-owner decision, because that file is frozen.
-- **Weak S3 evidence:** All four conflicts are marked "ignored", each backed only by a bare table-name quote. That satisfies the quote rule, but it comes from the same misconfigured run. The catalog had 77 of 88 description fields blank.
-- **Builder provenance:** The builder station is recorded as failed. Its `builder.output.md` (deleted in the working tree) describes an unrelated design-system change, so I reviewed the artifacts directly.
-- **No secret leak found:** A search for the API key name and the `nvapi-` prefix in `runs/eval` and `runs/eval-live` turned up nothing.
+I re-checked the evidence behind it first:
+- **Scenario results:** S1 and S2 are met. S3 is met on structure, but the evidence quality is weak.
+- **Conflict marks:** `runs/eval/reconciliation.json` marks all 4 planted conflicts as `ignored`. Each quote is only a table-name line, such as `name: dim_product`, and one of those lines backs two different conflicts.
+- **Open question:** the spec owner needs to confirm that a catalog with 77 of 88 blank descriptions is an accepted S3 outcome, not a harness or scorer defect.
+- **Timing and smoke checks:** time to first ontology is 15.42 s. The smoke folder holds health, catalog and MCP evidence.
+- **Key leak:** a search of `runs` for an `nvapi-` key pattern found nothing.
+- **Test suite:** the builder reports 35 of 200 tests failing. 34 of them need Amendment 3 evidence, which is outside wo-gh-1. The other one is a false positive: `test_no_key_assignment_in_any_committed_run_artifact` misreads a closing backtick in `runs/wo-gh-1/test-writer.output.md` as a key value. It stays red until the test-writer fixes the pattern or the file is reworded.
+- **Scope:** the builder's only code change was a 9-line guard in `live.py`. The S1 to S3 evidence comes from GitHub Actions run 42127124473, not a fresh run.
 {"model": "claude-sonnet-5-5"}

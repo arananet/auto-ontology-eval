@@ -1,9 +1,9 @@
-I wrote the review to `runs/wo-gh-1/reviewer-architecture.review.json` with the verdict `changes_requested`.
+I wrote the review to `runs/wo-gh-1/reviewer-architecture.review.json`. The verdict is `changes_requested`. I didn't run any tests; I read the diff and the test file.
 
-- **Fits the structure:** The eval sits in the product repo (`src/auto_ontology_eval`, `fixture/`, `tests/`, `runs/eval`, `runs/eval-live`), apart from `.anvil-factory`. It is split by spec scenario S1–S5.
-- **No decision records:** The product repo has no `brain/decisions/` directory, so I could not check the change against recorded decisions. The key choices aren't recorded: the in-process MCP probe, the SQLite copy for the raw-schema arm, freezing `RESULTS.md`, and the hosted NIM configuration.
-- **Amendment 3 unfinished:** `runs/eval-live/RESULTS-LIVE.md` is missing. That is why the 22 tests in `tests/test_run_evidence_live.py` fail.
-- **Two sources of truth:** `runs/eval/RESULTS.md` reports the Auto Ontology arm as 0/12 with no answers because of the retired-model HTTP 410. `S4-DIAGNOSIS.md` says it won't modify `RESULTS.md`. No rule says which document wins.
-- **Provenance:** The builder step failed. Its `builder.output.md` described an unrelated design-system feature. Several `runs/wo-gh-1` envelopes and `line-output.log` are modified in the working tree.
-- **Not verified:** I did not run the tests or the harness. I relied on the other reviewers' results (166 passed, 22 failed) and read the directory layout, not the source modules.
+- **Packet mismatch:** the packet's `builder.output.md` and the factory copy describe a different work order, the project design system. I reviewed the real change in the parent repo instead. That is a 9-line guard in `src/auto_ontology_eval/live.py`, a spec edit, a `tests/SCENARIOS.md` row and `tests/test_requirements_key_outside_evidence.py`.
+- **Fit:** the guard sits in the existing S1 stage, fails closed like the code around it, and runs before anything is cloned or written. The change is small and maps to the spec's key-secrecy requirement. Decision 0003 doesn't apply, because this deliverable is an evidence harness rather than something bundled or served. The repo has no `brain/decisions` of its own, so I only had the factory's decisions 0001 to 0004.
+- **Spec edit:** the owner should approve it, including that Amendment 2 overrides the work order's older nano chat pin.
+- **Evidence provenance:** the S1–S3 evidence under `runs/eval` comes from earlier runs, not from this change. The run record should say so.
+- **New test not green:** `test_no_key_assignment_in_any_committed_run_artifact` flags a closing backtick in `runs/wo-gh-1/test-writer.output.md` as a key value. The pattern needs fixing.
+- **Workflow injection:** `.github/workflows/auto-ontology-eval.yml` interpolates `inputs.run_dir` and `inputs.configuration` straight into the shell step that holds `NVIDIA_API_KEY`. reviewer-security flagged this, and I carried it over. They should go through env vars.
 {"model": "claude-sonnet-5-5"}
