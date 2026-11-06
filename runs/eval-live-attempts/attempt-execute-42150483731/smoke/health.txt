@@ -1,0 +1,2 @@
+GET /api/health -> HTTP 200
+{"status":"ok","postgres":{"status":"ok"},"migrations":{"status":"ok","revision":"99d4d343dd0b"}}

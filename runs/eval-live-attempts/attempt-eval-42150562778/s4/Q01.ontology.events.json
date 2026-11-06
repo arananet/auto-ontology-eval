@@ -1,0 +1,181 @@
+[
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "question_intent",
+    "thought": null,
+    "label": "Classifying the question"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "question_intent",
+    "thought": null,
+    "label": "Classifying the question"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "question_extraction",
+    "thought": null,
+    "label": "Understanding the question"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "question_extraction",
+    "thought": null,
+    "label": "Understanding the question"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "retrieve_candidates",
+    "thought": null,
+    "label": "Retrieving candidates"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "retrieve_candidates",
+    "thought": null,
+    "label": "Retrieving candidates"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "prepare_candidates",
+    "thought": null,
+    "label": "Preparing candidates"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "prepare_candidates",
+    "thought": "The question asks for the company's 'total net sales after returns.' The column `public.fact_sales.net_sales` is explicitly described as capturing 'total revenue after adjustments' (returns are the primary adjustment to gross sales to derive net sales). Its sample values (33.3, 43.4, 67.2, 135.2, 56) represent aggregate net sales figures. The other column, `public.sales_returns.return_amount`, stores individual return amounts (1.8 to 15.5) and represents detail-level return data, not the total net sales figure. Therefore, the primary subject maps directly to the `net_sales` aggregate column.",
+    "label": "Preparing candidates"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "construct_sql_from_candidates",
+    "thought": null,
+    "label": "Constructing SQL"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "construct_sql_from_candidates",
+    "thought": null,
+    "label": "Constructing SQL"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "unconstructable_sql_response",
+    "thought": null,
+    "label": "SQL could not be constructed"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "unconstructable_sql_response",
+    "thought": null,
+    "label": "SQL could not be constructed"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "question_intent",
+    "thought": null,
+    "label": "Classifying the question"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "question_intent",
+    "thought": null,
+    "label": "Classifying the question"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "question_extraction",
+    "thought": null,
+    "label": "Understanding the question"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "question_extraction",
+    "thought": null,
+    "label": "Understanding the question"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "retrieve_candidates",
+    "thought": null,
+    "label": "Retrieving candidates"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "retrieve_candidates",
+    "thought": null,
+    "label": "Retrieving candidates"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "prepare_candidates",
+    "thought": null,
+    "label": "Preparing candidates"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "prepare_candidates",
+    "thought": "The question asks for 'total net sales after returns'. The column `public.fact_sales.net_sales` explicitly describes 'total revenue after adjustments' and contains sample values representing aggregated net sales figures. In contrast, `public.sales_returns.return_amount` stores individual return amounts, not totals. Therefore, the primary column attribute matching the question's intent is `public.fact_sales.net_sales`.",
+    "label": "Preparing candidates"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "construct_sql_from_candidates",
+    "thought": null,
+    "label": "Constructing SQL"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "construct_sql_from_candidates",
+    "thought": null,
+    "label": "Constructing SQL"
+  },
+  {
+    "type": "step",
+    "phase": "start",
+    "node": "unconstructable_sql_response",
+    "thought": null,
+    "label": "SQL could not be constructed"
+  },
+  {
+    "type": "step",
+    "phase": "end",
+    "node": "unconstructable_sql_response",
+    "thought": null,
+    "label": "SQL could not be constructed"
+  },
+  {
+    "type": "result",
+    "answer": {
+      "response": "LLM failed to produce a response.",
+      "sql_code": "",
+      "sql_columns": [],
+      "custom_analyses_used": [],
+      "sql_response_from_db": null,
+      "thoughts": "- Preparing candidates: The question asks for 'total net sales after returns'. The column `public.fact_sales.net_sales` explicitly describes 'total revenue after adjustments' and contains sample values representing aggregated net sales figures. In contrast, `public.sales_returns.return_amount` stores individual return amounts, not totals. Therefore, the primary column attribute matching the question's intent is `public.fact_sales.net_sales`."
+    }
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "DEFAULT_MODELS_MODEL": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "REASONING_MODEL": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "NON_REASONING_MODEL": "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "EMBED_MODEL": "nvidia/nemotron-3-embed-1b",
+  "RERANK_MODEL": "nvidia/llama-nemotron-rerank-vl-1b-v2"
+}
