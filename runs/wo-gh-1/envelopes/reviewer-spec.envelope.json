@@ -5,20 +5,8 @@
   "work_order_id": "wo-gh-1",
   "artifact_path": "runs/wo-gh-1/reviewer-spec.output.md",
   "status": "executed",
-  "created_at": "2026-11-05T23:51:12.371432+00:00",
-  "review": {
-    "station": "reviewer-spec",
-    "verdict": "changes_requested",
-    "findings": [
-      "S4 not satisfied by the committed evidence: in runs/eval/ablation.json all 12 Auto Ontology answers are 'LLM failed to produce a response.' (value null, provenance false). The builder's own report (runs/wo-gh-1/builder.output.md) attributes this to the upstream container calling the end-of-life default model (HTTP 410), so the Auto Ontology arm did not use the pinned chat model. This violates the requirement that both arms use the same chat model id and settings.",
-      "S3 not satisfied by the committed evidence: all four planted conflicts in runs/eval/reconciliation.json are marked 'ignored'. The builder says this was probably caused by the same unpinned upstream .env, so the marks may reflect a misconfigured run and not the tool's behaviour. Treating them as a finding about Auto Ontology would exceed what the fixture exercised.",
-      "S5 / 'Done means': RESULTS.md must come from the executed run and record the model ids actually used. The committed runs/eval/RESULTS.md and ablation.json list the pinned model for both arms, which they only recorded as configured and the stack did not actually call. The committed RESULTS.md is therefore not trustworthy evidence. RESULTS.md also does not exist at the repo root.",
-      "Builder fix is present but unexecuted: src/auto_ontology_eval/live.py now pins REASONING_MODEL, NON_REASONING_MODEL, EMBED_MODEL and RERANK_MODEL in the upstream .env, and upstream.py adds a models check that writes smoke/models.json and stops on a mismatch. The fix looks aligned with the spec's fail-closed rule, but the end-to-end rerun in GitHub Actions with the NVIDIA_API_KEY secret has not happened, and runs/eval/smoke has no models.json. Rerun and commit the new runs/eval and RESULTS.md.",
-      "tests/test_run_evidence.py passes on the faulty run because it checks the configured model, not the model actually used. After the rerun it should also assert smoke/models.json matches the pins.",
-      "Spec housekeeping: the spec header still reads 'Status: draft' although the work order calls it approved. Amendments 1 and 2 change the chat model pin to nvidia/nemotron-3.5-lightning-30b-a3b, so the work order text, which cites nvidia/nemotron-3-nano-30b-a3b, is superseded. The code (CHAT_MODEL) follows the amendment.",
-      "Positive: S1 smoke files (health, catalog, mcp) and the S2 fixture (checklist.json, GROUND_TRUTH.md, questions.json, source_a, source_b) exist. The local test suite reportedly passes (138 passed, 1 skipped). These were not re-run in this review."
-    ]
-  },
+  "created_at": "2026-11-06T02:57:18.170602+00:00",
+  "review_file_missing": true,
   "configured_model": "claude-sonnet-5-5",
   "executor": {
     "kind": "command",

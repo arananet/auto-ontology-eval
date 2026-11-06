@@ -1,7 +1,9 @@
-I wrote the security review to `.anvil-factory/runs/wo-gh-1/reviewer-security.review.json`, the path the validator expected, with verdict `pass`. I reused the review text from an earlier file at the repo-root `runs/wo-gh-1/` and re-checked its main claims against the code. I did not run the pipeline or the tests.
+I wrote the review to `runs/wo-gh-1/reviewer-security.review.json` with verdict `changes_requested`. I did not run the harness or the tests; I only read the code and workflows and scanned for leaked keys.
 
-- **Key handling:** `NVIDIA_API_KEY` reaches the job only through the step-level `env` from the repository secret, and the run fails closed if it is missing. Subprocess and HTTP output goes through `redact` before it is stored. A search of the repo and `runs/` found no `nvapi-` token.
-- **Workflow:** It has `contents: read` permissions and triggers only on `workflow_dispatch`. It uploads only `runs/eval` and publishes nothing.
-- **Upstream `.env`:** It is written with mode `0600` (`live.py:236`) to the checkout in `RUNNER_TEMP`, outside the uploaded evidence directory.
-- **Minor, non-blocking issues:** Actions are pinned to major tags rather than commit SHAs. Redaction matches the exact key string only, so a transformed key would not be caught. Upstream compose publishes Postgres on port 5432, which is acceptable on an ephemeral runner.
+- **Secrets:** `NVIDIA_API_KEY` is read only from the repository secret and is redacted from stored output. The harness fails closed when the key is missing. A scan found no key leaked in the repo or `runs/`.
+- **Workflow permissions:** `auto-ontology-eval.yml` uses `contents: read` and a `workflow_dispatch` trigger only. It uploads only the run directory, and nothing is published.
+- **Injection and path traversal (medium):** `auto-ontology-eval.yml` puts `${{ inputs.run_dir }}` and `${{ inputs.configuration }}` straight into the shell command line. That step also has the API key in its environment, and `run_dir` is free text with no validation.
+- **Broad commit-back (medium):** `anvil-execute.yml` runs `git add -A` plus `git add -f runs/` with `contents: write`, and the key is in the job environment. Any stray file a station writes could be pushed, including `line-output.log` and `run-diagnostics.md`, which are committed without redaction.
+- **Weak defaults (low):** Postgres port 5432 is published. Redaction matches the exact key string only. Actions are pinned to major tags rather than SHAs. The Claude Code and Codex CLIs are installed unpinned.
+- **Provenance:** the builder step failed, and its output describes an unrelated design-system change, so I can't attribute the change to a passing builder. `reviewer-spec` has also already requested changes.
 {"model": "claude-sonnet-5-5"}

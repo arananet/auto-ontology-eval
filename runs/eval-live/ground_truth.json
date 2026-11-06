@@ -1,0 +1,87 @@
+[
+  {
+    "id": "Q01",
+    "answer_type": "number",
+    "expected": 1549.75,
+    "reference_sql": "SELECT ROUND(SUM(net_sales), 2) FROM a.fact_sales"
+  },
+  {
+    "id": "Q02",
+    "answer_type": "number",
+    "expected": 1598.25,
+    "reference_sql": "SELECT ROUND(SUM(net_sales), 2) FROM b.shipments"
+  },
+  {
+    "id": "Q03",
+    "answer_type": "number",
+    "expected": 48.5,
+    "reference_sql": "SELECT ROUND((SELECT SUM(net_sales) FROM b.shipments) - (SELECT SUM(net_sales) FROM a.fact_sales), 2)"
+  },
+  {
+    "id": "Q04",
+    "answer_type": "number",
+    "expected": 961.55,
+    "reference_sql": "SELECT ROUND(SUM(f.net_sales), 2) FROM a.fact_sales f JOIN a.dim_product p ON p.sku = f.sku WHERE p.brand = 'Nordwind'"
+  },
+  {
+    "id": "Q05",
+    "answer_type": "set",
+    "expected": [
+      "Soda",
+      "Water"
+    ],
+    "reference_sql": "SELECT DISTINCT category FROM a.dim_product WHERE brand = 'Alpine Spring'"
+  },
+  {
+    "id": "Q06",
+    "answer_type": "number",
+    "expected": 1052.8,
+    "reference_sql": "SELECT ROUND(SUM(f.net_sales), 2) FROM a.fact_sales f JOIN a.dim_product p ON p.sku = f.sku WHERE p.category = 'Juice'"
+  },
+  {
+    "id": "Q07",
+    "answer_type": "number",
+    "expected": 507.0,
+    "reference_sql": "SELECT SUM(s.units) FROM b.shipments s JOIN b.plants pl ON pl.plant_code = s.plant_code JOIN a.dim_location l ON l.city = pl.plant_city WHERE l.location_name = 'Lyon Works'"
+  },
+  {
+    "id": "Q08",
+    "answer_type": "number",
+    "expected": 608.15,
+    "reference_sql": "SELECT ROUND(SUM(f.net_sales), 2) FROM a.fact_sales f JOIN a.dim_location l ON l.location_id = f.location_id JOIN b.distribution_centers d ON d.dc_city = l.city WHERE d.dc_code = 'DC-N1'"
+  },
+  {
+    "id": "Q09",
+    "answer_type": "set",
+    "expected": [
+      "PL01",
+      "PL02"
+    ],
+    "reference_sql": "SELECT DISTINCT s.plant_code FROM b.shipments s JOIN b.distribution_centers d ON d.dc_code = s.dc_code JOIN a.dim_location l ON l.city = d.dc_city WHERE l.location_name = 'Milan Depot'"
+  },
+  {
+    "id": "Q10",
+    "answer_type": "set",
+    "expected": [
+      "SKU-1002",
+      "SKU-1003",
+      "SKU-1004",
+      "SKU-1005",
+      "SKU-1006",
+      "SKU-1007"
+    ],
+    "reference_sql": "SELECT sku FROM a.dim_product INTERSECT SELECT item_sku FROM b.items"
+  },
+  {
+    "id": "Q11",
+    "answer_type": "number",
+    "expected": 3.0,
+    "reference_sql": "SELECT COUNT(*) FROM (SELECT item_sku FROM b.items EXCEPT SELECT sku FROM a.dim_product)"
+  },
+  {
+    "id": "Q12",
+    "answer_type": "number",
+    "expected": 90.0,
+    "reference_sql": "SELECT SUM(s.units) FROM b.shipments s JOIN a.dim_product p ON p.sku = s.item_sku WHERE p.brand = 'Sol Mar'"
+  }
+]

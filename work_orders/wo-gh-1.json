@@ -16,9 +16,9 @@
   "risk": "high",
   "surfaces": [
     "deploy",
+    "security",
     "data",
     "api",
-    "security",
     "content"
   ]
 }

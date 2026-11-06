@@ -223,13 +223,13 @@ No real company data is used, and nothing is published from this work order.
 - intake: executed
 - spec-writer: executed
 - test-writer: executed
-- builder: executed
+- builder: failed
 - checks-gate: not_configured
 - reviewer-spec: executed
 - reviewer-security: executed
 - reviewer-tests: executed
 - reviewer-architecture: executed
-- reviewer-design: executed
+- reviewer-design: failed
 
 ## Output contract
 

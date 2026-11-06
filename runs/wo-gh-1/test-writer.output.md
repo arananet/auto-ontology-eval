@@ -1,16 +1,18 @@
-I added `tests/test_run_evidence.py` (37 tests), which checks the committed executed run in `runs/eval/` against the spec. The full suite passes: 134 tests, 1 skipped. I haven't committed anything.
+I added one test file, `tests/test_run_evidence_live.py`. It checks the evidence that the live-internals run (spec Amendment 3) is supposed to commit under `runs/eval-live/`. That run hasn't happened yet, so the file has 39 tests and 34 of them fail right now. That's on purpose: like the existing `test_run_evidence.py`, they fail instead of skipping, because the spec only counts as done once the evidence is committed.
 
-The tests already in the repo cover S1–S5 and the requirements, but only offline with fakes. Reviewers had flagged that nothing checked what the live run actually produced. The new tests recompute every number they can from the raw run files and the fixture, and compare:
+**Why this file:** the existing 149 tests already cover S1 to S5 and Amendment 3's harness code offline, and they all pass. Nothing tested the actual live-internals run or checked that the default run's evidence in `runs/eval/` stays unchanged. This file fills that gap. What it checks, by Amendment 3 clause:
+- **Only the model slots change:** the run records `configuration: live-internals` and its own GitHub Actions run id, which must differ from the default run's 42127124473. `smoke/models.json` must show the three chat slots (`DEFAULT_MODELS_MODEL`, `REASONING_MODEL`, `NON_REASONING_MODEL`) running on the pinned chat model, with the embedding and rerank pins unchanged. That file also has to pass the harness's own `verify_resolved_models` check.
+- **Same steps and fail-closed rule:** all five steps pass in order, and the three smoke checks each leave a file.
+- **S3 scored the same way:** the conflict marks can be rescored and reclassified from the live catalog, and time to first ontology recomputes from the event timestamps.
+- **S4 runs the Auto Ontology arm only:** all 12 fixture questions are present. The raw-schema arm is empty, with no raw responses saved. The correct flags and summary recompute, and the generation settings must match the earlier raw-schema run that now serves as the control.
+- **RESULTS-LIVE.md:** it must come out byte for byte the same when rebuilt from the artifacts. Its sections must be in order. The description coverage counts recompute for both catalogs. The control result (8 of 12) and the default figures must cite run 42127124473, and both deltas must recompute. The failure gallery has to show each wrong answer's SQL verbatim, and the limits section has to name each recorded equivalent.
+- **Default run untouched:** `runs/eval/` still records run 42127124473 with 0 of 12 correct for Auto Ontology and 8 of 12 for raw schema. Its `RESULTS.md` still rebuilds unchanged from its own artifacts, and no live files land in that directory.
+- **API key:** no key or bearer token appears anywhere under `runs/eval-live/`.
 
-- **Requirements:** the recorded environment matches the pinned commit and models (chat model per Amendment 2), with a GitHub Actions run id. Both S4 arms used the pinned model, and the generation settings are recorded. All five steps passed and each left its evidence file. There is no API key anywhere under `runs/`.
-- **S1:** health, catalog and MCP checks each passed and left a non-empty evidence file.
-- **S3:** there is exactly one valid mark per planted conflict, and a mark counts only if its quote appears verbatim in `catalog.yaml`. Re-scoring the committed catalog reproduces `reconciliation.json` exactly. Time to first ontology recomputes from `events.json`.
-- **S4:** the 12 questions match the fixture and each planted conflict is touched by at least one. The ground truths recompute from the reference SQL. Correctness flags, per-arm totals and the delta all recompute. Every Auto Ontology answer has a provenance flag. Raw-schema SQL matches the saved model response exactly, and a missing answer keeps the upstream reason.
-- **S5:** `RESULTS.md` sections are in the right order, and its environment, timing, checklist, per-question table, failure gallery and limits all match the run files. Both known substitutes for the literal spec steps (in-process MCP probe, SQLite copy for the raw-schema arm) were recorded by the run itself, with their reasons.
+**Checks I ran:**
+- The full suite fails only in the new file (34 failures, 1 existing skip). Those 34 are all missing-artifact failures; the frozen-default checks already pass.
+- I built a fake live run in a temp directory, and all 39 tests passed against it, so they can be satisfied.
+- Two deliberate faults were both caught: one chat slot set to the end-of-life model, and an edited default `RESULTS.md`.
 
-These tests fail rather than skip if `runs/eval/` is missing, because the spec's Done condition requires committed evidence. I also updated `tests/SCENARIOS.md` with the new mapping. It now explains the skipped test: a DuckDB determinism check that only runs when the `duckdb` package is installed.
-
-Two results pass the tests but the reviewers should look at them, because they're weak evidence rather than harness bugs I can prove:
-- **Auto Ontology arm scored 0/12** against 8/12 for raw schema (delta −8). Every Auto Ontology answer is the same upstream message, "LLM failed to produce a response." It could be a real failure of the upstream tool or a problem with how the harness calls its chat API; the tests can't tell which.
-- **All four planted conflicts are marked "ignored".** The supporting quotes are just table names (`name: fact_sales`, `name: dim_product`). They are verbatim, so they count under the spec, but they show little about how the generated ontology treated each conflict.
+I also added a row for the new file to `tests/SCENARIOS.md` and noted under "Not testable offline" that it stays red until the run is committed. Nothing is committed. The other modified files under `runs/wo-gh-1/`, `work_orders/` and `line-output.log` were changed by the factory, not by me.
 {"model": "claude-opus-5-5"}
